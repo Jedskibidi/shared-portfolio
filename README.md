@@ -7,8 +7,8 @@ Requires PHP installed. In this folder run:
 
     php -S localhost:8000
 
-- Jed's version:       http://localhost:8000/?user=jed
-- Christine's version: http://localhost:8000/?user=christine
+- Jed's version:       [http://localhost:8000/?user=jed](http://localhost/shared-portfolio/?user=jed)
+- Christine's version:[ http://localhost:8000/?user=christine](http://localhost/shared-portfolio/?user=christine)
 
 Kapag walang naka-input sa user, data ko yung lilitaw kasi naka-set as default
 
