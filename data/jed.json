@@ -1,0 +1,43 @@
+{
+  "site_title": "Jed's Portfolio",
+  "name": "Jed",
+  "title": "Your Role or Course",
+  "profile_image": "assets/img/jed/profile.jpg",
+  "about": "Write a short introduction about yourself here.",
+  "skills": ["HTML", "CSS", "JavaScript", "PHP"],
+  "projects": [
+    {
+      "title": "Project One",
+      "description": "Short description of what the project does.",
+      "image": "assets/img/jed/projects/project1.jpg",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "link": ""
+    },
+    {
+      "title": "Project Two",
+      "description": "Short description of what the project does.",
+      "image": "assets/img/jed/projects/project2.jpg",
+      "tech": ["PHP", "MySQL"],
+      "link": ""
+    }
+  ],
+  "certificates": [
+    {
+      "title": "Certificate One",
+      "issuer": "Issuing Organization",
+      "date": "2026",
+      "image": "assets/img/jed/certificates/cert1.jpg"
+    },
+    {
+      "title": "Certificate Two",
+      "issuer": "Issuing Organization",
+      "date": "2026",
+      "image": "assets/img/jed/certificates/cert2.jpg"
+    }
+  ],
+  "contact": {
+    "email": "jed@example.com",
+    "github": "https://github.com/username",
+    "linkedin": "https://linkedin.com/in/username"
+  }
+}

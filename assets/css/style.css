@@ -1,0 +1,43 @@
+/* Adjust na lang laterrrr*/
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+.site-header nav a { margin-left: 15px; }
+.nav-toggle { display: none; }
+
+.hero { text-align: center; }
+.profile-img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+.card { border: 1px solid #ccc; padding: 15px; }
+.card img { width: 100%; height: 180px; object-fit: cover; }
+
+.skills { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.skills li { border: 1px solid #ccc; padding: 4px 10px; }
+
+.site-footer { text-align: center; padding: 20px; }
+
+@media (max-width: 600px) {
+    .nav-toggle { display: block; }
+    #nav { display: none; flex-direction: column; }
+    #nav.open { display: flex; }
+    .site-header { flex-wrap: wrap; }
+    .site-header nav a { margin: 8px 0; }
+}
