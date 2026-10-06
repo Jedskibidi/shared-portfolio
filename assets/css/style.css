@@ -113,6 +113,8 @@ section h2::after {
   padding: 15px;
   overflow: hidden;
 }
+.card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
 .card img {
   width: 100%;
   height: 180px;
@@ -135,7 +137,110 @@ section h2::after {
   text-align: center;
   padding: 20px;
   background: var(--color-surface);
+  border-top: 1px solid var(--color-accent);
+  color: #5A6A82;
 }
+
+/* Contact: centered section with outline buttons */
+#contact { text-align: center; }
+#contact h2::after { margin-left: auto; margin-right: auto; }
+
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+.contact-btn {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  display: inline-block;
+  padding: 10px 28px;
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  background: transparent;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Accent color sweeps in from the left on hover */
+.contact-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.contact-btn:hover::before { transform: scaleX(1); }
+.contact-btn:active { transform: translateY(0); box-shadow: none; }
+.contact-btn:focus-visible { outline: 3px solid var(--color-accent-hover); outline-offset: 3px; }
+.contact-email {
+  margin-top: 16px;
+  color: #5A6A82;
+  overflow-wrap: anywhere;
+}
+/* Contact form */
+.contact-form {
+  max-width: 520px;
+  margin: 32px auto 0;
+  text-align: left;
+}
+.contact-form label {
+  display: block;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 3px solid var(--color-accent-hover);
+  outline-offset: 1px;
+}
+.contact-form textarea { resize: vertical; }
+
+.contact-submit {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 28px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.contact-submit:hover { background: var(--color-accent-hover); transform: translateY(-2px); }
+.contact-submit:disabled { opacity: 0.6; cursor: wait; }
+
+.form-status { text-align: center; min-height: 1.6em; margin-top: 12px; }
+
+/* Spam trap field, hidden from people */
+.hp { position: absolute; left: -9999px; }
+
 @media (max-width: 600px) {
   /* Tighter spacing (also applies to the hero, since it is a section) */
   section { padding: 40px 16px; scroll-margin-top: 70px; }
@@ -175,13 +280,6 @@ section h2::after {
   .hero-desc { margin-left: auto; margin-right: auto; }
   .hero-buttons, .hero-tech-icons { justify-content: center; }
   .profile-img { max-width: 220px; }
-}
-
-/* Certificate card: show the whole certificate, no cropping */
-.card .cert-img {
-  height: auto;
-  object-fit: contain;
-  cursor: zoom-in;
 }
 
 /* Certificate card: show the whole certificate, no cropping */
@@ -253,7 +351,10 @@ section h2::after {
 /* Respect people who turn off animations in their system settings */
 @media (prefers-reduced-motion: reduce) {
   .cert-overlay,
-  .cert-overlay img { transition: none; }
+  .cert-overlay img,
+  .contact-btn,
+  .contact-btn::before,
+  .card { transition: none; }
 }
 
 /*buttons*/
@@ -330,4 +431,64 @@ section h2::after {
   border-radius: 50%;
   border: 3px solid var(--color-accent);
   box-shadow: var(--shadow);
+}
+/* Email button page transition */
+.page-wipe {
+  --x: 50%;
+  --y: 50%;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--color-accent);
+  clip-path: circle(0% at var(--x) var(--y));
+  transition: clip-path 0.5s ease;
+}
+.page-wipe.open { clip-path: circle(150% at var(--x) var(--y)); }
+
+/* On email.php the circle shrinks away to reveal the page */
+.page-wipe-in {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+  background: var(--color-accent);
+  clip-path: circle(0% at 50% 50%);
+  animation: wipe-out 0.6s ease;
+}
+@keyframes wipe-out {
+  from { clip-path: circle(150% at 50% 50%); }
+  to   { clip-path: circle(0% at 50% 50%); }
+}
+
+/* The heading and form rise in after the circle starts shrinking */
+#email-page h2,
+#email-page .contact-form {
+  animation: form-rise 0.5s ease 0.25s both;
+}
+@keyframes form-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 8px 20px;
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+.back-link svg { transition: transform 0.2s ease; }
+.back-link:hover { background: var(--color-accent); }
+.back-link:hover svg { transform: translateX(-4px); }
+.back-link:focus-visible { outline: 3px solid var(--color-accent-hover); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .page-wipe,
+  .page-wipe-in,
+  #email-page h2,
+  #email-page .contact-form { animation: none; transition: none; }
 }

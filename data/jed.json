@@ -3,6 +3,7 @@
   "name": "Jed Manaloto",
   "title": "Computer Science Student | Web Developer",
   "profile_image": "assets/img/jed/img/profile.jpg",
+  "tagline": "Turning ideas into working software.",
   "about": "I am a passionate computer science student with a strong interest in web development. I enjoy creating dynamic and responsive websites, and I am always eager to learn new technologies and improve my skills.",
   "skills": ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "React", "Node.js", "Git", "Responsive Design", "SQL", "Laravel"],
   "projects": [
@@ -39,8 +40,9 @@
     }
   ],
   "contact": {
-    "email": "tambonijed@gmail.com",
-    "github": "https://github.com/Jedskibidi",
-    "linkedin": "https://linkedin.com/in/username"
-  }
+  "email": "tambonijed@gmail.com",
+  "github": "https://github.com/Jedskibidi",
+  "linkedin": "https://linkedin.com/in/username",
+  "form_endpoint": "https://formspree.io/f/xkjogjwk"
+}
 }
