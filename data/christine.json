@@ -1,10 +1,10 @@
 {
   "site_title": "Christine's Portfolio",
-  "name": "Christine",
-  "title": "Your Role or Course",
+  "name": "Christine Mae M. Fauni",
+  "title": "Software Engineer",
   "profile_image": "assets/img/christine/profile.jpg",
-  "about": "Write a short introduction about yourself here.",
-  "skills": ["HTML", "CSS", "JavaScript", "PHP"],
+  "about": "Hi, I'm Christine, a Computer Science undergraduate who enjoys turning ideas into working software. I have a foundation in web development, mobile development, C++, and Java, and I learn best by building. I'm always curious, always improving, and always looking for the next project to learn from.✨",
+  "skills": ["C++","Java","HTML", "CSS", "JavaScript", "PHP"],
   "projects": [
     {
       "title": "Project One",
@@ -18,26 +18,27 @@
       "description": "Short description of what the project does.",
       "image": "assets/img/christine/projects/project2.jpg",
       "tech": ["PHP", "MySQL"],
-      "link": ""
+      "link": ""  
     }
   ],
   "certificates": [
     {
-      "title": "Certificate One",
-      "issuer": "Issuing Organization",
-      "date": "2026",
-      "image": "assets/img/christine/certificates/cert1.jpg"
+      "title": "AI Class ASEAN",
+      "issuer": "ASEAN Foundation",
+      "date": "April 20,2026",
+      "image": "assets/img/christine/certificates/FAUNI, Christine Mae M_ASEAN_AI_1.jpg"
+      
     },
     {
-      "title": "Certificate Two",
-      "issuer": "Issuing Organization",
-      "date": "2026",
-      "image": "assets/img/christine/certificates/cert2.jpg"
+      "title": "Python Certificate",
+      "issuer": "Simpli Learn",
+      "date": "December 5,2025",
+      "image": "assets/img/christine/certificates/FAUNI, Christine Mae_Python.jpg"
     }
   ],
   "contact": {
-    "email": "christine@example.com",
-    "github": "https://github.com/username",
-    "linkedin": "https://linkedin.com/in/username"
+    "email": "christinefauni005@gmail.com",
+    "github": "https://github.com/christinefauni",
+    "linkedin": "https://www.linkedin.com/in/fauni-christine-mae-marcos-4a741b393/"
   }
 }
