@@ -16,9 +16,13 @@
             <h3 class="hero-desc"><?= e($data['intro'] ?? $data['tagline'] ?? $data['about']) ?></h3>
 
             <div class="hero-buttons">
-                <button type="button" class="btn">
-                    <i class="fa-solid fa-palette"></i> Choose theme
-                </button>
+                <div class="theme-picker">
+                    <button type="button" class="btn" id="themeBtn"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="themeMenu">
+                        <i class="fa-solid fa-palette"></i> Choose theme
+                    </button>
+                    <div class="theme-menu" id="themeMenu" hidden></div>
+                </div>
                 <button type="button" class="btn" id="viewResumeBtn">
                     <i class="fa-solid fa-eye"></i> View Resume
                 </button>
