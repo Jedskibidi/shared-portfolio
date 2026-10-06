@@ -15,6 +15,21 @@ html { scroll-behavior: smooth; }
 
   --radius: 12px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Added for theming: same values as before, now named by purpose */
+  --color-text-muted: #5A6A82;
+  --color-border: #99C3E4;
+  --color-on-accent: #1F2F46;      /* text that sits on an accent fill */
+  --color-control-bg: #fff;        /* certificate nav buttons */
+  --color-control-hover: #f0f0f0;
+  --color-control-border: #ccc;
+  --color-primary: #4A90D9;        /* typewriter name colour */
+  --color-shine: #1F4E8C;          /* glow passing over the name */
+  --color-shine-role: #3B6FB0;     /* glow passing over the role */
+  --overlay: rgba(0, 0, 0, 0.85);  /* certificate viewer backdrop */
+  --overlay-modal: rgba(31, 47, 70, 0.82); /* resume modal backdrop */
+  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+  --shadow-modal: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
 body {
@@ -61,7 +76,7 @@ section h2::after {
   align-items: center;
   padding: 15px 20px;
   background: var(--color-surface);
-  border-bottom: 1px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow);
 }
 .site-header nav a {
@@ -81,7 +96,7 @@ section h2::after {
 .nav-toggle {
   display: none;
   background: var(--color-accent);
-  color: var(--color-text);
+  color: var(--color-on-accent);
   border: none;
   border-radius: var(--radius);
   padding: 6px 12px;
@@ -94,7 +109,7 @@ section h2::after {
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid var(--color-accent);
+  border: 3px solid var(--color-border);
 }
 
 /* About text: comfortable reading width */
@@ -107,14 +122,14 @@ section h2::after {
 }
 .card {
   background: var(--color-surface);
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 15px;
   overflow: hidden;
 }
 .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); }
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
 .card img {
   width: 100%;
   height: 180px;
@@ -126,7 +141,7 @@ section h2::after {
 .skills { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .skills li {
   background: var(--color-surface);
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   padding: 4px 14px;
   transition: background 0.2s ease;
@@ -137,8 +152,8 @@ section h2::after {
   text-align: center;
   padding: 20px;
   background: var(--color-surface);
-  border-top: 1px solid var(--color-accent);
-  color: #5A6A82;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
 }
 
 /* Contact: centered section with outline buttons */
@@ -158,7 +173,7 @@ section h2::after {
   overflow: hidden;
   display: inline-block;
   padding: 10px 28px;
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-border);
   border-radius: 999px;
   background: transparent;
   text-decoration: none;
@@ -210,7 +225,7 @@ section h2::after {
   font: inherit;
   color: var(--color-text);
   background: var(--color-surface);
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
 .contact-form input:focus,
@@ -226,9 +241,9 @@ section h2::after {
   padding: 10px 28px;
   font: inherit;
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--color-on-accent);
   background: var(--color-accent);
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-border);
   border-radius: 999px;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
@@ -256,7 +271,7 @@ section h2::after {
     width: 100%;
     margin-top: 12px;
     background: var(--color-bg);
-    border: 1px solid var(--color-accent);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius);
     overflow: hidden;
   }
@@ -265,11 +280,11 @@ section h2::after {
   .site-header nav a {
     margin: 0;
     padding: 12px 16px;
-    border-bottom: 1px solid var(--color-accent);
+    border-bottom: 1px solid var(--color-border);
   }
   .site-header nav a:last-child { border-bottom: 0; }
   .site-header nav a:hover { background: var(--color-surface); }
-  .site-header nav a.active { background: var(--color-accent); }
+  .site-header nav a.active { background: var(--color-accent); color: var(--color-on-accent); }
 
   /* Overflow fixes */
   .grid { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); }
@@ -294,8 +309,8 @@ section h2::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f0f0f0;
-    color: #888;
+    background: var(--color-control-hover);
+    color: var(--color-text-muted);
 }
 
 .cert-nav {
@@ -306,13 +321,13 @@ section h2::after {
     margin-top: 8px;
 }
 .cert-nav button {
-    border: 1px solid #ccc;
-    background: #fff;
+    border: 1px solid var(--color-control-border);
+    background: var(--color-control-bg);
     padding: 4px 12px;
     cursor: pointer;
 }
-.cert-nav button:hover { background: #f0f0f0; }
-.cert-counter { font-size: 0.9rem; color: #666; }
+.cert-nav button:hover { background: var(--color-control-hover); }
+.cert-counter { font-size: 0.9rem; color: var(--color-text-muted); }
 /* Full-screen certificate viewer: circular reveal */
 .cert-overlay {
   --x: 50%;
@@ -324,7 +339,7 @@ section h2::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--overlay);
   cursor: zoom-out;
 
   /* closed: a tiny circle at the click point */
@@ -377,7 +392,7 @@ section h2::after {
 .hero-badge {
   display: inline-block;
   padding: 4px 14px;
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   background: var(--color-surface);
   font-size: 0.85rem;
@@ -428,7 +443,7 @@ section h2::after {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid var(--color-accent);
+  border: 3px solid var(--color-border);
   box-shadow: var(--shadow);
 }
 /* Email button page transition */
@@ -475,7 +490,7 @@ section h2::after {
   gap: 8px;
   margin-top: 24px;
   padding: 8px 20px;
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-border);
   border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
@@ -520,8 +535,8 @@ section h2::after {
 
 /* PANGALAN: vivid blue, may dark blue na glow na dumadaan */
 .tw-name {
-  --base: #4A90D9;
-  --shine: #1F4E8C;
+  --base: var(--color-primary);
+  --shine: var(--color-shine);
   background-image: linear-gradient(90deg,
     var(--base) 0%, var(--base) 38%,
     var(--shine) 50%,
@@ -531,7 +546,7 @@ section h2::after {
 /* ROLE: dark navy (text color ng palette), may dark blue na glow na dumadaan */
 .tw-role {
   --base: var(--color-text);
-  --shine: #3B6FB0;
+  --shine: var(--color-shine-role);
   background-image: linear-gradient(90deg,
     var(--base) 0%, var(--base) 38%,
     var(--shine) 50%,
@@ -555,7 +570,7 @@ section h2::after {
   align-items: center;
   gap: 8px;
   padding: 10px 28px;
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-border);
   border-radius: 999px;
   background: transparent;
   color: var(--color-text);
@@ -613,4 +628,59 @@ section h2::after {
 
 @media (prefers-reduced-motion: reduce) {
   .btn::after { animation: none; display: none; }
+}
+
+/* Text colour while an accent fill is showing (hover states) */
+.skills li:hover,
+.btn:hover,
+.contact-btn:hover,
+.back-link:hover { color: var(--color-on-accent); }
+
+
+/* ===== Theme picker (Choose theme button + dropdown) ===== */
+.theme-picker { position: relative; display: inline-block; }
+
+.theme-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 50;
+  min-width: 200px;
+  padding: 6px;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+}
+.theme-menu[hidden] { display: none; }
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--color-text);
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.theme-option:hover { background: var(--color-control-hover); }
+.theme-option:focus-visible { outline: 3px solid var(--color-accent-hover); outline-offset: 1px; }
+.theme-option.is-active { font-weight: 600; }
+
+.theme-option .fa-check { margin-left: auto; visibility: hidden; }
+.theme-option.is-active .fa-check { visibility: visible; }
+
+.theme-swatch { display: inline-flex; padding-right: 4px; }
+.theme-swatch i {
+  width: 14px;
+  height: 14px;
+  margin-right: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
 }
