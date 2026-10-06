@@ -1,10 +1,10 @@
 {
   "site_title": "Jed's Portfolio",
   "name": "Jed",
-  "title": "Your Role or Course",
-  "profile_image": "assets/img/jed/profile.jpg",
-  "about": "Write a short introduction about yourself here.",
-  "skills": ["HTML", "CSS", "JavaScript", "PHP"],
+  "title": "Computer Science Student | Web Developer",
+  "profile_image": "assets/img/jed/img/profile.jpg",
+  "about": "I am a passionate computer science student with a strong interest in web development. I enjoy creating dynamic and responsive websites, and I am always eager to learn new technologies and improve my skills.",
+  "skills": ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "React", "Node.js", "Git", "Responsive Design", "SQL", "Laravel"],
   "projects": [
     {
       "title": "Project One",
@@ -26,18 +26,21 @@
       "title": "Certificate One",
       "issuer": "Issuing Organization",
       "date": "2026",
-      "image": "assets/img/jed/certificates/cert1.jpg"
+      "image": [
+        "assets/img/jed/img/AseanAI1.jpg",
+        "assets/img/jed/img/AseanAI2.jpg"
+      ]
     },
     {
       "title": "Certificate Two",
       "issuer": "Issuing Organization",
       "date": "2026",
-      "image": "assets/img/jed/certificates/cert2.jpg"
+      "image": ""
     }
   ],
   "contact": {
-    "email": "jed@example.com",
-    "github": "https://github.com/username",
+    "email": "tambonijed@gmail.com",
+    "github": "https://github.com/Jedskibidi",
     "linkedin": "https://linkedin.com/in/username"
   }
 }
