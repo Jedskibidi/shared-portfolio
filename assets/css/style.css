@@ -15,11 +15,7 @@ html { scroll-behavior: smooth; }
 
   --radius: 12px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  @property --border-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
+
 }
 
 body {
@@ -512,7 +508,7 @@ section h2::after {
   animation: trace 2.5s linear infinite;
 }
 
-/* PANGALAN: vivid blue, may dark blue na glow na dumadaan */
+
 .tw-name {
   --base: #4A90D9;
   --shine: #1F4E8C;
@@ -522,7 +518,7 @@ section h2::after {
     var(--base) 62%, var(--base) 100%);
 }
 
-/* ROLE: dark navy (text color ng palette), may dark blue na glow na dumadaan */
+
 .tw-role {
   --base: var(--color-text);
   --shine: #3B6FB0;
@@ -540,7 +536,7 @@ section h2::after {
 @media (prefers-reduced-motion: reduce) {
   .tw-name, .tw-role { animation: none; }
 }
-/* Hero buttons: same shape and animation as .contact-btn */
+
 .btn {
   position: relative;
   z-index: 0;
@@ -560,7 +556,7 @@ section h2::after {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Accent color sweeps in from the left on hover */
+
 .btn::before {
   content: "";
   position: absolute;
@@ -583,7 +579,7 @@ section h2::after {
 @media (prefers-reduced-motion: reduce) {
   .btn, .btn::before { transition: none; }
 }
-/* Pulse sa loob ng button */
+
 .btn::after {
   content: "";
   position: absolute;
@@ -639,12 +635,11 @@ section h2::after {
   -webkit-user-drag: none;
 }
 
-/* Photo: framed, fades back in after the second image leaves */
 .avatar-photo {
   transition: opacity 0.25s ease 0.15s;
 }
 
-/* Second image: hidden, stretched from the right edge */
+
 .avatar-alt {
   pointer-events: none;
   opacity: 0;
@@ -652,14 +647,13 @@ section h2::after {
   transform-origin: right center;
   transform: scaleX(2.4);
   filter: blur(6px);
-  /* leaving: fade out first, then reset the hidden state instantly */
+ 
   transition: opacity 0.2s ease,
               clip-path 0s linear 0.2s,
               transform 0s linear 0.2s,
               filter 0s linear 0.2s;
 }
 
-/* Hover / active state */
 .avatar.is-alt .avatar-photo {
   opacity: 0;
   transition: opacity 0.25s ease;
@@ -690,12 +684,11 @@ section h2::after {
     clip-path: none;
   }
 }
-/* Hero: kasing-taas ng screen, naka-center ang laman */
 .hero {
   display: flex;
   align-items: center;
-  min-height: calc(100vh - 70px);   /* 70px = taas ng sticky header */
-  min-height: calc(100svh - 70px);  /* mas tama sa phone browsers */
+  min-height: calc(100vh - 70px);  
+  min-height: calc(100svh - 70px);  
 }
 
 .hero-inner {
