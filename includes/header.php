@@ -12,7 +12,7 @@
 </head>
 <body>
 <header class="site-header">
-    <a class="logo" href="#home"><?= e($data['name']) ?></a>
+    <a class="logo" href="#home">Home</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">Menu</button>
     <nav id="nav">
         <a href="#about">About</a>
