@@ -1,4 +1,6 @@
 /* Adjust na lang laterrrr*/
+html { scroll-behavior: smooth; }
+
 * { box-sizing: border-box; }
 
 :root {
@@ -37,19 +39,29 @@ a:hover {
   text-decoration-color: var(--color-accent-hover);
 }
 
-section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; scroll-margin-top: 80px; }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
   background: var(--color-surface);
+  border-bottom: 1px solid var(--color-accent);
   box-shadow: var(--shadow);
 }
 .site-header nav a {
   margin-left: 15px;
   text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.site-header nav a:hover { border-bottom-color: var(--color-accent-hover); }
+.site-header nav a.active {
+  font-weight: bold;
+  border-bottom-color: var(--color-accent);
 }
 .nav-toggle {
   display: none;

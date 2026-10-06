@@ -10,3 +10,27 @@ if (navToggle && nav) {
         link.addEventListener('click', () => nav.classList.remove('open'))
     );
 }
+
+const sectionLinks = document.querySelectorAll('#nav a[href^="#"]');
+
+const activeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        sectionLinks.forEach((link) => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+    });
+}, {
+    rootMargin: '-40% 0px -55% 0px'
+});
+
+document.querySelectorAll('section[id]').forEach((section) => activeObserver.observe(section));
+window.addEventListener('scroll', () => {
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    if (!atBottom) return;
+
+    sectionLinks.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === '#contact');
+    });
+});
