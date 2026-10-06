@@ -3,6 +3,6 @@
 <footer class="site-footer">
     <p>&copy; <?= date('Y') ?> <?= e($data['name']) ?>. All rights reserved.</p>
 </footer>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=2"></script>
 </body>
 </html>

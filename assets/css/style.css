@@ -1,4 +1,7 @@
 /* Adjust na lang laterrrr*/
+:root { --accent: #2563eb; }
+html { scroll-behavior: smooth; }
+
 * { box-sizing: border-box; }
 
 body {
@@ -7,15 +10,22 @@ body {
     line-height: 1.6;
 }
 
-section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; scroll-margin-top: 80px; }
 
 .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
 }
-.site-header nav a { margin-left: 15px; }
+.site-header nav a { margin-left: 15px; text-decoration: none; color: #333; }
+.site-header nav a:hover { color: var(--accent); }
+.site-header nav a.active { color: var(--accent); font-weight: bold; }
 .nav-toggle { display: none; }
 
 .hero { text-align: center; }
