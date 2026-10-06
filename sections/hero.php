@@ -15,11 +15,11 @@
             <h3 class="hero-desc"><?= e($data['intro'] ?? $data['tagline'] ?? $data['about']) ?></h3>
 
             <div class="hero-buttons">
-                <a class="btn" href="#projects">
-                    <i class="fa-solid fa-folder-open"></i> View my projects
-                </a>
                 <button type="button" class="btn">
-                    <i class="fa-solid fa-download"></i> Download Resume
+                    <i class="fa-solid fa-palette"></i> Choose theme
+                </button>
+                <button type="button" class="btn" id="viewResumeBtn">
+                    <i class="fa-solid fa-eye"></i> View Resume
                 </button>
             </div>
 
@@ -31,3 +31,4 @@
 
     </div><!-- /.hero-inner -->
 </section>
+<?php include __DIR__ . '/resume-modal.php'; ?>
