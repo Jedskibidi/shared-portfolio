@@ -41,3 +41,31 @@ section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
     .site-header { flex-wrap: wrap; }
     .site-header nav a { margin: 8px 0; }
 }
+
+/* Certificate card */
+.card .cert-img { object-fit: contain; }
+
+.cert-placeholder {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    color: #888;
+}
+
+.cert-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+.cert-nav button {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+.cert-nav button:hover { background: #f0f0f0; }
+.cert-counter { font-size: 0.9rem; color: #666; }
