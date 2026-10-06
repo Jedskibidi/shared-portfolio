@@ -34,3 +34,7 @@
         <?php endforeach; ?>
     </div>
 </section>
+
+<div class="cert-overlay" id="certOverlay">
+    <img id="certOverlayImg" src="" alt="">
+</div>
