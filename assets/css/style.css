@@ -15,6 +15,7 @@ html { scroll-behavior: smooth; }
 
   --radius: 12px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
 }
 
 body {
@@ -408,18 +409,7 @@ section h2::after {
   display: flex;
   justify-content: center;
 }
-.hero-image::before {
-  content: "";
-  position: absolute;
-  width: 85%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--color-accent);
-  opacity: 0.5;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 .profile-img {
   position: relative;
   width: 100%;
@@ -518,7 +508,7 @@ section h2::after {
   animation: trace 2.5s linear infinite;
 }
 
-/* PANGALAN: vivid blue, may dark blue na glow na dumadaan */
+
 .tw-name {
   --base: #4A90D9;
   --shine: #1F4E8C;
@@ -528,7 +518,7 @@ section h2::after {
     var(--base) 62%, var(--base) 100%);
 }
 
-/* ROLE: dark navy (text color ng palette), may dark blue na glow na dumadaan */
+
 .tw-role {
   --base: var(--color-text);
   --shine: #3B6FB0;
@@ -546,7 +536,7 @@ section h2::after {
 @media (prefers-reduced-motion: reduce) {
   .tw-name, .tw-role { animation: none; }
 }
-/* Hero buttons: same shape and animation as .contact-btn */
+
 .btn {
   position: relative;
   z-index: 0;
@@ -566,7 +556,7 @@ section h2::after {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Accent color sweeps in from the left on hover */
+
 .btn::before {
   content: "";
   position: absolute;
@@ -589,7 +579,7 @@ section h2::after {
 @media (prefers-reduced-motion: reduce) {
   .btn, .btn::before { transition: none; }
 }
-/* Pulse sa loob ng button */
+
 .btn::after {
   content: "";
   position: absolute;
@@ -613,4 +603,94 @@ section h2::after {
 
 @media (prefers-reduced-motion: reduce) {
   .btn::after { animation: none; display: none; }
+}
+/* ===== Hover-swap profile ===== */
+.avatar {
+  --avatar-radius: 6px;
+
+  position: relative;
+  width: min(380px, 100%);
+  aspect-ratio: 9 / 10;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.avatar:focus-visible {
+  outline: 3px solid var(--color-accent-hover);
+  outline-offset: 6px;
+  border-radius: var(--avatar-radius);
+}
+
+.avatar-photo,
+.avatar-alt {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--avatar-radius);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.avatar-photo {
+  transition: opacity 0.25s ease 0.15s;
+}
+
+
+.avatar-alt {
+  pointer-events: none;
+  opacity: 0;
+  clip-path: inset(0 0 0 100% round var(--avatar-radius));
+  transform-origin: right center;
+  transform: scaleX(2.4);
+  filter: blur(6px);
+ 
+  transition: opacity 0.2s ease,
+              clip-path 0s linear 0.2s,
+              transform 0s linear 0.2s,
+              filter 0s linear 0.2s;
+}
+
+.avatar.is-alt .avatar-photo {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.avatar.is-alt .avatar-alt {
+  opacity: 1;
+  clip-path: inset(0 0 0 0 round var(--avatar-radius));
+  transform: scaleX(1);
+  filter: blur(0);
+  transition: opacity 0.1s ease 0.3s,
+              clip-path 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s,
+              transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s,
+              filter 0.55s ease 0.3s;
+}
+
+@media (max-width: 600px) {
+  .avatar { width: min(280px, 100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-photo,
+  .avatar-alt,
+  .avatar.is-alt .avatar-photo,
+  .avatar.is-alt .avatar-alt {
+    transition: opacity 0.2s ease;
+    transform: none;
+    filter: none;
+    clip-path: none;
+  }
+}
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 70px);  
+  min-height: calc(100svh - 70px);  
+}
+
+.hero-inner {
+  width: 100%;
 }
