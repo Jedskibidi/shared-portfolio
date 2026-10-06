@@ -6,5 +6,6 @@
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/hero.js"></script>
+<script src="assets/js/resume-viewer.js"></script>
 </body>
 </html>
