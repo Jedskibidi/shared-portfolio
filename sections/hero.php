@@ -1,4 +1,5 @@
 <?php /** @var array $data */ ?>
+
 <section id="home" class="hero">
     <div class="hero-inner">
 
@@ -30,8 +31,13 @@
         </div><!-- /.hero-text -->
 
         <div class="hero-image">
-            <img src="<?= e($data['profile_image']) ?>" alt="Photo of <?= e($data['name']) ?>" class="profile-img">
-        </div>
+    <div class="avatar" id="avatar" tabindex="0" role="button" aria-label="Toggle profile image">
+        <img src="<?= e($data['profile_image']) ?>" alt="Photo of <?= e($data['name']) ?>" class="avatar-photo" draggable="false">
+        <?php if (!empty($data['profile_image_alt'])): ?>
+            <img src="<?= e($data['profile_image_alt']) ?>" alt="" class="avatar-alt" draggable="false">
+        <?php endif; ?>
+    </div>
+</div>
 
     </div><!-- /.hero-inner -->
 </section>
