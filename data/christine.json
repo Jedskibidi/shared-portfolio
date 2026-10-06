@@ -4,6 +4,8 @@
   "title": "Software Engineer",
   "profile_image": "assets/img/christine/profile.jpg",
   "about": "Hi, I'm Christine, a Computer Science undergraduate who enjoys turning ideas into working software. I have a foundation in web development, mobile development, C++, and Java, and I learn best by building. I'm always curious, always improving, and always looking for the next project to learn from.✨",
+  "intro": "CS undergrad who loves turning ideas into working software, one project at a time.",
+  "tagline": "I build things for the web.",
   "skills": ["C++","Java","HTML", "CSS", "JavaScript", "PHP"],
   "projects": [
     {
