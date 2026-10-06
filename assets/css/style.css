@@ -15,6 +15,11 @@ html { scroll-behavior: smooth; }
 
   --radius: 12px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  @property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
 }
 
 body {
@@ -408,18 +413,7 @@ section h2::after {
   display: flex;
   justify-content: center;
 }
-.hero-image::before {
-  content: "";
-  position: absolute;
-  width: 85%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--color-accent);
-  opacity: 0.5;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 .profile-img {
   position: relative;
   width: 100%;
@@ -613,4 +607,97 @@ section h2::after {
 
 @media (prefers-reduced-motion: reduce) {
   .btn::after { animation: none; display: none; }
+}
+/* ===== Hover-swap profile ===== */
+.avatar {
+  --avatar-radius: 6px;
+
+  position: relative;
+  width: min(380px, 100%);
+  aspect-ratio: 9 / 10;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.avatar:focus-visible {
+  outline: 3px solid var(--color-accent-hover);
+  outline-offset: 6px;
+  border-radius: var(--avatar-radius);
+}
+
+.avatar-photo,
+.avatar-alt {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--avatar-radius);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Photo: framed, fades back in after the second image leaves */
+.avatar-photo {
+  transition: opacity 0.25s ease 0.15s;
+}
+
+/* Second image: hidden, stretched from the right edge */
+.avatar-alt {
+  pointer-events: none;
+  opacity: 0;
+  clip-path: inset(0 0 0 100% round var(--avatar-radius));
+  transform-origin: right center;
+  transform: scaleX(2.4);
+  filter: blur(6px);
+  /* leaving: fade out first, then reset the hidden state instantly */
+  transition: opacity 0.2s ease,
+              clip-path 0s linear 0.2s,
+              transform 0s linear 0.2s,
+              filter 0s linear 0.2s;
+}
+
+/* Hover / active state */
+.avatar.is-alt .avatar-photo {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.avatar.is-alt .avatar-alt {
+  opacity: 1;
+  clip-path: inset(0 0 0 0 round var(--avatar-radius));
+  transform: scaleX(1);
+  filter: blur(0);
+  transition: opacity 0.1s ease 0.3s,
+              clip-path 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s,
+              transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s,
+              filter 0.55s ease 0.3s;
+}
+
+@media (max-width: 600px) {
+  .avatar { width: min(280px, 100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-photo,
+  .avatar-alt,
+  .avatar.is-alt .avatar-photo,
+  .avatar.is-alt .avatar-alt {
+    transition: opacity 0.2s ease;
+    transform: none;
+    filter: none;
+    clip-path: none;
+  }
+}
+/* Hero: kasing-taas ng screen, naka-center ang laman */
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 70px);   /* 70px = taas ng sticky header */
+  min-height: calc(100svh - 70px);  /* mas tama sa phone browsers */
+}
+
+.hero-inner {
+  width: 100%;
 }

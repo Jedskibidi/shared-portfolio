@@ -66,3 +66,33 @@ typewriterEl.textContent = textPart;
     typewriterEl.textContent = '';
     typeTick();
 }
+
+// Hover-swap profile: photo fades out, second image wipes in from the right
+const avatar = document.getElementById('avatar');
+
+if (avatar && avatar.querySelector('.avatar-alt')) {
+    const show = () => avatar.classList.add('is-alt');
+    const hide = () => avatar.classList.remove('is-alt');
+    const canHover = window.matchMedia('(hover: hover)').matches;
+
+    if (canHover) {
+        // Mouse: swap while hovering
+        avatar.addEventListener('mouseenter', show);
+        avatar.addEventListener('mouseleave', hide);
+    } else {
+        // Touch: tap to swap, tap anywhere else to go back
+        avatar.addEventListener('click', (e) => {
+            e.stopPropagation();
+            avatar.classList.toggle('is-alt');
+        });
+        document.addEventListener('click', hide);
+    }
+
+    // Keyboard: Enter or Space toggles
+    avatar.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            avatar.classList.toggle('is-alt');
+        }
+    });
+}
