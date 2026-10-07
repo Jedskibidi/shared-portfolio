@@ -156,9 +156,39 @@ section h2::after {
   font-weight: 600;                       /* iisang weight, static ang laki */
   text-decoration: none;
   border-bottom: 2px solid transparent;
-  transition: transform 0.2s ease;
+  border-radius: 999px;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 .site-header nav a:hover { transform: translateY(-2px); }
+
+/* Hover: soft pill + accent text (uses theme variables, so it works in every theme) */
+@media (hover: hover) {
+  .site-header nav a:hover {
+    background: color-mix(in srgb, var(--color-primary) 16%, transparent);
+    color: var(--color-primary);
+  }
+  .site-header nav a:hover i {
+    transform: translateY(-1px) scale(1.15);
+  }
+}
+
+.site-header nav a i { transition: transform 0.2s ease; }
+
+/* Keyboard users (Tab key) */
+.site-header nav a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  background: color-mix(in srgb, var(--color-primary) 16%, transparent);
+}
+
+/* Active link: tint the text too (follows the nav-locked logic below) */
+.site-header #nav:not(.nav-locked) a.active,
+.site-header #nav.nav-locked a.nav-target {
+  color: var(--color-primary);
+}
 
 /* Vertical dividers */
 .site-header nav a + a::before {
@@ -170,7 +200,10 @@ section h2::after {
   height: 60%;
   transform: translateY(-50%);
   background: color-mix(in srgb, var(--color-accent) 80%, var(--color-text));
+  transition: opacity 0.2s ease;
 }
+.site-header nav a:hover::before,
+.site-header nav a:hover + a::before { opacity: 0; }
 
 /* Glowing underline: sa active section lang, lumalabas agad */
 .site-header nav a::after {
@@ -747,6 +780,8 @@ section h2::after {
 
   .logo-letter,
   .site-header nav a,
+  .site-header nav a i,
+  .site-header nav a::before,
   .btn,
   .btn::before,
   .contact-btn,
