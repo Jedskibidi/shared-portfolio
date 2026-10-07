@@ -1,10 +1,9 @@
 
-// Logo: letra na tinututukan ay lumalaki nang konti (mouse at touch)
 (function () {
     const logo = document.querySelector('.site-header .logo');
     if (!logo) return;
 
-    // Hatiin sa letter spans (kasama ang initial at ang tuldok)
+   
     const letters = [];
     function wrap(node) {
         Array.from(node.childNodes).forEach(function (child) {
@@ -25,8 +24,8 @@
     }
     wrap(logo);
 
-    const MAX = 1.55;      // laki ng letrang direktang tinututukan
-    const RADIUS = 45;     // gaano kalayo (px) ang naaapektuhan
+    const MAX = 1.55; 
+    const RADIUS = 45;    
 
     function update(x) {
         letters.forEach(function (el) {
@@ -48,7 +47,7 @@
     logo.addEventListener('pointerup', reset);
     logo.addEventListener('pointercancel', reset);
 })();
-// Habang nag-i-scroll galing sa click, guhit lang sa pinindot na link ang lalabas
+
 (function () {
     const navEl = document.getElementById('nav');
     if (!navEl) return;
@@ -66,17 +65,15 @@
             links.forEach(function (l) { l.classList.toggle('nav-target', l === link); });
             navEl.classList.add('nav-locked');
             clearTimeout(timer);
-            timer = setTimeout(unlock, 1200);   // dagdagan kung malayo ang scroll
+            timer = setTimeout(unlock, 1200);  
         });
     });
 
-    // Kapag tapos na ang scroll, mag-unlock agad
     window.addEventListener('scrollend', function () {
         clearTimeout(timer);
         timer = setTimeout(unlock, 100);
     });
 
-    // Kapag nag-scroll ang user mismo (wheel/touch), mag-unlock
     ['wheel', 'touchstart'].forEach(function (ev) {
         window.addEventListener(ev, unlock, { passive: true });
     });
