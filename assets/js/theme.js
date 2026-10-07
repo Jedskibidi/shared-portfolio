@@ -3,8 +3,23 @@
   var DEFAULT = "light";
 
   var THEMES = [
-    { id: "light", label: "Light", colors: ["#FFF9E6", "#99C3E4"] },
-    { id: "dark", label: "Dark", colors: ["#0F1A2A", "#99C3E4"] },
+    { id: "light", label: "Daybreak", colors: ["#FFF9E6", "#99C3E4"] },
+    { id: "dark", label: "Nightfall", colors: ["#0F1A2A", "#99C3E4"] },
+    {
+      id: "strawberry",
+      label: "Strawberry",
+      colors: ["#FBF4DB", "#F06C78", "#8E9A5A"],
+    },
+    {
+      id: "lavender",
+      label: "Lavender",
+      colors: ["#F4ECF6", "#7F5D93", "#D9C4DD"],
+    },
+    {
+      id: "sunset",
+      label: "Sunset",
+      colors: ["#FFF3E6", "#F2913D", "#BF3604"],
+    },
   ];
 
   var root = document.documentElement;
