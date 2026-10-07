@@ -20,6 +20,23 @@
     "SQL",
     "Laravel"
   ],
+  "facts": [
+    {
+      "icon": "fa-solid fa-handshake",
+      "title": "Open to opportunities",
+      "text": "Looking for a collaborative environment to grow and contribute"
+    },
+    {
+      "icon": "fa-solid fa-palette",
+      "title": "Frontend focus",
+      "text": "Layouts, themes and small details"
+    },
+    {
+      "icon": "fa-solid fa-laptop-code",
+      "title": "Thesis: TaxIt",
+      "text": "ASP.NET Core MVC web app"
+    }
+  ],
   "projects": [
     {
       "title": "Project One",

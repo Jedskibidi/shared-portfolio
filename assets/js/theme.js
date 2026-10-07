@@ -55,31 +55,34 @@
       el.setAttribute("aria-pressed", on);
     });
   }
-  // Profile hover gif: <img class="avatar-alt" data-gif-dir="assets/img/<user>/gifs"> (see hero.php).
-  // Each person has their own folder with daybreak.gif, nightfall.gif, ... and the one matching the
-  // current theme is loaded.
-  var gifEl = document.querySelector(".avatar-alt");
+  // Profile hover gifs: <img data-gif-dir="assets/img/<user>/gifs"> (hero avatar in hero.php and the
+  // About photo in about.php). Each person has their own folder with daybreak.gif, nightfall.gif, ...
+  // and every one of these images loads the gif that matches the current theme.
+  var gifEls = Array.prototype.slice.call(
+    document.querySelectorAll("[data-gif-dir]"),
+  );
   function updateGif(id) {
-    if (!gifEl || !gifEl.dataset.gifDir) return;
     var t = THEMES.filter(function (x) {
       return x.id === id;
     })[0];
     if (!t || !t.gif) return;
-    var next = gifEl.dataset.gifDir + "/" + t.gif;
-    if (gifEl.getAttribute("src") !== next) gifEl.src = next;
-  }
-  if (gifEl && gifEl.dataset.gifDir) {
-    // Missing file for a theme: say which one in the console, fall back to the first theme's gif,
-    // and if that is missing too just leave the image empty (never remove the element, so the
-    // next theme change can still load its own gif)
-    gifEl.addEventListener("error", function () {
-      var failed = gifEl.getAttribute("src");
-      var fallback = gifEl.dataset.gifDir + "/" + THEMES[0].gif;
-      console.warn("Theme gif not found: " + failed);
-      if (failed !== fallback) gifEl.src = fallback;
-      else gifEl.removeAttribute("src");
+    gifEls.forEach(function (el) {
+      var next = el.dataset.gifDir + "/" + t.gif;
+      if (el.getAttribute("src") !== next) el.src = next;
     });
   }
+  // Missing file for a theme: say which one in the console, fall back to the first theme's gif,
+  // and if that is missing too just leave the image empty (never remove the element, so the
+  // next theme change can still load its own gif)
+  gifEls.forEach(function (el) {
+    el.addEventListener("error", function () {
+      var failed = el.getAttribute("src");
+      var fallback = el.dataset.gifDir + "/" + THEMES[0].gif;
+      console.warn("Theme gif not found: " + failed);
+      if (failed !== fallback) el.src = fallback;
+      else el.removeAttribute("src");
+    });
+  });
   function reduceMotion() {
     return (
       window.matchMedia &&
