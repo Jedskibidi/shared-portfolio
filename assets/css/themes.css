@@ -25,6 +25,84 @@
   color-scheme: dark;
 }
 
+/* Strawberry: Strawberry Red / Berry Rose / Blush Pink / Seed Cream / Leaf Olive Green */
+:root[data-theme="strawberry"] {
+  --color-bg: #fbf4db; /* Seed Cream (lighter) */
+  --color-surface: #f9c3cb; /* Blush Pink */
+  --color-text: #4a1f2a;
+  --color-text-muted: #7a3b48;
+  --color-accent: #f06c78; /* Berry Rose */
+  --color-accent-hover: #f58791;
+  --color-on-accent: #3b0f1a;
+  --color-border: #8e9a5a; /* Leaf Olive Green */
+
+  --color-control-bg: #fff;
+  --color-control-hover: #fde3e7;
+  --color-control-border: #e9a3ac;
+
+  --color-primary: #c23744; /* name colour (darker Strawberry Red for contrast) */
+  --color-shine: #8c1624;
+  --color-shine-role: #c23744;
+
+  --overlay: rgba(40, 10, 16, 0.88);
+  --overlay-modal: rgba(74, 31, 42, 0.82);
+  --shadow: 0 4px 12px rgba(122, 30, 45, 0.18);
+  --shadow-hover: 0 8px 20px rgba(122, 30, 45, 0.26);
+  --shadow-modal: 0 12px 40px rgba(74, 20, 30, 0.45);
+}
+
+/* Lavender Dream: Mauve #d2b9c8 / Peach #f1ceaa / Purple #8f6fa2 / Deep Purple #6f4281 / Cream #fae5bc */
+:root[data-theme="lavender"] {
+  --color-bg: #f4ecf6; /* soft lilac */
+  --color-surface: #d9c4dd; /* Mauve, a bit more purple */
+  --color-text: #2e1640;
+  --color-text-muted: #5a3a70;
+  --color-accent: #7f5d93; /* Purple (slightly deeper so white text reads) */
+  --color-accent-hover: #6f4281; /* Deep Purple */
+  --color-on-accent: #ffffff;
+  --color-border: #8f6fa2; /* Purple */
+
+  --color-control-bg: #fff;
+  --color-control-hover: #eadcee;
+  --color-control-border: #c4a9cc;
+
+  --color-primary: #6f4281; /* Deep Purple */
+  --color-shine: #3d1f4d;
+  --color-shine-role: #6f4281;
+
+  --overlay: rgba(25, 10, 33, 0.88);
+  --overlay-modal: rgba(46, 22, 64, 0.82);
+  --shadow: 0 4px 12px rgba(80, 40, 100, 0.2);
+  --shadow-hover: 0 8px 20px rgba(80, 40, 100, 0.28);
+  --shadow-modal: 0 12px 40px rgba(46, 22, 64, 0.45);
+}
+
+/* Sunset (warm light): Flame Orange #f2913d / Fire #bf3604 / Paprika #730c02 / Red Wine #400101, lightened */
+:root[data-theme="sunset"] {
+  --color-bg: #fff3e6; /* warm cream */
+  --color-surface: #fbd6b5; /* soft peach */
+  --color-text: #400101; /* Red Wine */
+  --color-text-muted: #7a2a14;
+  --color-accent: #f2913d; /* Flame Orange */
+  --color-accent-hover: #f7a65e;
+  --color-on-accent: #400101;
+  --color-border: #e39a6b;
+
+  --color-control-bg: #fff;
+  --color-control-hover: #ffe8d2;
+  --color-control-border: #efc3a0;
+
+  --color-primary: #bf3604; /* Fire */
+  --color-shine: #730c02; /* Paprika */
+  --color-shine-role: #bf3604;
+
+  --overlay: rgba(40, 8, 4, 0.88);
+  --overlay-modal: rgba(64, 1, 1, 0.8);
+  --shadow: 0 4px 12px rgba(115, 12, 2, 0.16);
+  --shadow-hover: 0 8px 20px rgba(115, 12, 2, 0.24);
+  --shadow-modal: 0 12px 40px rgba(64, 1, 1, 0.4);
+}
+
 /* Circular reveal from the Choose theme button (View Transitions API) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
