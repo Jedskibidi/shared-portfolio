@@ -3,21 +3,34 @@
   var DEFAULT = "light";
 
   var THEMES = [
-    { id: "light", label: "Daybreak", colors: ["#FFF9E6", "#99C3E4"] },
-    { id: "dark", label: "Nightfall", colors: ["#0F1A2A", "#99C3E4"] },
+    {
+      id: "light",
+      label: "Daybreak",
+      gif: "daybreak.gif",
+      colors: ["#FFF9E6", "#99C3E4"],
+    },
+    {
+      id: "dark",
+      label: "Nightfall",
+      gif: "nightfall.gif",
+      colors: ["#0F1A2A", "#99C3E4"],
+    },
     {
       id: "strawberry",
       label: "Strawberry",
+      gif: "strawberry.gif",
       colors: ["#FBF4DB", "#F06C78", "#8E9A5A"],
     },
     {
       id: "lavender",
       label: "Lavender",
+      gif: "lavender.gif",
       colors: ["#F4ECF6", "#7F5D93", "#D9C4DD"],
     },
     {
       id: "sunset",
       label: "Sunset",
+      gif: "sunset.gif",
       colors: ["#FFF3E6", "#F2913D", "#BF3604"],
     },
   ];
@@ -42,6 +55,31 @@
       el.setAttribute("aria-pressed", on);
     });
   }
+  // Profile hover gif: <img class="avatar-alt" data-gif-dir="assets/img/<user>/gifs"> (see hero.php).
+  // Each person has their own folder with daybreak.gif, nightfall.gif, ... and the one matching the
+  // current theme is loaded.
+  var gifEl = document.querySelector(".avatar-alt");
+  function updateGif(id) {
+    if (!gifEl || !gifEl.dataset.gifDir) return;
+    var t = THEMES.filter(function (x) {
+      return x.id === id;
+    })[0];
+    if (!t || !t.gif) return;
+    var next = gifEl.dataset.gifDir + "/" + t.gif;
+    if (gifEl.getAttribute("src") !== next) gifEl.src = next;
+  }
+  if (gifEl && gifEl.dataset.gifDir) {
+    // Missing file for a theme: say which one in the console, fall back to the first theme's gif,
+    // and if that is missing too just leave the image empty (never remove the element, so the
+    // next theme change can still load its own gif)
+    gifEl.addEventListener("error", function () {
+      var failed = gifEl.getAttribute("src");
+      var fallback = gifEl.dataset.gifDir + "/" + THEMES[0].gif;
+      console.warn("Theme gif not found: " + failed);
+      if (failed !== fallback) gifEl.src = fallback;
+      else gifEl.removeAttribute("src");
+    });
+  }
   function reduceMotion() {
     return (
       window.matchMedia &&
@@ -60,6 +98,7 @@
         localStorage.setItem(STORAGE_KEY, id);
       } catch (e) {}
       markActive(id);
+      updateGif(id);
     }
 
     if (!animate || reduceMotion()) {
@@ -126,8 +165,10 @@
   });
 
   // Sync with whatever the early <head> script applied (and repair a bad saved value)
-  if (isValid(current())) markActive(current());
-  else apply(DEFAULT, false);
+  if (isValid(current())) {
+    markActive(current());
+    updateGif(current());
+  } else apply(DEFAULT, false);
 
   btn.addEventListener("click", function (e) {
     e.stopPropagation();
