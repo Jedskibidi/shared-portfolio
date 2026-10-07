@@ -1,21 +1,20 @@
-
 :root[data-theme="dark"] {
-  --color-bg: #0F1A2A;
-  --color-surface: #182B42;
-  --color-text: #F3EEDC;
-  --color-text-muted: #A9B8CC;
-  --color-accent: #99C3E4;
-  --color-accent-hover: #A8D0EF;
-  --color-on-accent: #1F2F46;
-  --color-border: #3A5675;
+  --color-bg: #0f1a2a;
+  --color-surface: #182b42;
+  --color-text: #f3eedc;
+  --color-text-muted: #a9b8cc;
+  --color-accent: #99c3e4;
+  --color-accent-hover: #a8d0ef;
+  --color-on-accent: #1f2f46;
+  --color-border: #3a5675;
 
-  --color-control-bg: #182B42;
-  --color-control-hover: #223A57;
-  --color-control-border: #3A5675;
+  --color-control-bg: #182b42;
+  --color-control-hover: #223a57;
+  --color-control-border: #3a5675;
 
-  --color-primary: #7DB5EC;
-  --color-shine: #E3F2FF;
-  --color-shine-role: #6FA8E0;
+  --color-primary: #7db5ec;
+  --color-shine: #e3f2ff;
+  --color-shine-role: #6fa8e0;
 
   --overlay: rgba(0, 0, 0, 0.88);
   --overlay-modal: rgba(5, 10, 18, 0.86);
@@ -36,8 +35,14 @@
   animation: theme-reveal 0.7s ease-in-out;
 }
 @keyframes theme-reveal {
-  from { clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 50%)); }
-  to   { clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 50%) var(--theme-y, 50%)); }
+  from {
+    clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+  to {
+    clip-path: circle(
+      var(--theme-r, 150vmax) at var(--theme-x, 50%) var(--theme-y, 50%)
+    );
+  }
 }
 
 /* Fallback for browsers without View Transitions: fade the colours */
@@ -45,11 +50,17 @@
 .theme-switching *,
 .theme-switching *::before,
 .theme-switching *::after {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
-  ::view-transition-new(*) { animation: none !important; }
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

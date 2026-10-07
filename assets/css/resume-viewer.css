@@ -1,6 +1,8 @@
 /* View-only resume viewer + request form (loaded after style.css) */
 
-.rv-lock { overflow: hidden; }
+.rv-lock {
+  overflow: hidden;
+}
 
 .rv-overlay {
   position: fixed;
@@ -13,11 +15,17 @@
   background: var(--overlay-modal);
   animation: rv-fade 0.25s ease;
 }
-.rv-overlay[hidden] { display: none; }
+.rv-overlay[hidden] {
+  display: none;
+}
 
 @keyframes rv-fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .rv-panel {
@@ -41,7 +49,11 @@
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
-.rv-bar h2 { flex: 1; margin: 0; font-size: 1.1rem; }
+.rv-bar h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.1rem;
+}
 
 .rv-btn {
   padding: 6px 16px;
@@ -54,8 +66,12 @@
   cursor: pointer;
   transition: background 0.2s ease;
 }
-.rv-btn[hidden] { display: none; }
-.rv-btn:hover { background: var(--color-accent); }
+.rv-btn[hidden] {
+  display: none;
+}
+.rv-btn:hover {
+  background: var(--color-accent);
+}
 
 .rv-close {
   width: 36px;
@@ -68,16 +84,23 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.rv-close:hover { background: var(--color-accent-hover); }
+.rv-close:hover {
+  background: var(--color-accent-hover);
+}
 .rv-btn:focus-visible,
-.rv-close:focus-visible { outline: 3px solid var(--color-accent-hover); outline-offset: 2px; }
+.rv-close:focus-visible {
+  outline: 3px solid var(--color-accent-hover);
+  outline-offset: 2px;
+}
 
 .rv-body {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
 }
-.rv-body[hidden] { display: none; }
+.rv-body[hidden] {
+  display: none;
+}
 
 /* Discourage selecting / dragging the preview (a deterrent only) */
 .rv-protected {
@@ -101,26 +124,54 @@
   pointer-events: none;
 }
 
-.rv-note { text-align: center; color: var(--color-text-muted); margin: 8px 0 16px; }
-.rv-foot { margin-top: 20px; font-size: 0.9rem; }
+.rv-note {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin: 8px 0 16px;
+}
+.rv-foot {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
 
 /* Don't let the resume reach paper or "save as PDF" */
 @media print {
-  .rv-overlay { display: none !important; }
+  .rv-overlay {
+    display: none !important;
+  }
 }
 
 @media (max-width: 600px) {
-  .rv-overlay { padding: 0; }
-  .rv-panel { height: 100%; border-radius: 0; border: 0; }
-  .rv-bar { flex-wrap: wrap; padding: 10px 12px; }
-  .rv-bar h2 { flex-basis: calc(100% - 52px); }
-  .rv-body { padding: 12px; }
+  .rv-overlay {
+    padding: 0;
+  }
+  .rv-panel {
+    height: 100%;
+    border-radius: 0;
+    border: 0;
+  }
+  .rv-bar {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+  }
+  .rv-bar h2 {
+    flex-basis: calc(100% - 52px);
+  }
+  .rv-body {
+    padding: 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rv-overlay { animation: none; }
-  .rv-btn { transition: none; }
+  .rv-overlay {
+    animation: none;
+  }
+  .rv-btn {
+    transition: none;
+  }
 }
 
 /* .rv-btn:hover fills with accent */
-.rv-btn:hover { color: var(--color-on-accent); }
+.rv-btn:hover {
+  color: var(--color-on-accent);
+}
