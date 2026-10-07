@@ -24,13 +24,18 @@
 </head>
 <body>
 <header class="site-header">
-    <a class="logo" href="<?= e($navBase) ?>#home">Home</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">Menu</button>
+  <?php $firstName = explode(' ', $data['name'])[0]; ?>
+<div class="logo"><span class="logo-initial"><?= e(mb_substr($firstName, 0, 1)) ?></span><?= e(mb_substr($firstName, 1)) ?><span class="logo-dot">.</span></div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i> Menu
+    </button>
+
     <nav id="nav">
-        <a href="<?= e($navBase) ?>#about">About</a>
-        <a href="<?= e($navBase) ?>#projects">Projects</a>
-        <a href="<?= e($navBase) ?>#certificates">Certificates</a>
-        <a href="<?= e($navBase) ?>#contact">Contact</a>
+        <a href="<?= e($navBase) ?>#home"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="<?= e($navBase) ?>#about"><i class="fa-solid fa-user"></i> About</a>
+        <a href="<?= e($navBase) ?>#projects"><i class="fa-solid fa-laptop-code"></i> Projects</a>
+        <a href="<?= e($navBase) ?>#certificates"><i class="fa-solid fa-certificate"></i> Certificates</a>
+        <a href="<?= e($navBase) ?>#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
     </nav>
 </header>
 <main>
