@@ -153,7 +153,7 @@ section h2::after {
   gap: 6px;
   margin: 0;
   padding: 6px 20px;
-  font-weight: 600;                       /* iisang weight, static ang laki */
+  font-weight: 600;
   text-decoration: none;
   border-bottom: 2px solid transparent;
   border-radius: 999px;
@@ -164,7 +164,7 @@ section h2::after {
 }
 .site-header nav a:hover { transform: translateY(-2px); }
 
-/* Hover: soft pill + accent text (uses theme variables, so it works in every theme) */
+/* Hover: soft pill + accent text */
 @media (hover: hover) {
   .site-header nav a:hover {
     background: color-mix(in srgb, var(--color-primary) 16%, transparent);
@@ -177,14 +177,14 @@ section h2::after {
 
 .site-header nav a i { transition: transform 0.2s ease; }
 
-/* Keyboard users (Tab key) */
+/* Keyboard users */
 .site-header nav a:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   background: color-mix(in srgb, var(--color-primary) 16%, transparent);
 }
 
-/* Active link: tint the text too (follows the nav-locked logic below) */
+/* Active link text */
 .site-header #nav:not(.nav-locked) a.active,
 .site-header #nav.nav-locked a.nav-target {
   color: var(--color-primary);
@@ -205,7 +205,7 @@ section h2::after {
 .site-header nav a:hover::before,
 .site-header nav a:hover + a::before { opacity: 0; }
 
-/* Glowing underline: sa active section lang, lumalabas agad */
+/* Glowing underline: sa active section lang */
 .site-header nav a::after {
   content: "";
   position: absolute;
@@ -331,7 +331,6 @@ section h2::after {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-/* Accent sweep sa hover */
 .btn::before {
   content: "";
   position: absolute;
@@ -342,7 +341,6 @@ section h2::after {
   transform-origin: left;
   transition: transform 0.3s ease;
 }
-/* Pulse sa loob */
 .btn::after {
   content: "";
   position: absolute;
@@ -714,7 +712,6 @@ section h2::after {
   -webkit-user-drag: none;
 }
 
-/* Second image: circle grows from the centre and zooms into place */
 .avatar-alt {
   pointer-events: none;
   clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
@@ -726,6 +723,202 @@ section h2::after {
   transform: scale(1);
 }
 
+/* ===== Netflix-style projects row + film strip ===== */
+.film {
+  --film: color-mix(in srgb, var(--color-primary) 30%, #0b0f17);
+  --film-hole: var(--color-bg);
+  --pitch: 34px;                         
+
+  overflow: hidden;
+  background: var(--film);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--color-primary) 55%, transparent),
+    0 0 28px color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+.nf-row {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0;
+  cursor: grab;
+  scroll-behavior: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.nf-row::-webkit-scrollbar { display: none; }
+.nf-row.is-dragging { cursor: grabbing; user-select: none; }
+
+.nf-track {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  padding: 64px 0;                      
+}
+
+/* Sprocket holes */
+.nf-track::before,
+.nf-track::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--film-hole) 0 calc(var(--pitch) * 0.6),
+    transparent calc(var(--pitch) * 0.6) var(--pitch)
+  );
+  border-radius: 3px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.nf-track::before { top: 15px; }
+.nf-track::after  { bottom: 15px; }
+
+/* ----- Cards ----- */
+.nf-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 320px;
+  margin-right: 20px;             
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  animation: nfGlow 3s ease-in-out infinite alternate;
+  transition: transform 0.35s ease;
+}
+
+
+.nf-card.is-open {
+  transform: scale(1.15);
+  z-index: 5;
+}
+
+.nf-card:has(~ .nf-card.is-open) { transform: translateX(-24px); }
+.nf-card.is-open ~ .nf-card { transform: translateX(24px); }
+
+@keyframes nfGlow {
+  from {
+    box-shadow:
+      0 0 6px color-mix(in srgb, var(--color-primary) 50%, transparent),
+      0 0 14px color-mix(in srgb, var(--color-primary) 30%, transparent);
+  }
+  to {
+    box-shadow:
+      0 0 10px var(--color-primary),
+      0 0 26px color-mix(in srgb, var(--color-primary) 60%, transparent);
+  }
+}
+
+.nf-card img {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.nf-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px 18px 18px;
+}
+.nf-info h3 { margin: 0 0 6px; font-size: 1.1rem; }
+
+.nf-info p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0 0 12px;
+  font-size: 0.88rem;
+}
+
+/* Outlined pill tags */
+.nf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+.nf-tags li {
+  padding: 2px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+}
+
+
+.nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+.nf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.nf-btn-main { border-color: var(--color-primary); }
+.nf-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  transform: translateY(-2px);
+}
+.nf-thumb { position: relative; }
+
+.nf-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.nf-play i {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding-left: 4px;
+  font-size: 1.2rem;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary) 75%, transparent);
+  box-shadow:
+    0 0 12px var(--color-primary),
+    0 0 28px color-mix(in srgb, var(--color-primary) 60%, transparent);
+  transition: transform 0.2s ease;
+}
+.nf-play:hover i { transform: scale(1.12); }
+
+
+.nf-card.is-open .nf-play,
+.nf-play:focus-visible { opacity: 1; }
 /* ===== Mobile ===== */
 @media (max-width: 600px) {
   .site-header { grid-template-columns: 1fr auto; padding: 10px 16px; }
@@ -763,6 +956,12 @@ section h2::after {
   .hero-buttons { justify-content: center; }
 
   .avatar { width: min(260px, 100%); }
+
+  /* Projects row */
+  .film { --pitch: 29px; }               /* (270 + 20) / 10 */
+  .nf-card { flex-basis: 270px; }
+ .nf-card:has(~ .nf-card.is-open) { transform: translateX(-20px); }
+.nf-card.is-open ~ .nf-card { transform: translateX(20px); }
 }
 
 /* ===== Reduced motion ===== */
@@ -771,6 +970,7 @@ section h2::after {
   .site-header #nav,
   .tw-name,
   .tw-role,
+  .nf-card,
   .page-wipe,
   .page-wipe-in,
   #email-page h2,
@@ -787,6 +987,8 @@ section h2::after {
   .contact-btn,
   .contact-btn::before,
   .card,
+  .nf-card,
+  .nf-btn,
   .cert-overlay,
   .cert-overlay img,
   .page-wipe { transition: none; }

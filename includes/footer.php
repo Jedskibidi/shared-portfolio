@@ -8,5 +8,6 @@
 <script src="assets/js/hero.js"></script>
 <script src="assets/js/resume-viewer.js"></script>
 <script src="assets/js/header.js?v=3"></script>
+<script src="assets/js/projects.js?v=1"></script>
 </body>
 </html>

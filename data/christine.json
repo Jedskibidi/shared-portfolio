@@ -12,14 +12,25 @@
     { "icon": "fa-solid fa-code", "title": "C++ and Java", "text": "Solid programming foundation" },
     { "icon": "fa-solid fa-mobile-screen", "title": "Web and mobile", "text": "Always looking for the next project" }
   ],
+  
   "projects": [
     {
       "title": "Project One",
       "description": "Short description of what the project does.",
-      "image": "assets/img/christine/projects/project1.jpg",
+      "image": "assets/img/christine/projects/orbitopedia.png",
       "tech": ["HTML", "CSS", "JavaScript"],
-      "link": ""
+      "link": "", 
+      "demo": "http://localhost/finals-Webdev--main/finals-Webdev--main/Main.html"
     },
+    {
+      "title": "Project Two",
+      "description": "Short description of what the project does.",
+      "image": "assets/img/christine/projects/project2.jpg",
+      "tech": ["PHP", "MySQL"],
+      "link": ""  
+       
+    }
+    ,
     {
       "title": "Project Two",
       "description": "Short description of what the project does.",
