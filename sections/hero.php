@@ -33,7 +33,10 @@
         <div class="hero-image">
     <div class="avatar" id="avatar" tabindex="0" role="button" aria-label="Toggle profile image">
         <img src="<?= e($data['profile_image']) ?>" alt="Photo of <?= e($data['name']) ?>" class="avatar-photo" draggable="false">
-        <?php if (!empty($data['profile_image_alt'])): ?>
+        <?php if (!empty($data['profile_gifs'])): ?>
+            <?php /* Folder of per-theme gifs for this person; theme.js sets the src (daybreak.gif, nightfall.gif, ...) */ ?>
+            <img alt="" class="avatar-alt" draggable="false" data-gif-dir="<?= e(rtrim($data['profile_gifs'], '/')) ?>">
+        <?php elseif (!empty($data['profile_image_alt'])): ?>
             <img src="<?= e($data['profile_image_alt']) ?>" alt="" class="avatar-alt" draggable="false">
         <?php endif; ?>
     </div>
