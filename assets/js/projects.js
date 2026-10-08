@@ -1,27 +1,34 @@
-// Projects row: auto-scroll na pwedeng i-drag, i-swipe, o i-scroll + zoom ng card
+// Projects row: auto-scroll + drag + zoom ng card na nasa ilalim ng cursor
 (function () {
     const row = document.querySelector('.nf-row');
     const track = row && row.querySelector('.nf-track');
     if (!row || !track) return;
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const SPEED = 0.6;            // px kada frame (mas mataas = mas mabilis)
-    const RESUME_DELAY = 1500;    // ms bago tumuloy ang auto-scroll
+    const SPEED = 0.6;          // px kada frame
+    const RESUME_DELAY = 1200;  // ms (touch/wheel/drag)
+    const OPEN_DELAY = 120;     // ms bago mag-zoom pagkatutok
+    const CLOSE_DELAY = 150;    // ms bago mag-close pagkaalis sa card
+    const EDGE_MARGIN = window.innerWidth < 600 ? 8 : 32;   // espasyo sa gilid para kasya ang zoom
 
     let pos = 0;
-    let hovering = false;
     let dragging = false;
+    let centering = false;      // dumudulas ang card papunta sa gitna
     let resumeAt = 0;
     let moved = 0;
     let startX = 0;
     let startScroll = 0;
 
-    let pinned = null;            // card na pinindot (nananatiling zoomed)
-    let hoverTimer;
+    let mouseIn = false;
+    let mx = 0, my = 0;
+    let target = null;          // card na nasa ilalim ng cursor
+    let openTimer, closeTimer;
+
+    let pinned = null;          // para sa touch
+    let lastType = 'mouse';
 
     const half = () => track.scrollWidth / 2;
 
-    // ===== Seamless loop =====
     function wrap() {
         const h = half();
         if (h <= 0) return;
@@ -29,19 +36,11 @@
         else if (row.scrollLeft <= 0) row.scrollLeft += h;
     }
 
-    function pause() { resumeAt = performance.now() + RESUME_DELAY; }
+    function pause(ms) { resumeAt = performance.now() + (ms || RESUME_DELAY); }
 
-    // Magsimula sa gitna para pwedeng pumunta sa magkabilang direksyon
     function init() {
         row.scrollLeft = half() / 2;
         pos = row.scrollLeft;
-    }
-
-    // ===== Zoom helpers =====
-    function fullyVisible(card) {
-        const c = card.getBoundingClientRect();
-        const r = row.getBoundingClientRect();
-        return c.left >= r.left + 8 && c.right <= r.right - 8;
     }
 
     function closeAll() {
@@ -50,24 +49,102 @@
         });
     }
 
-    function unpin() {
-        pinned = null;
+    function cardAtPoint() {
+        const el = document.elementFromPoint(mx, my);
+        if (!el || !row.contains(el)) return null;
+        return el.closest('.nf-card');
+    }
+
+    // Itulak lang nang kaunti hanggang buo ang kita (nananatili ang cursor sa card)
+    function nudgeIntoView(card) {
+        const c = card.getBoundingClientRect();
+        const r = row.getBoundingClientRect();
+        let delta = 0;
+        if (c.left < r.left + EDGE_MARGIN) delta = c.left - (r.left + EDGE_MARGIN);
+        else if (c.right > r.right - EDGE_MARGIN) delta = c.right - (r.right - EDGE_MARGIN);
+        if (delta) row.scrollTo({ left: row.scrollLeft + delta, behavior: 'smooth' });
+    }
+
+    function centerCard(card, done) {
+        const h = half();
+        const maxLeft = track.scrollWidth - row.clientWidth;
+        let dest = card.offsetLeft - (row.clientWidth - card.offsetWidth) / 2;
+
+        // Magkapareho ang dalawang kalahati ng track, kaya pwedeng tumalon nang hindi halata
+        // para hindi maipit sa 0 o sa dulo ang pag-center
+        if (dest < 40) { row.scrollLeft += h; dest += h; }
+        else if (dest > maxLeft - 40) { row.scrollLeft -= h; dest -= h; }
+
+        centering = true;
+        let finished = false;
+        function finish() {
+            if (finished) return;
+            finished = true;
+            centering = false;
+            row.removeEventListener('scrollend', finish);
+            if (done) done();
+        }
+        row.addEventListener('scrollend', finish);
+        setTimeout(finish, 800);   // fallback para sa browser na walang scrollend
+        row.scrollTo({ left: dest, behavior: 'smooth' });
+    }
+
+    function openCard(card) {
         closeAll();
+        nudgeIntoView(card);
+        card.classList.add('is-open');
     }
 
-    function centerCard(card) {
-        const left = card.offsetLeft - (row.clientWidth - card.offsetWidth) / 2;
-        row.scrollTo({ left: left, behavior: 'smooth' });
+    // Sinusundan kung aling card ang nasa ilalim ng cursor
+    function sync() {
+        if (!mouseIn || dragging || pinned || lastType !== 'mouse') return;
+
+        const c = cardAtPoint();
+        if (c === target) return;
+        target = c;
+
+        clearTimeout(openTimer);
+        clearTimeout(closeTimer);
+
+        if (c) {
+            if (c.classList.contains('is-open')) return;
+            openTimer = setTimeout(function () {
+                if (cardAtPoint() === c) openCard(c);
+            }, OPEN_DELAY);
+        } else {
+            closeTimer = setTimeout(function () {
+                if (!cardAtPoint()) { closeAll(); pause(300); }
+            }, CLOSE_DELAY);
+        }
     }
 
-    // ===== Mouse drag =====
+    // ===== Mouse =====
+    row.addEventListener('pointerenter', function (e) {
+        if (e.pointerType === 'mouse') mouseIn = true;
+    });
+
+    row.addEventListener('pointermove', function (e) {
+        lastType = e.pointerType;
+        if (e.pointerType !== 'mouse') return;
+        mouseIn = true;
+        mx = e.clientX;
+        my = e.clientY;
+        sync();
+    });
+
+    row.addEventListener('pointerleave', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        mouseIn = false;
+        target = null;
+        clearTimeout(openTimer);
+        if (!pinned) closeAll();
+        pause(300);
+    });
+
+    // ===== Drag =====
     row.addEventListener('pointerdown', function (e) {
+        lastType = e.pointerType;
         if (e.pointerType !== 'mouse' || e.button !== 0) return;
-
-        // Click sa labas ng card: isara ang pinned
-        if (!e.target.closest('.nf-card')) unpin();
-
-        // Huwag mag-drag kapag button/link ang pinindot
         if (e.target.closest('a, button')) return;
 
         dragging = true;
@@ -81,9 +158,10 @@
         if (!dragging) return;
         const dx = e.clientX - startX;
         moved = Math.max(moved, Math.abs(dx));
+        if (moved > 5) { closeAll(); target = null; }
         row.scrollLeft = startScroll - dx;
         wrap();
-        startScroll = row.scrollLeft + dx;   // tamang offset pagkatapos mag-wrap
+        startScroll = row.scrollLeft + dx;
     });
 
     function endDrag() {
@@ -95,7 +173,7 @@
     window.addEventListener('pointerup', endDrag);
     window.addEventListener('pointercancel', endDrag);
 
-    // Huwag mag-click ng link/button/card kapag drag ang ginawa
+    // Huwag mag-click kapag drag ang ginawa
     row.addEventListener('click', function (e) {
         if (moved > 5) {
             e.preventDefault();
@@ -104,87 +182,63 @@
         }
     }, true);
 
-    // ===== Hover, touch, wheel: pause =====
-    row.addEventListener('mouseenter', function () { hovering = true; });
-    row.addEventListener('mouseleave', function () { hovering = false; pause(); });
-    row.addEventListener('touchstart', pause, { passive: true });
-    row.addEventListener('touchmove', pause, { passive: true });
-    row.addEventListener('touchend', pause, { passive: true });
+    // ===== Touch / wheel =====
+    ['touchstart', 'touchmove', 'touchend'].forEach(function (t) {
+        row.addEventListener(t, function () { pause(); }, { passive: true });
+    });
 
     row.addEventListener('wheel', function () {
         pause();
-        unpin();
+        pinned = null;
+        closeAll();
+        target = null;
     }, { passive: true });
 
-    // Habang nag-i-scroll ang user (touch/wheel), i-wrap
+    // Hindi mag-wrap habang dumudulas ang card papunta sa gitna
     row.addEventListener('scroll', function () {
-        if (!dragging) wrap();
+        if (!dragging && !centering) wrap();
     }, { passive: true });
 
-       // ===== Hover zoom (desktop) =====
-    // Buo ang kita: zoom lang. Nasa gilid: dumulas muna sa gitna, tapos zoom (pinned).
-    track.addEventListener('pointerover', function (e) {
-        if (e.pointerType !== 'mouse' || pinned) return;
-        const card = e.target.closest('.nf-card');
-        if (!card || card.classList.contains('is-open')) return;
-
-        clearTimeout(hoverTimer);
-        hoverTimer = setTimeout(function () {
-            if (fullyVisible(card)) {
-                closeAll();
-                card.classList.add('is-open');
-                return;
-            }
-            // Nasa gilid: pin, i-center, tapos zoom
-            pinned = card;
-            closeAll();
-            centerCard(card);
-            setTimeout(function () {
-                if (pinned === card) card.classList.add('is-open');
-            }, 450);
-        }, 150);
-    });
-
-    track.addEventListener('pointerout', function (e) {
-        if (e.pointerType !== 'mouse' || pinned) return;
-        const card = e.target.closest('.nf-card');
-        if (!card || card.contains(e.relatedTarget)) return;
-
-        clearTimeout(hoverTimer);
-        card.classList.remove('is-open');
-    });
-
-    // ===== Click/tap: i-center muna, tapos lumaki at manatili =====
+    // ===== Click / tap =====
     row.addEventListener('click', function (e) {
         if (e.target.closest('a, button')) return;   // Play, Live Demo, GitHub: normal
         const card = e.target.closest('.nf-card');
 
-        if (!card || card === pinned) {              // click ulit o sa labas: isara
-            unpin();
+        if (lastType === 'mouse') {
+            // Hover na ang bahala; kung hindi pa bukas, buksan agad
+            if (card && !card.classList.contains('is-open')) openCard(card);
             return;
         }
 
+        // Touch: tap = i-center at i-pin; tap ulit = isara
+        if (!card || card === pinned) {
+            pinned = null;
+            closeAll();
+            return;
+        }
         pinned = card;
-        clearTimeout(hoverTimer);
-        track.querySelectorAll('.is-open').forEach(function (c) {
-            if (c !== card) c.classList.remove('is-open');   // huwag isara ang mismong card (walang flicker)
-        });
-
-        centerCard(card);
-        setTimeout(function () {
+        closeAll();
+        centerCard(card, function () {
             if (pinned === card) card.classList.add('is-open');
-        }, 350);                                      // hintayin matapos ang pag-center
-        pause();
+        });
+        pause(3000);
     });
 
-    // Click sa labas ng projects row: isara ang pinned
     document.addEventListener('click', function (e) {
-        if (pinned && !e.target.closest('.nf-row')) unpin();
+        if (pinned && !e.target.closest('.nf-row')) {
+            pinned = null;
+            closeAll();
+        }
     });
 
     // ===== Auto-scroll loop =====
     function frame(now) {
-        const userBusy = hovering || dragging || now < resumeAt || track.querySelector('.is-open');
+        if (mouseIn) sync();   // gumagalaw ang card sa ilalim ng mouse kahit hindi gumagalaw ang mouse
+
+        const userBusy =
+            target || dragging || centering || pinned ||
+            now < resumeAt ||
+            track.querySelector('.is-open');
 
         if (userBusy || reduce) {
             pos = row.scrollLeft;
