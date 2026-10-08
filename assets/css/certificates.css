@@ -1,0 +1,863 @@
+/* =========================================================
+   Certificates section
+   All classes are prefixed cx-/certs- so they don't clash with
+   the .grid / .card styles the projects section uses.
+   ========================================================= */
+
+/* ---- Theme tokens (mapped to the variables in style.css / themes.css) ---- */
+.certs {
+  --cx-card-top: color-mix(in srgb, var(--color-surface) 55%, var(--color-bg));
+  --cx-card-bot: var(--color-surface);
+  --cx-text: var(--color-text);
+  --cx-muted: var(--color-text-muted);
+  --cx-accent: var(--color-accent);
+  --cx-accent-2: var(--color-primary);
+  --cx-bg: var(--color-bg);
+  --cx-border: var(--color-border);
+  --cx-shadow: color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+
+.certs-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.certs-count {
+  color: var(--cx-muted);
+  font-weight: 600;
+  margin-top: 6px;
+}
+.certs-count b {
+  color: var(--cx-accent);
+  font-size: 1.2em;
+}
+
+/* ---- Filter chips ---- */
+.certs-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.certs-chip {
+  border: 1px solid var(--color-control-border);
+  background: transparent;
+  color: var(--cx-text);
+  padding: 7px 16px;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+.certs-chip:hover {
+  border-color: var(--cx-accent);
+  transform: translateY(-2px);
+}
+.certs-chip.is-active {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent),
+    var(--color-accent-hover)
+  );
+  color: var(--color-on-accent);
+  border-color: transparent;
+  box-shadow: 0 6px 16px var(--cx-shadow);
+}
+
+/* ---- Coverflow stage ---- */
+.cx-stage {
+  --cw: min(400px, 76vw);
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  perspective: 1400px;
+  padding: 36px 0 44px;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.cx-stage:active {
+  cursor: grabbing;
+}
+.cx-stage:focus-visible {
+  outline: 2px solid var(--cx-accent);
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+.cx-item {
+  grid-area: 1 / 1;
+  width: var(--cw);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1.15, 0.36, 1),
+    opacity 0.5s;
+}
+.cx-item[hidden] {
+  display: none;
+}
+.cx-item img {
+  -webkit-user-drag: none;
+}
+/* only hide before reveal when JS is running, so the section never stays blank */
+.cx-js:not(.is-ready) .cx-item {
+  opacity: 0;
+  transform: scale(0.7);
+}
+.cx-item:not(.is-active) {
+  cursor: pointer;
+}
+.cx-item:not(.is-active) .cx-card {
+  filter: saturate(0.75) brightness(0.94);
+}
+.cx-item:not(.is-active) .cx-card * {
+  pointer-events: none;
+}
+
+/* ---- Controls under the stage ---- */
+.cx-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.cx-arrow {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--color-control-border);
+  background: var(--color-control-bg);
+  color: var(--cx-text);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+.cx-arrow:hover {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  transform: scale(1.1);
+}
+.cx-pips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cx-pip {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 99px;
+  background: var(--cx-border);
+  cursor: pointer;
+  transition:
+    width 0.35s,
+    background 0.35s;
+}
+.cx-pip {
+  position: relative;
+  overflow: hidden;
+}
+.cx-pip.on {
+  width: 30px;
+  background: linear-gradient(90deg, var(--cx-accent), var(--cx-accent-2));
+}
+/* autoplay countdown: a light layer drains across the active dot */
+.cx-pips.playing .cx-pip.on::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  transform-origin: right;
+  animation: cx-drain var(--cx-delay, 4500ms) linear forwards;
+}
+@keyframes cx-drain {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+.cx-play {
+  width: 38px;
+  height: 38px;
+  font-size: 0.8rem;
+}
+.cx-hint {
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--cx-muted);
+}
+
+/* ---- Card ---- */
+.cx-card {
+  position: relative;
+  height: 100%;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid var(--cx-border);
+  background: linear-gradient(160deg, var(--cx-card-top), var(--cx-card-bot));
+  color: var(--cx-text);
+  box-shadow: var(--shadow);
+  transform-style: preserve-3d;
+  transition: box-shadow 0.3s;
+}
+.cx-card:hover {
+  box-shadow: 0 22px 48px var(--cx-shadow);
+}
+
+/* spinning gradient ring on hover (ring only, so it never covers the card) */
+@property --cx-a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.cx-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--cx-a),
+    var(--cx-accent),
+    var(--cx-accent-2),
+    var(--cx-accent)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  animation: cx-spin 4s linear infinite;
+}
+.cx-card:hover::before {
+  opacity: 1;
+}
+@keyframes cx-spin {
+  to {
+    --cx-a: 360deg;
+  }
+}
+
+/* ---- Image ---- */
+.cx-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  cursor: zoom-in;
+  transform: translateZ(30px);
+}
+.cx-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.5s,
+    opacity 0.2s;
+}
+.cx-card:hover .cx-media img {
+  transform: scale(1.06);
+}
+.cx-media--empty {
+  display: grid;
+  place-items: center;
+  cursor: default;
+  color: var(--cx-muted);
+  background: var(--color-control-hover);
+}
+.cx-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+  background: radial-gradient(
+    circle at var(--px, 50%) var(--py, 50%),
+    rgba(255, 255, 255, 0.55),
+    transparent 55%
+  );
+}
+.cx-media:hover .cx-glare {
+  opacity: 1;
+}
+.cx-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: 0.25s;
+}
+.cx-media:hover .cx-zoom,
+.cx-media:focus-visible .cx-zoom {
+  opacity: 1;
+  transform: none;
+}
+
+.cx-badge {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--cx-bg);
+  box-shadow: var(--shadow);
+  transform: translateZ(50px);
+}
+
+/* ---- Text ---- */
+.cx-body {
+  padding: 16px 4px 4px;
+  transform: translateZ(20px);
+}
+.cx-body h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.cx-meta {
+  margin: 6px 0 0;
+  color: var(--cx-muted);
+  font-size: 0.95rem;
+}
+.cx-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  min-height: 28px;
+}
+.cx-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.cx-link:hover {
+  text-decoration: underline;
+}
+.cx-link .fa-arrow-up-right-from-square {
+  font-size: 0.7em;
+}
+
+/* ---- Mini pager ---- */
+.cx-pager {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cx-pager button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-control-border);
+  background: var(--color-control-bg);
+  color: var(--cx-text);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.cx-pager button:hover {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.cx-dots {
+  display: flex;
+  gap: 5px;
+}
+.cx-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cx-border);
+  transition: 0.25s;
+}
+.cx-dots i.on {
+  width: 18px;
+  border-radius: 9px;
+  background: var(--cx-accent);
+}
+
+/* ---- Lightbox ---- */
+.cx-lb {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: var(--overlay-modal);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s,
+    visibility 0.3s;
+}
+.cx-lb.open {
+  opacity: 1;
+  visibility: visible;
+}
+.cx-lb figure {
+  margin: 0;
+  text-align: center;
+}
+.cx-lb img {
+  max-width: min(92vw, 1000px);
+  max-height: 78vh;
+  border-radius: 14px;
+  box-shadow: var(--shadow-modal);
+  transform: scale(0.92);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cx-lb.open img {
+  transform: none;
+}
+.cx-lb figcaption {
+  margin-top: 14px;
+  color: #fff;
+  font-weight: 600;
+}
+.cx-lb figcaption small {
+  display: block;
+  opacity: 0.7;
+  font-weight: 500;
+}
+.cx-lb-btn {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cx-lb-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+.cx-lb-prev,
+.cx-lb-next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.cx-lb-prev {
+  left: 20px;
+}
+.cx-lb-next {
+  right: 20px;
+}
+.cx-lb-close {
+  top: 18px;
+  right: 22px;
+}
+
+/* =========================================================
+   Extra flair
+   ========================================================= */
+
+.cx-card {
+  transition:
+    box-shadow 0.3s,
+    filter 0.5s;
+}
+
+/* ---- Plays on the card that just arrived at the front ----
+   The card swings in from the side it came from (--cx-dir = 1 for next, -1 for previous) */
+.cx-pulse .cx-card {
+  animation: cx-arrive 0.75s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.cx-pulse .cx-media img {
+  animation: cx-zoomin 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cx-pulse .cx-seal {
+  animation: cx-pop 0.6s ease;
+}
+.cx-pulse .cx-index {
+  animation: cx-num 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+.cx-pulse .cx-body h3 {
+  animation: cx-rise 0.55s ease-out;
+}
+@keyframes cx-arrive {
+  0% {
+    transform: perspective(900px) translateX(calc(var(--cx-dir, 1) * 46px))
+      rotateY(calc(var(--cx-dir, 1) * -26deg)) scale(0.95);
+    filter: brightness(1.18);
+  }
+  100% {
+    transform: none;
+    filter: none;
+  }
+}
+@keyframes cx-zoomin {
+  from {
+    transform: scale(1.18);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes cx-num {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.6);
+  }
+  100% {
+    opacity: 0.6;
+    transform: none;
+  }
+}
+@keyframes cx-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Drifting colour orbs behind the section ---- */
+.certs {
+  position: relative;
+  isolation: isolate;
+}
+.cx-orbs {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    #000 35%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(ellipse at center, #000 35%, transparent 72%);
+}
+.cx-orbs span {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--orb) 0%, transparent 68%);
+  animation: cx-float 14s ease-in-out infinite alternate;
+}
+.cx-orbs span:nth-child(1) {
+  top: 2%;
+  left: 4%;
+  --orb: color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+.cx-orbs span:nth-child(2) {
+  top: 38%;
+  right: 2%;
+  --orb: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  animation-delay: -5s;
+}
+.cx-orbs span:nth-child(3) {
+  bottom: 0;
+  left: 35%;
+  --orb: color-mix(in srgb, var(--color-accent-hover) 40%, transparent);
+  animation-delay: -9s;
+}
+@keyframes cx-float {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(50px, -40px) scale(1.2);
+  }
+}
+
+/* ---- Heading: letters + moving underline ---- */
+.cx-ch {
+  display: inline-block;
+}
+.certs h2::after {
+  width: 90px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-primary),
+    var(--color-accent)
+  );
+  background-size: 200% 100%;
+  animation: cx-slide 3s linear infinite;
+}
+@keyframes cx-slide {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ---- Marquee strip ---- */
+.cx-marquee {
+  margin: 0 0 32px;
+  padding: 10px 0;
+  overflow: hidden;
+  border-block: 1px solid var(--cx-border);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+.cx-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: cx-marquee 30s linear infinite;
+}
+.cx-marquee:hover .cx-marquee-track {
+  animation-play-state: paused;
+}
+.cx-marquee-half {
+  display: flex;
+  flex-shrink: 0;
+}
+.cx-marquee span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 22px;
+  white-space: nowrap;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cx-muted);
+}
+.cx-marquee span::after {
+  content: "\2726";
+  margin-left: 44px;
+  color: var(--cx-accent);
+}
+@keyframes cx-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- Cursor spotlight inside each card ---- */
+.cx-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--cx-accent) 26%, transparent),
+    transparent 65%
+  );
+}
+.cx-card:hover::after {
+  opacity: 1;
+}
+
+/* ---- Holographic sheen on the certificate image ---- */
+.cx-glare::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  background: linear-gradient(
+    115deg,
+    transparent 15%,
+    rgba(255, 120, 200, 0.55) 32%,
+    rgba(120, 220, 255, 0.55) 48%,
+    rgba(255, 240, 120, 0.5) 64%,
+    transparent 82%
+  );
+  background-size: 250% 250%;
+  background-position: var(--px, 50%) var(--py, 50%);
+}
+
+/* ---- Shine sweep: on first reveal and on hover ---- */
+.cx-media::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  opacity: 0;
+  pointer-events: none;
+  transform: skewX(-20deg);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.75),
+    transparent
+  );
+}
+.cx-swept .cx-media::after,
+.cx-media:hover::after {
+  animation: cx-sweep 1s ease;
+}
+@keyframes cx-sweep {
+  from {
+    left: -60%;
+    opacity: 1;
+  }
+  to {
+    left: 130%;
+    opacity: 1;
+  }
+}
+
+/* ---- Award seal ---- */
+.cx-seal {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--color-on-accent);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent),
+    var(--color-accent-hover)
+  );
+  box-shadow: var(--shadow);
+  transform: translateZ(60px);
+}
+.cx-seal::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--cx-accent);
+  animation: cx-rot 12s linear infinite;
+}
+.cx-card:hover .cx-seal {
+  animation: cx-pop 0.6s ease;
+}
+@keyframes cx-rot {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes cx-pop {
+  40% {
+    scale: 1.25;
+  }
+}
+
+/* ---- Big outlined index number ---- */
+.cx-body {
+  position: relative;
+}
+.cx-body h3 {
+  padding-right: 3.4rem;
+}
+.cx-index {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--cx-accent);
+  opacity: 0.6;
+  pointer-events: none;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+.cx-card:hover .cx-index {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+  .cx-lb-prev {
+    left: 8px;
+  }
+  .cx-lb-next {
+    right: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cx-pips.playing .cx-pip.on::after,
+  .cx-card::before,
+  .cx-orbs span,
+  .cx-marquee-track,
+  .cx-seal::before,
+  .certs h2::after {
+    animation: none;
+  }
+  .cx-card,
+  .cx-item,
+  .cx-media img,
+  .cx-lb,
+  .cx-lb img {
+    transition: none;
+  }
+  .cx-pulse .cx-card,
+  .cx-pulse .cx-media img,
+  .cx-pulse .cx-seal,
+  .cx-pulse .cx-index,
+  .cx-pulse .cx-body h3 {
+    animation: none;
+  }
+}
