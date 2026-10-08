@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="assets/css/about.css">
     <link rel="stylesheet" href="assets/css/themes.css">
     <link rel="stylesheet" href="assets/css/resume-viewer.css">
-       <link rel="stylesheet" href="assets/css/certificates.css">
+    <link rel="stylesheet" href="assets/css/certificates.css">
     <script src="assets/js/theme.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -42,11 +42,11 @@
         </button>
 
         <nav id="nav">
-            <a href="<?= e($navBase) ?>#home"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="<?= e($navBase) ?>#about"><i class="fa-solid fa-user"></i> About</a>
-            <a href="<?= e($navBase) ?>#projects"><i class="fa-solid fa-laptop-code"></i> Projects</a>
-            <a href="<?= e($navBase) ?>#certificates"><i class="fa-solid fa-certificate"></i> Certificates</a>
-            <a href="<?= e($navBase) ?>#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="<?= e($navBase) ?>#home"><span class="nav-inner"><i class="fa-solid fa-house"></i> Home</span></a>
+            <a href="<?= e($navBase) ?>#about"><span class="nav-inner"><i class="fa-solid fa-user"></i> About</span></a>
+            <a href="<?= e($navBase) ?>#projects"><span class="nav-inner"><i class="fa-solid fa-laptop-code"></i> Projects</span></a>
+            <a href="<?= e($navBase) ?>#certificates"><span class="nav-inner"><i class="fa-solid fa-certificate"></i> Certificates</span></a>
+            <a href="<?= e($navBase) ?>#contact"><span class="nav-inner"><i class="fa-solid fa-envelope"></i> Contact</span></a>
         </nav>
     </header>
     <main>
