@@ -1,0 +1,79 @@
+#contact {
+  text-align: center;
+}
+#contact h2::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Higher specificity so it wins even if an old .contact-btn rule is still around */
+.contact-buttons .contact-btn {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px; /* space between icon and text */
+  padding: 10px 28px;
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.contact-buttons .contact-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.contact-buttons .contact-btn i {
+  flex: none;
+  margin-right: 4px; /* extra breathing room */
+  font-size: 1.1em;
+  color: var(--color-primary);
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+.contact-buttons .contact-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  color: var(--color-on-accent);
+}
+.contact-buttons .contact-btn:hover::before {
+  transform: scaleX(1);
+}
+.contact-buttons .contact-btn:hover i {
+  color: var(--color-on-accent);
+  transform: scale(1.2) rotate(-10deg);
+}
+.contact-buttons .contact-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.contact-buttons .contact-btn:focus-visible {
+  outline: 3px solid var(--color-accent-hover);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-buttons .contact-btn i {
+    transition: none;
+  }
+}
