@@ -2,6 +2,8 @@
 
 /** @var array $data */ ?>
 <?php $navBase = $navBase ?? ''; ?>
+<?php $favicon = !empty($data['favicon']) ? $data['favicon'] : 'assets/img/favicon.ico'; ?>
+<link rel="icon" href="<?= e($navBase . $favicon) ?>" type="image/x-icon">
 <!DOCTYPE html>
 <html lang="en">
 
