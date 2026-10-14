@@ -29,8 +29,8 @@
     },
     {
       "icon": "fa-solid fa-palette",
-      "title": "Backend focus",
-      "text": "Layouts, themes and small details"
+      "title": "Backend Focus",
+      "text": "REST APIs, event loops and databases"
     },
     {
       "icon": "fa-solid fa-laptop-code",
