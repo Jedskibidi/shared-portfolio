@@ -40,18 +40,11 @@
   ],
   "projects": [
     {
-      "title": "Project One",
-      "description": "Short description of what the project does.",
-      "image": "assets/img/jed/projects/project1.jpg",
-      "tech": ["HTML", "CSS", "JavaScript"],
-      "link": ""
-    },
-    {
-      "title": "Project Two",
-      "description": "Short description of what the project does.",
-      "image": "assets/img/jed/projects/project2.jpg",
-      "tech": ["PHP", "MySQL"],
-      "link": ""
+      "title": "Moodoro",
+      "description": "A Pomodoro task manager that detects your mood through your webcam. It uses face-api.js to read your facial expression before and after each focus session, then shows reports on your mood trends, hours focused, and day streaks.",
+      "image": "assets/img/jed/projects/Moodoro.png",
+      "tech": ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "face-api.js"],
+      "link": "http://localhost/Moodoro/main.php"
     }
   ],
   "certificates": [
@@ -60,8 +53,8 @@
       "issuer": "ASEAN Foundation",
       "date": "April 24,2026",
       "image": [
-        "assets/img/jed/certificates/ASEANAI1.jpg",
-        "assets/img/jed/certificates/ASEANAI2.jpg"
+        "assets/img/jed/certificates/AseanAI1.jpg",
+        "assets/img/jed/certificates/AseanAI2.jpg"
       ]
     },
     {
@@ -78,11 +71,11 @@
     }
   ],
   "contact": {
-  "email": "tambonijed@gmail.com",
-  "github": "https://github.com/Jedskibidi",
-  "linkedin": "https://linkedin.com/in/username",
-  "facebook": "https://www.facebook.com/jedai.mnltd",
-  "instagram": "https://www.instagram.com/jed.yeyo",
-  "form_endpoint": "https://formspree.io/f/xkjogjwk"
-}
+    "email": "tambonijed@gmail.com",
+    "github": "https://github.com/Jedskibidi",
+    "linkedin": "https://linkedin.com/in/username",
+    "facebook": "https://www.facebook.com/jedai.mnltd",
+    "instagram": "https://www.instagram.com/jed.yeyo",
+    "form_endpoint": "https://formspree.io/f/xkjogjwk"
+  }
 }
