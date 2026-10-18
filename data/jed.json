@@ -11,14 +11,14 @@
   "skills": [
     "HTML",
     "CSS",
-    "JavaScript",
-    "PHP",
     "MySQL",
+    "SQLite",
     "React",
     "Node.js",
+    "express.js",
+    "JavaScript",
     "Git",
-    "Responsive Design",
-    "SQL",
+    "PHP",
     "Laravel"
   ],
   "facts": [
