@@ -52,6 +52,13 @@
       "tech": ["HTML", "CSS", "Node.js", "Express.js", "React.js"],
       "link": "https://wesync-shmf.onrender.com"
     }
+    , {
+      "title": "Authentiwrite",
+      "description": "A Word/Docs like essay editor that records how students write, including typing time, pastes, pauses, and revisions. Its scoring engine turns the data into an indicator of possible AI use, with every score point tied to a human readable flag for teacher review. Built with JWT authentication and role based access.",
+      "image": "assets/img/jed/projects/Authentiwrite.jpg",
+      "tech": ["Node.js", "Express.js", "React.js, vite, JWT"],
+      "link": "https://authentiwrite-puce.vercel.app/"
+    }
   ],
   "certificates": [
     {
