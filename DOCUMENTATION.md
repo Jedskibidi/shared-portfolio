@@ -180,7 +180,7 @@ If a project has neither `demo`/`link` nor `github`, the card shows no buttons.
 
 ## 4. Page sections
 
-`index.php` includes the sections in this order. Each file reads from `$data` and is shared by both people.
+`index.php` includes the sections in this order. Each file reads from `$data` and is shared by every portfolio.
 
 | File                        | Section      | What it does                                                                                                                                                                         |
 | --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -301,10 +301,10 @@ What happens after this change:
 
 - `https://your-site.com/` shows Christine's portfolio.
 - The nav links, the Email button, and the "Back to portfolio" link only add `?user=` when the person is **not** the default, so they stay clean too.
-- `?user=jed` still works if you want to preview the other portfolio, because Jed is still in `ALLOWED_USERS`.
+- `?user=jed` still works if you want to preview another portfolio, because Jed is still in `ALLOWED_USERS`.
 - Anyone who is not in `ALLOWED_USERS` still falls back to the default.
 
-Each of you can deploy your own copy with your own name as the default. Keep both names in `ALLOWED_USERS` if you want to be able to preview either one.
+Each person can deploy their own copy with their own name as the default. Keep every name in `ALLOWED_USERS` if you want to preview any of the portfolios with `?user=`.
 
 ### Vercel
 
@@ -360,7 +360,7 @@ Edit the `$devicon` (or `$faIcons`) array at the top of `sections/about.php`.
 
 Change `DEFAULT_USER` in `includes/functions.php` to that person's name (see [section 9](#9-deployment)). The site then works at the plain address with no `?user=`.
 
-### Add a third person
+### Add another person
 
 1. Add the name to `ALLOWED_USERS` in `includes/functions.php`.
 2. Copy `data/jed.json` to `data/<name>.json` and edit it.
@@ -377,7 +377,7 @@ Change `DEFAULT_USER` in `includes/functions.php` to that person's name (see [se
 - **Cache busting.** Some scripts are linked with a version, like `header.js?v=3`. When you edit one of these files and visitors don't see the change, increase the number.
 - **Script order matters.** `certificates.js` runs after the Certificates section and waits for `DOMContentLoaded` because the libraries it uses are loaded with `defer`.
 - **Theme code lives in two places.** The small script at the top of `header.php` and `theme.js` both read the `theme` key from `localStorage`. If you rename the key, change it in both.
-- **Shared files affect both people.** Anything in `sections/`, `includes/`, and `assets/css`/`assets/js` changes both portfolios. Change `data/` and `assets/img/<name>/` for one person only.
+- **Shared files affect everyone.** Anything in `sections/`, `includes/`, and `assets/css`/`assets/js` changes every portfolio. Change `data/` and `assets/img/<name>/` for one person only.
 - **Optional fields can be left out.** The code uses defaults for optional fields such as `resume`, `facebook`, `instagram`, `demo`, and `github`.
 
 ---
@@ -389,7 +389,7 @@ Change `DEFAULT_USER` in `includes/functions.php` to that person's name (see [se
 | Page shows `Missing data/<name>.json`        | The JSON file doesn't exist for that name. Check the file name and `ALLOWED_USERS`.                                        |
 | Page shows `... has invalid JSON: <message>` | A syntax error in the data file, usually a missing comma or an extra trailing comma. Paste the file into a JSON validator. |
 | `?user=someone` shows Jed's portfolio        | `someone` isn't in `ALLOWED_USERS`, so the default is used.                                                                |
-| The plain link shows the wrong person        | `DEFAULT_USER` in `includes/functions.php` is set to the other name. Change it to the owner of the site.                   |
+| The plain link shows the wrong person        | `DEFAULT_USER` in `includes/functions.php` is set to a different name. Change it to the owner of the site.                 |
 | An image doesn't show                        | Check the path and the exact file name and capitalization. Paths are case sensitive on most servers.                       |
 | Console says "Theme gif not found"           | A GIF for that theme is missing from `assets/img/<name>/gifs/`.                                                            |
 | Resume popup stays on "Loading resume..."    | The PDF path is wrong, or PDF.js could not load (no internet or the CDN is blocked).                                       |

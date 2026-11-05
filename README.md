@@ -2,7 +2,7 @@
 
 One portfolio design, two people. Built by **Jed Manaloto** and **Christine Fauni** with HTML, CSS, JavaScript, and PHP.
 
-Both portfolios share the same layout, styling, and code. Each person's content (text, projects, certificates, images) lives in its own data file, so the site renders a different portfolio depending on the `?user=` parameter in the URL.
+All portfolios share the same layout, styling, and code. Each person's content (text, projects, certificates, images) lives in its own data file, so the site renders a different portfolio depending on the `?user=` parameter in the URL.
 
 ## Features
 
@@ -35,7 +35,7 @@ shared-portfolio/
 ├── data/
 │   ├── jed.json         # Jed's content
 │   └── christine.json   # Christine's content
-├── sections/            # Page sections shared by both portfolios
+├── sections/            # Page sections shared by all portfolios
 │   ├── hero.php
 │   ├── about.php
 │   ├── projects.php
@@ -98,7 +98,7 @@ Each `data/<name>.json` supports these fields:
 | `certificates`                             | Each with `title`, `issuer`, `date`, and `image`                                        |
 | `contact`                                  | `email`, `github`, `linkedin`, optional `facebook` and `instagram`, and `form_endpoint` |
 
-## Adding a Third Person
+## Adding Another Person
 
 1. Add the name to `ALLOWED_USERS` in `includes/functions.php`.
 2. Copy `data/jed.json` to `data/<name>.json` and fill in the new details.
@@ -123,9 +123,9 @@ to the name of the person the site is for, for example:
 const DEFAULT_USER  = 'christine';
 ```
 
-Now `https://your-site.com/` shows Christine's portfolio, and the navigation and contact links stay clean too, with no `?user=` added. Each of you can deploy your own copy this way, each with your own name as the default.
+Now `https://your-site.com/` shows Christine's portfolio, and the navigation and contact links stay clean too, with no `?user=` added. Anyone using this project can deploy their own copy this way, with their own name as the default.
 
-Local testing with `?user=` still works whenever you want to preview the other person's version.
+Local testing with `?user=` still works whenever you want to preview another person's version.
 
 ### Vercel
 
