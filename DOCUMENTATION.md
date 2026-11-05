@@ -46,12 +46,12 @@ Key points:
 
 ### Helper functions (`includes/functions.php`)
 
-| Name | What it does |
-| --- | --- |
-| `ALLOWED_USERS` | List of valid portfolio names. A person must be listed here to be shown. |
-| `DEFAULT_USER` | Who is shown when `?user=` is missing or invalid (currently `jed`). |
-| `e($value)` | Escapes text with `htmlspecialchars`. Use it for **every** value printed into HTML. |
-| `current_user()` | Returns the validated, lowercase user name. |
+| Name                  | What it does                                                                                                      |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `ALLOWED_USERS`       | List of valid portfolio names. A person must be listed here to be shown.                                          |
+| `DEFAULT_USER`        | Who is shown when `?user=` is missing or invalid (currently `jed`).                                               |
+| `e($value)`           | Escapes text with `htmlspecialchars`. Use it for **every** value printed into HTML.                               |
+| `current_user()`      | Returns the validated, lowercase user name.                                                                       |
 | `load_content($user)` | Reads and decodes `data/<user>.json`. Stops with a clear message if the file is missing or contains invalid JSON. |
 
 ---
@@ -89,29 +89,33 @@ Each person has a `data/<name>.json`. The file must be **valid JSON** (double qu
 
 ### Top level fields
 
-| Field | Required | Description |
-| --- | --- | --- |
-| `site_title` | Yes | Text in the browser tab. |
-| `name` | Yes | Full name. The first word is used for the logo and the "Hello, I'm" text. |
-| `title` | Yes | Job title or role. It is typed out under the name in the hero. |
-| `tagline` | No | Short line shown in the hero and under the About photo. |
-| `intro` | No | Overrides the hero description. The hero uses the first one found: `intro`, then `tagline`, then `about`. |
-| `about` | Yes | Bio text. The first sentence is shown larger as a "lead", the rest as normal text. |
-| `profile_image` | Yes | Path to the profile photo. |
-| `profile_gifs` | No | Folder with one GIF per theme (see [Themes](#6-themes)). |
-| `profile_image_alt` | No | A single alternate image, used only if `profile_gifs` is not set. |
-| `favicon` | No | Path to the `.ico` file for the browser tab. |
-| `resume` | No | Path to the resume PDF. Defaults to `assets/files/resume-public.pdf`. |
-| `skills` | Yes | List of skill names (strings). |
-| `facts` | No | List of highlight tiles (see below). |
-| `projects` | No | List of projects (see below). |
-| `certificates` | No | List of certificates (see below). |
-| `contact` | Yes | Contact links (see below). |
+| Field               | Required | Description                                                                                               |
+| ------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `site_title`        | Yes      | Text in the browser tab.                                                                                  |
+| `name`              | Yes      | Full name. The first word is used for the logo and the "Hello, I'm" text.                                 |
+| `title`             | Yes      | Job title or role. It is typed out under the name in the hero.                                            |
+| `tagline`           | No       | Short line shown in the hero and under the About photo.                                                   |
+| `intro`             | No       | Overrides the hero description. The hero uses the first one found: `intro`, then `tagline`, then `about`. |
+| `about`             | Yes      | Bio text. The first sentence is shown larger as a "lead", the rest as normal text.                        |
+| `profile_image`     | Yes      | Path to the profile photo.                                                                                |
+| `profile_gifs`      | No       | Folder with one GIF per theme (see [Themes](#6-themes)).                                                  |
+| `profile_image_alt` | No       | A single alternate image, used only if `profile_gifs` is not set.                                         |
+| `favicon`           | No       | Path to the `.ico` file for the browser tab.                                                              |
+| `resume`            | No       | Path to the resume PDF. Defaults to `assets/files/resume-public.pdf`.                                     |
+| `skills`            | Yes      | List of skill names (strings).                                                                            |
+| `facts`             | No       | List of highlight tiles (see below).                                                                      |
+| `projects`          | No       | List of projects (see below).                                                                             |
+| `certificates`      | No       | List of certificates (see below).                                                                         |
+| `contact`           | Yes      | Contact links (see below).                                                                                |
 
 ### `facts` item
 
 ```json
-{ "icon": "fa-solid fa-code", "title": "C++ and Java", "text": "Solid programming foundation" }
+{
+  "icon": "fa-solid fa-code",
+  "title": "C++ and Java",
+  "text": "Solid programming foundation"
+}
 ```
 
 `icon` is any [Font Awesome 6](https://fontawesome.com/icons) class string. The first fact sits beside the number tiles; the rest are shown as wide tiles.
@@ -130,13 +134,13 @@ Each person has a `data/<name>.json`. The file must be **valid JSON** (double qu
 }
 ```
 
-| Field | Notes |
-| --- | --- |
-| `title`, `description`, `image` | Shown on the card. |
-| `tech` | Shown as small tags. |
-| `link` | Used for the "Live Demo" button and the play icon. |
-| `demo` | **Optional.** If present, it is used instead of `link`. |
-| `github` | **Optional.** Adds a GitHub button. |
+| Field                           | Notes                                                   |
+| ------------------------------- | ------------------------------------------------------- |
+| `title`, `description`, `image` | Shown on the card.                                      |
+| `tech`                          | Shown as small tags.                                    |
+| `link`                          | Used for the "Live Demo" button and the play icon.      |
+| `demo`                          | **Optional.** If present, it is used instead of `link`. |
+| `github`                        | **Optional.** Adds a GitHub button.                     |
 
 If a project has neither `demo`/`link` nor `github`, the card shows no buttons.
 
@@ -147,27 +151,30 @@ If a project has neither `demo`/`link` nor `github`, the card shows no buttons.
   "title": "AI Class ASEAN",
   "issuer": "ASEAN Foundation",
   "date": "April 24, 2026",
-  "image": ["assets/img/jed/certificates/AseanAI1.jpg", "assets/img/jed/certificates/AseanAI2.jpg"],
+  "image": [
+    "assets/img/jed/certificates/AseanAI1.jpg",
+    "assets/img/jed/certificates/AseanAI2.jpg"
+  ],
   "link": "https://verify.example.com/abc",
   "linkLabel": "View credential"
 }
 ```
 
-| Field | Notes |
-| --- | --- |
-| `image` | Either **one path (string)** or **a list of paths**. A list adds previous/next buttons on the card. |
-| `issuer` | Used for the badge and the filter chips. The filter only appears when there is more than one issuer. |
-| `link` | Optional. Shows a "Verify" button (or your `linkLabel` text). |
-| `linkLabel` | Optional custom text for the button. |
+| Field       | Notes                                                                                                |
+| ----------- | ---------------------------------------------------------------------------------------------------- |
+| `image`     | Either **one path (string)** or **a list of paths**. A list adds previous/next buttons on the card.  |
+| `issuer`    | Used for the badge and the filter chips. The filter only appears when there is more than one issuer. |
+| `link`      | Optional. Shows a "Verify" button (or your `linkLabel` text).                                        |
+| `linkLabel` | Optional custom text for the button.                                                                 |
 
 ### `contact`
 
-| Field | Notes |
-| --- | --- |
-| `email` | Used for the mailto fallback and the resume request fallback. |
-| `github`, `linkedin` | Always shown as buttons. |
-| `facebook`, `instagram` | Optional. The button only appears if the value is not empty. |
-| `form_endpoint` | Formspree URL. If empty, the Email button becomes a `mailto:` link. |
+| Field                   | Notes                                                               |
+| ----------------------- | ------------------------------------------------------------------- |
+| `email`                 | Used for the mailto fallback and the resume request fallback.       |
+| `github`, `linkedin`    | Always shown as buttons.                                            |
+| `facebook`, `instagram` | Optional. The button only appears if the value is not empty.        |
+| `form_endpoint`         | Formspree URL. If empty, the Email button becomes a `mailto:` link. |
 
 ---
 
@@ -175,14 +182,14 @@ If a project has neither `demo`/`link` nor `github`, the card shows no buttons.
 
 `index.php` includes the sections in this order. Each file reads from `$data` and is shared by both people.
 
-| File | Section | What it does |
-| --- | --- | --- |
-| `sections/hero.php` | Home | Typewriter text (name, then title), tagline, **Choose theme** and **View Resume** buttons, and the profile photo that swaps to a GIF on interaction. Also includes the resume modal. |
-| `sections/about.php` | About | A "bento" grid: photo, bio, skills with logos, numbers that count up (skills, projects, certificates), and fact tiles. The counts update automatically from the JSON. |
-| `sections/projects.php` | Projects | A Netflix style automatically scrolling row of cards that you can drag. The list is repeated to fill the row and doubled for a seamless loop. |
-| `sections/certificates.php` | Certificates | A 3D carousel with an issuer filter, a scrolling text ticker, autoplay, and a full size image viewer (lightbox). |
-| `sections/contact.php` | Contact | Buttons for Email, GitHub, LinkedIn, and optionally Facebook and Instagram. |
-| `sections/resume-modal.php` | (Popup) | The resume preview and the "Request full resume" form. |
+| File                        | Section      | What it does                                                                                                                                                                         |
+| --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `sections/hero.php`         | Home         | Typewriter text (name, then title), tagline, **Choose theme** and **View Resume** buttons, and the profile photo that swaps to a GIF on interaction. Also includes the resume modal. |
+| `sections/about.php`        | About        | A "bento" grid: photo, bio, skills with logos, numbers that count up (skills, projects, certificates), and fact tiles. The counts update automatically from the JSON.                |
+| `sections/projects.php`     | Projects     | A Netflix style automatically scrolling row of cards that you can drag. The list is repeated to fill the row and doubled for a seamless loop.                                        |
+| `sections/certificates.php` | Certificates | A 3D carousel with an issuer filter, a scrolling text ticker, autoplay, and a full size image viewer (lightbox).                                                                     |
+| `sections/contact.php`      | Contact      | Buttons for Email, GitHub, LinkedIn, and optionally Facebook and Instagram.                                                                                                          |
+| `sections/resume-modal.php` | (Popup)      | The resume preview and the "Request full resume" form.                                                                                                                               |
 
 ### Skill icons
 
@@ -194,16 +201,16 @@ If a project has neither `demo`/`link` nor `github`, the card shows no buttons.
 
 All files are plain JavaScript (no build step). They are loaded in `header.php` or `footer.php`.
 
-| File | Loaded in | Purpose |
-| --- | --- | --- |
-| `theme.js` | header (defer) | Theme list, theme menu, saving the choice, and switching the profile GIFs. |
-| `about.js` | header (defer) | About section effects: reveal on scroll and numbers that count up (uses GSAP). |
-| `main.js` | footer | Mobile menu, highlighting the active nav link, and submitting the contact form. |
-| `hero.js` | footer | Typewriter effect with a glow wave across the letters. |
-| `resume-viewer.js` | footer | Resume popup: loads PDF.js, draws pages with a watermark, and handles the request form. |
-| `header.js` | footer | Letter animation for the logo. |
-| `projects.js` | footer | Automatic scrolling, drag, and hover zoom for the project cards. |
-| `certificates.js` | after the Certificates section | The 3D carousel, filter, autoplay, lightbox, and confetti. |
+| File               | Loaded in                      | Purpose                                                                                 |
+| ------------------ | ------------------------------ | --------------------------------------------------------------------------------------- |
+| `theme.js`         | header (defer)                 | Theme list, theme menu, saving the choice, and switching the profile GIFs.              |
+| `about.js`         | header (defer)                 | About section effects: reveal on scroll and numbers that count up (uses GSAP).          |
+| `main.js`          | footer                         | Mobile menu, highlighting the active nav link, and submitting the contact form.         |
+| `hero.js`          | footer                         | Typewriter effect with a glow wave across the letters.                                  |
+| `resume-viewer.js` | footer                         | Resume popup: loads PDF.js, draws pages with a watermark, and handles the request form. |
+| `header.js`        | footer                         | Letter animation for the logo.                                                          |
+| `projects.js`      | footer                         | Automatic scrolling, drag, and hover zoom for the project cards.                        |
+| `certificates.js`  | after the Certificates section | The 3D carousel, filter, autoplay, lightbox, and confetti.                              |
 
 Most scripts check that their elements exist before running, and respect the visitor's **reduced motion** setting by skipping animations.
 
@@ -280,6 +287,25 @@ Both the contact page (`email.php`) and the resume request form post to **Formsp
 
 ## 9. Deployment
 
+### Clean links without `?user=`
+
+For a real deployment you don't need `?user=` in the link. Set the default user to the owner of that site, and the plain address shows their portfolio.
+
+In `includes/functions.php`, change `DEFAULT_USER`:
+
+```php
+const DEFAULT_USER  = 'christine';   // was 'jed'
+```
+
+What happens after this change:
+
+- `https://your-site.com/` shows Christine's portfolio.
+- The nav links, the Email button, and the "Back to portfolio" link only add `?user=` when the person is **not** the default, so they stay clean too.
+- `?user=jed` still works if you want to preview the other portfolio, because Jed is still in `ALLOWED_USERS`.
+- Anyone who is not in `ALLOWED_USERS` still falls back to the default.
+
+Each of you can deploy your own copy with your own name as the default. Keep both names in `ALLOWED_USERS` if you want to be able to preview either one.
+
 ### Vercel
 
 `vercel.json` sets up the following:
@@ -311,22 +337,31 @@ The page loads these from the internet, so visitors need a connection for them t
 ## 10. Common tasks
 
 ### Add a project
+
 1. Put the screenshot in `assets/img/<name>/projects/`.
 2. Add an object to `projects` in `data/<name>.json` (see the [schema](#projects-item)).
 3. Refresh. The About counter and project row update automatically.
 
 ### Add a certificate
+
 1. Put the image(s) in `assets/img/<name>/certificates/`.
 2. Add an object to `certificates` in `data/<name>.json`.
 3. If you use a new `issuer` name, a new filter chip appears on its own.
 
 ### Change the resume
+
 Replace `assets/files/resume-public.pdf`, or set a different `resume` path in your data file. For separate resumes, put each in `assets/files/` and set `resume` for each person.
 
 ### Change a skill's icon
+
 Edit the `$devicon` (or `$faIcons`) array at the top of `sections/about.php`.
 
+### Deploy one person's portfolio on a clean link
+
+Change `DEFAULT_USER` in `includes/functions.php` to that person's name (see [section 9](#9-deployment)). The site then works at the plain address with no `?user=`.
+
 ### Add a third person
+
 1. Add the name to `ALLOWED_USERS` in `includes/functions.php`.
 2. Copy `data/jed.json` to `data/<name>.json` and edit it.
 3. Create `assets/img/<name>/` with `certificates/`, `projects/`, `img/` (profile and favicon), and `gifs/` (five theme GIFs).
@@ -349,14 +384,15 @@ Edit the `$devicon` (or `$faIcons`) array at the top of `sections/about.php`.
 
 ## 12. Troubleshooting
 
-| Problem | Likely cause and fix |
-| --- | --- |
-| Page shows `Missing data/<name>.json` | The JSON file doesn't exist for that name. Check the file name and `ALLOWED_USERS`. |
+| Problem                                      | Likely cause and fix                                                                                                       |
+| -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Page shows `Missing data/<name>.json`        | The JSON file doesn't exist for that name. Check the file name and `ALLOWED_USERS`.                                        |
 | Page shows `... has invalid JSON: <message>` | A syntax error in the data file, usually a missing comma or an extra trailing comma. Paste the file into a JSON validator. |
-| `?user=someone` shows Jed's portfolio | `someone` isn't in `ALLOWED_USERS`, so the default is used. |
-| An image doesn't show | Check the path and the exact file name and capitalization. Paths are case sensitive on most servers. |
-| Console says "Theme gif not found" | A GIF for that theme is missing from `assets/img/<name>/gifs/`. |
-| Resume popup stays on "Loading resume..." | The PDF path is wrong, or PDF.js could not load (no internet or the CDN is blocked). |
-| Contact form doesn't send | `form_endpoint` is empty or wrong, or the Formspree form isn't confirmed. |
-| Style or script changes don't appear | The browser cached the old file. Hard refresh, or raise the `?v=` number. |
-| Works locally but not on Vercel | Check that `vercel.json` and the `api/` folder are included in the deployment. |
+| `?user=someone` shows Jed's portfolio        | `someone` isn't in `ALLOWED_USERS`, so the default is used.                                                                |
+| The plain link shows the wrong person        | `DEFAULT_USER` in `includes/functions.php` is set to the other name. Change it to the owner of the site.                   |
+| An image doesn't show                        | Check the path and the exact file name and capitalization. Paths are case sensitive on most servers.                       |
+| Console says "Theme gif not found"           | A GIF for that theme is missing from `assets/img/<name>/gifs/`.                                                            |
+| Resume popup stays on "Loading resume..."    | The PDF path is wrong, or PDF.js could not load (no internet or the CDN is blocked).                                       |
+| Contact form doesn't send                    | `form_endpoint` is empty or wrong, or the Formspree form isn't confirmed.                                                  |
+| Style or script changes don't appear         | The browser cached the old file. Hard refresh, or raise the `?v=` number.                                                  |
+| Works locally but not on Vercel              | Check that `vercel.json` and the `api/` folder are included in the deployment.                                             |

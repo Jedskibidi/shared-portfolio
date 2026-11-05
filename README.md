@@ -16,14 +16,14 @@ Both portfolios share the same layout, styling, and code. Each person's content 
 
 ## Tech Stack
 
-| Area | Tools |
-| --- | --- |
-| Backend | PHP 8.4 |
-| Frontend | HTML, CSS, vanilla JavaScript |
+| Area            | Tools                                               |
+| --------------- | --------------------------------------------------- |
+| Backend         | PHP 8.4                                             |
+| Frontend        | HTML, CSS, vanilla JavaScript                       |
 | Libraries (CDN) | GSAP + ScrollTrigger, canvas-confetti, Font Awesome |
-| Fonts | Nunito, Quicksand (Google Fonts) |
-| Forms | Formspree |
-| Deployment | Vercel (`vercel-php`) or Docker (Apache) |
+| Fonts           | Nunito, Quicksand (Google Fonts)                    |
+| Forms           | Formspree                                           |
+| Deployment      | Vercel (`vercel-php`) or Docker (Apache)            |
 
 ## Project Structure
 
@@ -65,38 +65,38 @@ You need [PHP](https://www.php.net/downloads) installed. From the project folder
 php -S localhost:8000
 ```
 
-Then open:
+Then open the site and add `?user=` followed by your name. The name matches your data file in the `data/` folder, so `?user=jed` reads `data/jed.json` and `?user=christine` reads `data/christine.json`.
 
 - Jed's portfolio: <http://localhost:8000/?user=jed>
 - Christine's portfolio: <http://localhost:8000/?user=christine>
 
-If no `user` is given (or the name isn't recognized), Jed's portfolio is shown because it is set as the default.
+Without `?user=`, the default person is shown. You can change who that is in `includes/functions.php`.
 
 ## Where to Edit
 
-| What | Where |
-| --- | --- |
-| Your text, skills, projects, certificates, contact links | `data/<name>.json` |
-| Your images | `assets/img/<name>/` (keep the same file names when replacing) |
-| Page sections (shared by both) | `sections/` |
-| Styling (shared by both) | `assets/css/style.css` |
-| Color themes | `assets/css/themes.css` and `assets/js/theme.js` |
+| What                                                     | Where                                                          |
+| -------------------------------------------------------- | -------------------------------------------------------------- |
+| Your text, skills, projects, certificates, contact links | `data/<name>.json`                                             |
+| Your images                                              | `assets/img/<name>/` (keep the same file names when replacing) |
+| Page sections (shared by both)                           | `sections/`                                                    |
+| Styling (shared by both)                                 | `assets/css/style.css`                                         |
+| Color themes                                             | `assets/css/themes.css` and `assets/js/theme.js`               |
 
 ### Data file fields
 
 Each `data/<name>.json` supports these fields:
 
-| Field | Description |
-| --- | --- |
-| `site_title`, `name`, `title`, `tagline` | Page title and hero text |
-| `profile_image`, `profile_gifs`, `favicon` | Paths to images and the GIF folder |
-| `resume` | Path to the resume PDF (optional, defaults to `assets/files/resume-public.pdf`) |
-| `about` | Short bio |
-| `skills` | List of skills |
-| `facts` | Quick highlights, each with `icon`, `title`, and `text` |
-| `projects` | Each with `title`, `description`, `image`, `tech`, `link`, and an optional `demo` |
-| `certificates` | Each with `title`, `issuer`, `date`, and `image` |
-| `contact` | `email`, `github`, `linkedin`, optional `facebook` and `instagram`, and `form_endpoint` |
+| Field                                      | Description                                                                             |
+| ------------------------------------------ | --------------------------------------------------------------------------------------- |
+| `site_title`, `name`, `title`, `tagline`   | Page title and hero text                                                                |
+| `profile_image`, `profile_gifs`, `favicon` | Paths to images and the GIF folder                                                      |
+| `resume`                                   | Path to the resume PDF (optional, defaults to `assets/files/resume-public.pdf`)         |
+| `about`                                    | Short bio                                                                               |
+| `skills`                                   | List of skills                                                                          |
+| `facts`                                    | Quick highlights, each with `icon`, `title`, and `text`                                 |
+| `projects`                                 | Each with `title`, `description`, `image`, `tech`, `link`, and an optional `demo`       |
+| `certificates`                             | Each with `title`, `issuer`, `date`, and `image`                                        |
+| `contact`                                  | `email`, `github`, `linkedin`, optional `facebook` and `instagram`, and `form_endpoint` |
 
 ## Adding a Third Person
 
@@ -106,6 +106,26 @@ Each `data/<name>.json` supports these fields:
 4. Visit `/?user=<name>`.
 
 ## Deployment
+
+### Clean links without `?user=`
+
+When you deploy, you don't need `?user=jed` or `?user=christine` in the link. Instead, set the default user to the owner of that deployment, and the plain link will show their portfolio.
+
+In `includes/functions.php`, change this line:
+
+```php
+const DEFAULT_USER  = 'jed';
+```
+
+to the name of the person the site is for, for example:
+
+```php
+const DEFAULT_USER  = 'christine';
+```
+
+Now `https://your-site.com/` shows Christine's portfolio, and the navigation and contact links stay clean too, with no `?user=` added. Each of you can deploy your own copy this way, each with your own name as the default.
+
+Local testing with `?user=` still works whenever you want to preview the other person's version.
 
 ### Vercel
 
