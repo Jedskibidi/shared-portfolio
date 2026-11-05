@@ -127,4 +127,4 @@ The contact form and the "Request full resume" form post to the Formspree URL in
 ## Authors
 
 - **Jed Manaloto**: [GitHub](https://github.com/Jedskibidi)
-- **Christine Fauni**
+- **Christine Fauni**: [GitHub](https://github.com/christinefauni)
