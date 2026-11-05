@@ -7,10 +7,10 @@ Both portfolios share the same layout, styling, and code. Each person's content 
 ## Features
 
 - **Two portfolios, one codebase.** Switch between them with `?user=jed` or `?user=christine`.
-- **Content-driven.** Everything on the page comes from a JSON file, so there is no need to touch the HTML to update your info.
+- **Driven by content.** Everything on the page comes from a JSON file, so there is no need to touch the HTML to update your info.
 - **Five color themes.** Daybreak, Nightfall, Strawberry, Lavender, and Sunset, each with its own animated GIF. The chosen theme is remembered between visits.
 - **Sections.** Hero, About (skills and quick facts), Projects, Certificates, and Contact.
-- **Resume viewer.** An in-page PDF preview with a "Request full resume" form for visitors who want the complete version.
+- **Resume viewer.** A PDF preview inside the page with a "Request full resume" form for visitors who want the complete version.
 - **Contact form.** Messages are sent through [Formspree](https://formspree.io), with a mailto fallback if no form endpoint is set.
 - **Animations.** Scroll effects with GSAP and a bit of confetti.
 
