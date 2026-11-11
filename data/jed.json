@@ -58,7 +58,7 @@
       "description": "Wesync is a small web app for listening to music together, even when you are far apart. One person creates a room and shares a 4-character code or an invite link. Everyone who joins hears the same song at the same moment.",
       "image": "assets/img/jed/projects/Wesync.jpg",
       "tech": ["HTML", "CSS", "Node.js", "Express.js", "React.js"],
-      "link": "https://wesync-shmf.onrender.com"
+      "link": "https://wesync-one.vercel.app"
     },
     {
       "title": "Authentiwrite (WIP)",
