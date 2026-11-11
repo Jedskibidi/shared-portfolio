@@ -1,4 +1,5 @@
 <?php
+
 /** @var array $data */
 
 $rvEndpoint = $data['contact']['form_endpoint'] ?? '';
@@ -6,8 +7,8 @@ $rvEmail    = $data['contact']['email'] ?? '';
 $rvSrc      = $data['resume'] ?? 'assets/files/resume-public.pdf';
 ?>
 <div class="rv-overlay" id="resumeViewer" role="dialog" aria-modal="true" aria-labelledby="rvTitle"
-     data-src="<?= e($rvSrc) ?>"
-     data-watermark="<?= e($data['name'] . ' - Public copy') ?>" hidden>
+    data-src="<?= e($rvSrc) ?>"
+    data-watermark="<?= e($data['name'] . ' - Public copy') ?>" hidden>
     <div class="rv-panel">
 
         <div class="rv-bar">
@@ -20,7 +21,7 @@ $rvSrc      = $data['resume'] ?? 'assets/files/resume-public.pdf';
             </button>
             <button type="button" class="rv-close" id="rvCloseBtn" aria-label="Close resume preview">&times;</button>
         </div>
-        
+
         <div class="rv-body rv-protected" id="rvViewPanel">
             <p class="rv-note" id="rvLoading" role="status">Loading resume...</p>
             <div class="rv-pages" id="rvPages"></div>
@@ -56,7 +57,8 @@ $rvSrc      = $data['resume'] ?? 'assets/files/resume-public.pdf';
                 </form>
             <?php else: ?>
                 <p class="rv-note">The request form isn't set up yet. You can email me at
-                    <a href="mailto:<?= e($rvEmail) ?>?subject=<?= rawurlencode('Full resume request') ?>"><?= e($rvEmail) ?></a>.</p>
+                    <a href="mailto:<?= e($rvEmail) ?>?subject=<?= rawurlencode('Full resume request') ?>"><?= e($rvEmail) ?></a>.
+                </p>
             <?php endif; ?>
         </div>
 

@@ -1,4 +1,6 @@
-<?php /** @var array $data */ ?>
+<?php
+
+/** @var array $data */ ?>
 </main>
 <footer class="site-footer">
     <p>&copy; <?= date('Y') ?> <?= e($data['name']) ?>. All rights reserved.</p>
@@ -10,4 +12,5 @@
 <script src="assets/js/header.js?v=3"></script>
 <script src="assets/js/projects.js?v=1"></script>
 </body>
+
 </html>
