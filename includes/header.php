@@ -32,7 +32,7 @@
     <script src="assets/js/theme.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="assets/js/about.js" defer></script>
+    <script src="assets/js/scroll-replay.js" defer></script>
 </head>
 
 <body>
