@@ -7,9 +7,13 @@ $tagline = $data['tagline'] ?? '';
 $skills = $data['skills'] ?? [];
 $facts = $data['facts'] ?? [];
 
-$aboutLead = trim($data['about'] ?? '');
+$aboutIntro = $data['about_intro'] ?? [];
+$compactAbout = !empty($aboutIntro['headline']);
+$aboutLead = trim($compactAbout ? $aboutIntro['headline'] : ($data['about'] ?? ''));
 $aboutRest = '';
-if (preg_match('/^(.+?[.!?])\s+(.+)$/su', $aboutLead, $sentences)) {
+if ($compactAbout) {
+    $aboutRest = trim($aboutIntro['description'] ?? '');
+} elseif (preg_match('/^(.+?[.!?])\s+(.+)$/su', $aboutLead, $sentences)) {
     $aboutLead = $sentences[1];
     $aboutRest = $sentences[2];
 }
@@ -48,21 +52,28 @@ $skillIcons = [
 $hasProjects = !empty($data['projects']);
 $hasCertificates = !empty($data['certificates']);
 ?>
-<section id="about" class="about" aria-labelledby="about-heading">
+<section id="about" class="about<?= $compactAbout ? ' about--compact' : '' ?>" aria-labelledby="about-heading">
     <h2 id="about-heading" class="about-heading">About me</h2>
 
     <div class="about-intro" data-about-reveal>
         <div class="about-copy">
-            <h3 class="about-name"><?= e($name) ?></h3>
-            <?php if ($role !== ''): ?>
-                <p class="about-role"><?= e($role) ?></p>
+            <?php if ($compactAbout): ?>
+                <p class="about-headline"><?= e($aboutLead) ?></p>
+            <?php else: ?>
+                <h3 class="about-name"><?= e($name) ?></h3>
+                <?php if ($role !== ''): ?>
+                    <p class="about-role"><?= e($role) ?></p>
+                <?php endif; ?>
+                <?php if ($aboutLead !== ''): ?>
+                    <p class="about-lead"><?= e($aboutLead) ?></p>
+                <?php endif; ?>
             <?php endif; ?>
 
-            <?php if ($aboutLead !== ''): ?>
-                <p class="about-lead"><?= e($aboutLead) ?></p>
-            <?php endif; ?>
             <?php if ($aboutRest !== ''): ?>
                 <p class="about-rest"><?= e($aboutRest) ?></p>
+            <?php endif; ?>
+            <?php if ($compactAbout && !empty($aboutIntro['availability'])): ?>
+                <p class="about-availability"><?= e($aboutIntro['availability']) ?></p>
             <?php endif; ?>
         </div>
 
@@ -78,13 +89,13 @@ $hasCertificates = !empty($data['certificates']);
                     <span class="about-initials" aria-hidden="true"><?= e($initials) ?></span>
                 <?php endif; ?>
             </div>
-            <?php if ($tagline !== ''): ?>
+            <?php if (!$compactAbout && $tagline !== ''): ?>
                 <figcaption><?= e($tagline) ?></figcaption>
             <?php endif; ?>
         </figure>
     </div>
 
-    <?php if ($facts): ?>
+    <?php if (!$compactAbout && $facts): ?>
         <ul class="about-facts" data-about-reveal>
             <?php foreach ($facts as $fact): ?>
                 <li class="about-fact">
@@ -118,7 +129,7 @@ $hasCertificates = !empty($data['certificates']);
         </div>
     <?php endif; ?>
 
-    <?php if ($hasProjects || $hasCertificates): ?>
+    <?php if (!$compactAbout && ($hasProjects || $hasCertificates)): ?>
         <nav class="about-actions" aria-label="Explore the portfolio" data-about-reveal>
             <?php if ($hasProjects): ?>
                 <a class="about-action" href="#projects">

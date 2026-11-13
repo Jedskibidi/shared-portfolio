@@ -8,6 +8,11 @@
   "tagline": "Turning ideas into working software.",
   "favicon": "assets/img/jed/img/favicon.ico",
   "about": "I am a passionate computer science student with a strong interest in web development. I enjoy creating dynamic and responsive websites, and I am always eager to learn new technologies and improve my skills.",
+  "about_intro": {
+    "headline": "I’m a computer science student focused on backend development.",
+    "description": "I work with REST APIs and databases.",
+    "availability": "Open to opportunities"
+  },
   "skills": [
     "HTML",
     "CSS",

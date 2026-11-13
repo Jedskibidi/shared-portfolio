@@ -10,6 +10,10 @@
   --about-section-gap: clamp(1.5rem, 3.5vw, 2.5rem);
 }
 
+.about--compact {
+  padding-block: clamp(2rem, 4vw, 3.25rem) 1rem;
+}
+
 .about .about-heading,
 .about-stack-heading {
   display: flex;
@@ -31,15 +35,56 @@
   background: var(--color-accent);
 }
 
+.about--compact .about-heading {
+  margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
+}
+
 .about-intro {
   display: grid;
+  grid-template-areas: "copy profile";
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.54fr);
   align-items: center;
   gap: clamp(1.5rem, 4vw, 3.5rem);
 }
 
+.about--compact .about-intro {
+  grid-template-areas: "profile copy";
+  grid-template-columns: minmax(0, 0.5fr) minmax(0, 1fr);
+}
+
 .about-copy {
+  grid-area: copy;
   overflow-wrap: anywhere;
+}
+
+.about-headline {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 1.1rem + 2.9vw, 2.9rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.13;
+}
+
+.about--compact .about-rest {
+  margin-top: 0.75rem;
+  font-size: clamp(1rem, 0.9rem + 0.45vw, 1.2rem);
+}
+
+.about-availability {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.7rem 0 0;
+  font-weight: 600;
+}
+
+.about-availability::before {
+  content: "";
+  flex: 0 0 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--about-accent);
 }
 
 .about-name {
@@ -71,9 +116,14 @@
 }
 
 .about-profile {
+  grid-area: profile;
   justify-self: end;
   width: min(100%, 18rem);
   margin: 0;
+}
+
+.about--compact .about-profile {
+  justify-self: center;
 }
 
 .about-portrait {
@@ -165,6 +215,11 @@
   margin-top: var(--about-section-gap);
 }
 
+.about--compact .about-stack {
+  padding-top: var(--about-section-gap);
+  border-top: 1px solid var(--color-border);
+}
+
 .about-skills {
   display: flex;
   flex-wrap: wrap;
@@ -235,8 +290,17 @@
 }
 
 @media (max-width: 640px) {
-  .about-intro {
+  .about-intro,
+  .about--compact .about-intro {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-intro {
+    grid-template-areas: "copy" "profile";
+  }
+
+  .about--compact .about-intro {
+    grid-template-areas: "profile" "copy";
   }
 
   .about-profile {
