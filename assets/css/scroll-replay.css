@@ -19,12 +19,51 @@
   .sr-enter[data-replay="right"] {
     animation-name: sr-right;
   }
+
+  /* Projects: the heading/row transition plays first, then the cards rise in
+     one after another. Change --cards-wait to start the cards sooner or later.
+     Tied to the row (not each card) so dragging/auto-scroll never retriggers it. */
+  .film.sr-enter {
+    --cards-wait: 700ms;
+    --card-step: 90ms;
+  }
+  .film.sr-enter .nf-card {
+    animation: sr-card-in 700ms cubic-bezier(0.25, 0.45, 0.35, 1) backwards;
+  }
+  .film.sr-enter .nf-card:nth-child(1) {
+    animation-delay: calc(var(--cards-wait));
+  }
+  .film.sr-enter .nf-card:nth-child(2) {
+    animation-delay: calc(var(--cards-wait) + var(--card-step));
+  }
+  .film.sr-enter .nf-card:nth-child(3) {
+    animation-delay: calc(var(--cards-wait) + var(--card-step) * 2);
+  }
+  .film.sr-enter .nf-card:nth-child(4) {
+    animation-delay: calc(var(--cards-wait) + var(--card-step) * 3);
+  }
+  .film.sr-enter .nf-card:nth-child(5) {
+    animation-delay: calc(var(--cards-wait) + var(--card-step) * 4);
+  }
+  .film.sr-enter .nf-card:nth-child(6) {
+    animation-delay: calc(var(--cards-wait) + var(--card-step) * 5);
+  }
 }
 
 @keyframes sr-up {
   from {
     opacity: 0.25;
     transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sr-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
