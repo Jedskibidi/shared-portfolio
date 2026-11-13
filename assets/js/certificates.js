@@ -269,15 +269,34 @@ document.addEventListener("DOMContentLoaded", () => {
   if (countEl && hasGsap && !reduce) countEl.textContent = 0;
 
   /* ---------- reveal: cards fan out from the middle when scrolled into view ---------- */
+  let sweepTimers = [];
   function makeReady() {
     if (ready) return;
     ready = true;
     stage.classList.add("is-ready");
     layout();
-    visible.forEach((it, i) =>
+    sweepTimers = visible.map((it, i) =>
       setTimeout(() => it.classList.add("cx-swept"), 600 + i * 150),
     );
     animateCount(visible.length);
+  }
+
+  /* replay: when the section fully leaves the screen, reset so the fan-out plays again */
+  function resetReveal() {
+    if (!ready) return;
+    ready = false;
+    stopAuto();
+    sweepTimers.forEach(clearTimeout);
+    sweepTimers = [];
+    stage.classList.remove("is-ready");
+    allItems.forEach((it) => {
+      it.classList.remove("cx-swept", "cx-pulse");
+      it.style.opacity = "";
+      it.style.transform = "";
+    });
+    idx = mid();
+    lastActive = null;
+    if (countEl && hasGsap && !reduce) countEl.textContent = 0;
   }
   buildPips();
   if ("IntersectionObserver" in window) {
@@ -290,6 +309,12 @@ document.addEventListener("DOMContentLoaded", () => {
       { threshold: 0.25 },
     );
     io.observe(stage);
+    new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) resetReveal();
+      },
+      { threshold: 0 },
+    ).observe(stage);
   } else {
     inView = true;
     makeReady();
