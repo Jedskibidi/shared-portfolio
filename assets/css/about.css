@@ -370,7 +370,7 @@
     position: absolute;
     z-index: 1;
     inset: 0;
-    padding: 4px;
+    padding: 4px;  
     border-radius: inherit;
     pointer-events: none;
     background: conic-gradient(
