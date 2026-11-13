@@ -1187,18 +1187,59 @@ section h2::after {
     width: min(260px, 100%);
   }
 
-  /* Projects row */
+  /* Projects row (compact cards on phones) */
   .film {
-    --pitch: 29px;
-  } /* (270 + 20) / 10 */
+    --pitch: 25px;
+  } /* (230 + 20) / 10 */
+  .nf-track {
+    padding: 56px 0;
+  }
   .nf-card {
-    flex-basis: 270px;
+    flex-basis: 230px;
+  }
+  .nf-card.is-open {
+    transform: scale(1.06);
   }
   .nf-card:has(~ .nf-card.is-open) {
-    transform: translateX(-20px);
+    transform: translateX(-14px);
   }
   .nf-card.is-open ~ .nf-card {
-    transform: translateX(20px);
+    transform: translateX(14px);
+  }
+  .nf-card img {
+    height: 120px;
+  }
+  .nf-info {
+    padding: 12px 14px 14px;
+  }
+  .nf-info h3 {
+    font-size: 1rem;
+  }
+  .nf-info p {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+  }
+  .nf-tags {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .nf-tags li {
+    padding: 1px 10px;
+    font-size: 0.7rem;
+  }
+  .nf-actions {
+    gap: 8px;
+  }
+  .nf-btn {
+    padding: 5px 14px;
+    font-size: 0.78rem;
+  }
+  .nf-play i {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
   }
 }
 
