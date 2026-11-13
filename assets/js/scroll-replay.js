@@ -1,27 +1,19 @@
-/*
- * scroll-replay.js
- * Replays "enter" animations every time an element scrolls back into view,
- * instead of only once. Replaces the one-time observer in about.js.
+/**
+ * File: scroll-replay.js
+ * Path: assets/js/scroll-replay.js
  *
- * HOW TO ADD A NEW SECTION LATER:
- *   Add one object to REPLAY_SECTIONS below. That's it.
- *
- * Each entry:
- *   section : CSS selector of the section wrapper
- *   targets : CSS selector (inside the section) of the elements to animate
- *   enter   : class that triggers the CSS animation (must exist in your CSS)
- *   delayVar: CSS variable used for stagger delay (optional, set to null to skip)
+ * Purpose: Replays scroll-reveal animations every time an element comes back
+ * into view (scrolling down or up) instead of only once. Handles the About
+ * section and any element tagged with a data-replay attribute
+ * (values: fade, zoom, left, right; no value slides up). New sections are
+ * added as one entry in REPLAY_SECTIONS. Pairs with assets/css/scroll-replay.css.
  */
-
-// "both" = replay on scroll down AND up
-// "up"   = replay only when scrolling up (first reveal on the way down still plays)
-// "down" = replay only when scrolling down
 const REPLAY_MODE = "both";
 
-const THRESHOLD = 0.15; // how much of the element must be visible
-const STAGGER_STEP = 40; // ms between siblings
-const STAGGER_MAX = 440; // ms cap
-const SETTLE_MS = 1500; // an element can't reset until its animation has had this long
+const THRESHOLD = 0.15;
+const STAGGER_STEP = 40;
+const STAGGER_MAX = 440;
+const SETTLE_MS = 1500;
 
 const REPLAY_SECTIONS = [
   {
@@ -32,12 +24,6 @@ const REPLAY_SECTIONS = [
     enter: "about-enter",
     delayVar: "--about-reveal-delay",
   },
-  // Generic: any element with a data-replay attribute, anywhere on the page.
-  // data-replay            -> slides up
-  // data-replay="fade"     -> fades in
-  // data-replay="zoom"     -> zooms in
-  // data-replay="left" / "right" -> slides in from that side
-  // New portfolio items only need the attribute in the PHP, no JS changes.
   {
     section: "body",
     targets: "[data-replay]",
@@ -52,7 +38,6 @@ const REPLAY_SECTIONS = [
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reducedMotion.matches) return;
 
-  // Track scroll direction
   let lastY = window.scrollY;
   let direction = "down";
   window.addEventListener(
@@ -73,16 +58,10 @@ const REPLAY_SECTIONS = [
     const section = document.querySelector(cfg.section);
     if (!section) return;
 
-    const seen = new WeakSet(); // elements that already played once
-    const visibleNow = new WeakMap(); // latest known "on screen" state per element
-    const enteredAt = new WeakMap(); // when the animation was last started
+    const seen = new WeakSet();
+    const visibleNow = new WeakMap();
+    const enteredAt = new WeakMap();
 
-    // The enter animation moves/scales the element, which changes how much of it
-    // is visible. Without a guard, an element sitting at the screen edge would
-    // flip between "entered" and "left" forever (flicker). So:
-    //  - play when at least THRESHOLD of it is visible
-    //  - only reset once it is completely off screen AND the animation has had
-    //    time to finish (SETTLE_MS)
     function reset(el) {
       el.classList.remove(cfg.enter);
     }
@@ -106,7 +85,6 @@ const REPLAY_SECTIONS = [
             continue;
           }
 
-          // Visible, but not enough yet (or already playing): do nothing
           if (intersectionRatio < THRESHOLD) continue;
           if (target.classList.contains(cfg.enter)) continue;
 
@@ -124,7 +102,6 @@ const REPLAY_SECTIONS = [
             target.style.setProperty(cfg.delayVar, `${delay}ms`);
           }
 
-          // Restart the animation
           target.classList.remove(cfg.enter);
           void target.offsetWidth;
           target.classList.add(cfg.enter);

@@ -1,6 +1,9 @@
-/* scroll-replay.css
- * Animations for elements tagged with data-replay (see scroll-replay.js).
- * Add a new style: copy a block below and use data-replay="yourname".
+/**
+ * File: scroll-replay.css
+ * Path: assets/css/scroll-replay.css
+ *
+ * Purpose: Entrance animations for elements tagged with data-replay and the
+ * staggered Projects card entrance, triggered by assets/js/scroll-replay.js.
  */
 @media (prefers-reduced-motion: no-preference) {
   .sr-enter {
@@ -20,9 +23,6 @@
     animation-name: sr-right;
   }
 
-  /* Projects: the heading/row transition plays first, then the cards rise in
-     one after another. Change --cards-wait to start the cards sooner or later.
-     Tied to the row (not each card) so dragging/auto-scroll never retriggers it. */
   .film.sr-enter {
     --cards-wait: 700ms;
     --card-step: 90ms;
