@@ -336,14 +336,46 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
     animation-name: about-portrait-enter;
   }
 
+  /* Dice roll, then open up.
+     Phase 1 (1100ms): the chip is clipped to a square (--die-size = chip height)
+     showing only its icon, and rolls in like a die: four 90deg flips.
+     Phase 2 (450ms): the clip opens to the full chip and the name is revealed.
+     Layout never changes: the chip always keeps its full final width. */
   .about .about-skill.about-roll {
     position: relative;
     z-index: 1;
+    transform-origin: calc(var(--die-size, 2.3rem) / 2) 50%;
     animation:
       about-skill-roll-move 1100ms linear var(--about-roll-delay, 0ms) backwards,
       about-skill-roll-spin 1100ms linear var(--about-roll-delay, 0ms) backwards,
-      about-skill-roll-fade 1100ms linear var(--about-roll-delay, 0ms) backwards;
+      about-skill-roll-fade 1100ms linear var(--about-roll-delay, 0ms) backwards,
+      about-skill-expand 450ms cubic-bezier(0.3, 0.7, 0.3, 1)
+        calc(var(--about-roll-delay, 0ms) + 1100ms) backwards,
+      about-skill-border 450ms ease calc(var(--about-roll-delay, 0ms) + 1100ms)
+        backwards;
     will-change: translate, rotate, opacity;
+  }
+
+  /* The square die outline, shown only while rolling. */
+  .about .about-skill.about-roll::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--die-size, 2.3rem);
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border);
+    border-radius: 0.6rem;
+    pointer-events: none;
+    animation: about-skill-die-outline 450ms ease
+      calc(var(--about-roll-delay, 0ms) + 1100ms) both;
+  }
+
+  /* The icon sits centred in the die, then slides to its normal spot. */
+  .about .about-skill.about-roll i {
+    animation: about-skill-icon 450ms cubic-bezier(0.3, 0.7, 0.3, 1)
+      calc(var(--about-roll-delay, 0ms) + 1100ms) backwards;
   }
 
   .about :is(.about-heading, .about-stack-heading).about-enter::after {
@@ -512,6 +544,42 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
   }
   100% {
     rotate: 0deg;
+  }
+}
+
+@keyframes about-skill-expand {
+  from {
+    clip-path: inset(0 calc(100% - var(--die-size, 2.3rem)) 0 0 round 0.6rem);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0.6rem);
+  }
+}
+
+@keyframes about-skill-border {
+  from {
+    border-color: transparent;
+  }
+  to {
+    border-color: var(--color-border);
+  }
+}
+
+@keyframes about-skill-die-outline {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes about-skill-icon {
+  from {
+    translate: var(--die-shift, 0px) 0;
+  }
+  to {
+    translate: 0 0;
   }
 }
 
