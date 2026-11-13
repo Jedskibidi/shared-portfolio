@@ -313,6 +313,12 @@
   }
 }
 
+@property --about-portrait-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .about .about-enter {
     animation: about-enter 900ms cubic-bezier(0.25, 0.45, 0.35, 1)
@@ -326,18 +332,6 @@
   .about .about-skill.about-enter {
     animation-name: about-skill-enter;
     animation-duration: 700ms;
-  }
-
-  .about .about-profile.about-enter .about-portrait::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    box-shadow: inset 0 0 0 2px var(--about-accent);
-    opacity: 0;
-    pointer-events: none;
-    animation: about-portrait-highlight 1100ms ease-out
-      calc(var(--about-reveal-delay, 0ms) + 220ms) backwards;
   }
 
   .about :is(.about-heading, .about-stack-heading).about-enter::after {
@@ -367,6 +361,34 @@
 
   .about-action:active .fa-arrow-right {
     transform: translateX(5px);
+  }
+}
+
+@supports (mask-composite: exclude) {
+  .about-portrait::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    padding: 2px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--about-portrait-angle, 0deg),
+      transparent 0deg 278deg,
+      var(--color-primary, var(--about-accent)) 348deg 352deg,
+      transparent 360deg
+    );
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .about-portrait::after {
+      animation: about-portrait-orbit 6s linear infinite;
+    }
   }
 }
 
@@ -424,14 +446,9 @@
   }
 }
 
-@keyframes about-portrait-highlight {
-  from,
+@keyframes about-portrait-orbit {
   to {
-    opacity: 0;
-  }
-
-  34% {
-    opacity: 0.85;
+    --about-portrait-angle: 1turn;
   }
 }
 
