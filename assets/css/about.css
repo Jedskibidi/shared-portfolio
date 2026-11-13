@@ -336,11 +336,6 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
     animation-name: about-portrait-enter;
   }
 
-  /* Dice roll, then open up.
-     Phase 1 (1100ms): the chip is clipped to a square (--die-size = chip height)
-     showing only its icon, and rolls in like a die: four 90deg flips.
-     Phase 2 (450ms): the clip opens to the full chip and the name is revealed.
-     Layout never changes: the chip always keeps its full final width. */
   .about .about-skill.about-roll {
     position: relative;
     z-index: 1;
@@ -356,7 +351,6 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
     will-change: translate, rotate, opacity;
   }
 
-  /* The square die outline, shown only while rolling. */
   .about .about-skill.about-roll::after {
     content: "";
     position: absolute;
@@ -372,7 +366,6 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
       calc(var(--about-roll-delay, 0ms) + 1100ms) both;
   }
 
-  /* The icon sits centred in the die, then slides to its normal spot. */
   .about .about-skill.about-roll i {
     animation: about-skill-icon 450ms cubic-bezier(0.3, 0.7, 0.3, 1)
       calc(var(--about-roll-delay, 0ms) + 1100ms) backwards;
@@ -478,11 +471,6 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
   }
 }
 
-/* Dice roll: each chip rolls in from the left like a die on a table.
-   Four 90deg flips (one full turn), hopping a little on every flip and
-   covering four chip-heights of distance (--roll-dist, set in about.js).
-   translate / rotate are animated as separate properties so the hops and
-   the flips can use their own easing. */
 @keyframes about-skill-roll-move {
   0% {
     translate: calc(var(--roll-dist, 9rem) * -1) 0;

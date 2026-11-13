@@ -21,23 +21,19 @@ const REPLAY_SECTIONS = [
     delayVar: "--about-reveal-delay",
   },
   {
-    // Tech stack chips roll in like dice, one after another (about-roll in about.css).
     section: "#about",
     targets: ".about-skill",
     enter: "about-roll",
     delayVar: "--about-roll-delay",
-    start: 250, // ms before the first chip rolls, lets the "Tech stack" heading appear first
-    step: 190, // ms between each chip
+    start: 250,
+    step: 190,
     max: 4000,
     prepare(chip) {
-      // The die is a square as wide as the chip is tall.
-      // A die rolls one side-length per 90deg flip: 4 flips = 4 chip heights.
       const size = chip.offsetHeight || 36;
       chip.style.setProperty("--die-size", `${size}px`);
       chip.style.setProperty("--roll-dist", `${size * 4}px`);
       chip.style.setProperty("--roll-hop", `${Math.round(size * 0.45)}px`);
 
-      // Shift so the icon is centred inside the square die while it rolls.
       const icon = chip.querySelector("i");
       if (icon) {
         const chipBox = chip.getBoundingClientRect();
