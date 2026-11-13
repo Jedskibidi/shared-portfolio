@@ -2,6 +2,21 @@
 
 One portfolio design, two people. Built by **Jed Manaloto** and **Christine Fauni** with HTML, CSS, JavaScript, and PHP.
 
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Run Locally](#run-locally)
+- [Where to Edit](#where-to-edit)
+- [Adding Another Person](#adding-another-person)
+- [Deployment](#deployment)
+- [Setting Up the Contact Form](#setting-up-the-contact-form)
+- [Documentation](#documentation)
+- [Authors](#authors)
+
+> Full technical details are in [DOCUMENTATION.md](DOCUMENTATION.md).
+
 All portfolios share the same layout, styling, and code. Each person's content (text, projects, certificates, images) lives in its own data file, so the site renders a different portfolio depending on the `?user=` parameter in the URL.
 
 ## Features
@@ -143,6 +158,10 @@ Then open <http://localhost:10000>. The container serves the site with Apache on
 ## Setting Up the Contact Form
 
 The contact form and the "Request full resume" form post to the Formspree URL in `contact.form_endpoint` in each person's data file. To use your own, create a form on Formspree and replace the endpoint. If it is left empty, the site falls back to a plain `mailto:` link.
+
+## Documentation
+
+- [DOCUMENTATION.md](DOCUMENTATION.md): full technical documentation
 
 ## Authors
 
