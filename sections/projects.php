@@ -2,7 +2,7 @@
 
 /** @var array $data */ ?>
 <section id="projects">
-    <h2>Projects</h2>
+    <h2 data-replay>Projects</h2>
 
     <?php
     $projects = $data['projects'] ?? [];
@@ -12,7 +12,7 @@
             $items = array_merge($items, $projects);
         }
     ?>
-        <div class="film">
+        <div class="film" data-replay>
             <div class="nf-row">
                 <div class="nf-track">
                     <?php foreach ([0, 1] as $copy): /* dalawang kopya para seamless ang loop */ ?>

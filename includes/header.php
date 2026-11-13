@@ -11,7 +11,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-        // Apply saved theme before first paint (avoids a light flash). Keep in sync with assets/js/theme.js
         try {
             var t = localStorage.getItem('theme');
             if (t && t !== 'light') document.documentElement.dataset.theme = t;
@@ -26,6 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/about.css">
+    <link rel="stylesheet" href="assets/css/scroll-replay.css">
     <link rel="stylesheet" href="assets/css/themes.css">
     <link rel="stylesheet" href="assets/css/resume-viewer.css">
     <link rel="stylesheet" href="assets/css/certificates.css">

@@ -8,7 +8,7 @@ $ticker  = array_values(array_unique(array_filter(array_merge($issuers, array_co
 <section id="certificates" class="certs">
     <div class="cx-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
 
-    <div class="certs-head">
+    <div class="certs-head" data-replay>
         <div>
             <h2>Certificates</h2>
             <p class="certs-count"><b id="certsCount" data-count="<?= count($certs) ?>"><?= count($certs) ?></b> earned</p>
@@ -25,7 +25,7 @@ $ticker  = array_values(array_unique(array_filter(array_merge($issuers, array_co
     </div>
 
     <?php if (!empty($ticker)): ?>
-        <div class="cx-marquee" aria-hidden="true">
+        <div class="cx-marquee" aria-hidden="true" data-replay="fade">
             <div class="cx-marquee-track">
                 <?php for ($h = 0; $h < 2; $h++): ?>
                     <div class="cx-marquee-half">

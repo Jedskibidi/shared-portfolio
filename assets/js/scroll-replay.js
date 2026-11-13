@@ -31,13 +31,13 @@ const REPLAY_SECTIONS = [
     enter: "about-enter",
     delayVar: "--about-reveal-delay",
   },
-  // Example for a future section:
-  // {
-  //   section: "#projects",
-  //   targets: ".projects-heading, .project-card",
-  //   enter: "projects-enter",
-  //   delayVar: "--projects-reveal-delay",
-  // },
+  
+  {
+    section: "body",
+    targets: "[data-replay]",
+    enter: "sr-enter",
+    delayVar: "--sr-delay",
+  },
 ];
 
 (() => {
@@ -87,7 +87,10 @@ const REPLAY_SECTIONS = [
           if (cfg.delayVar) {
             const parent = target.parentElement;
             const delay = siblingDelays.get(parent) ?? 0;
-            siblingDelays.set(parent, Math.min(delay + STAGGER_STEP, STAGGER_MAX));
+            siblingDelays.set(
+              parent,
+              Math.min(delay + STAGGER_STEP, STAGGER_MAX),
+            );
             target.style.setProperty(cfg.delayVar, `${delay}ms`);
           }
 
