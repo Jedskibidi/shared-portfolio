@@ -251,7 +251,35 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .about .about-enter {
-    animation: about-enter 380ms ease-out both;
+    animation: about-enter 440ms cubic-bezier(0.2, 0.75, 0.3, 1)
+      var(--about-reveal-delay, 0ms) backwards;
+  }
+
+  .about .about-profile.about-enter {
+    animation-name: about-portrait-enter;
+  }
+
+  .about .about-skill.about-enter {
+    animation-name: about-skill-enter;
+    animation-duration: 360ms;
+  }
+
+  .about .about-profile.about-enter .about-portrait::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 2px var(--about-accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: about-portrait-highlight 660ms ease-out
+      calc(var(--about-reveal-delay, 0ms) + 160ms) backwards;
+  }
+
+  .about :is(.about-heading, .about-stack-heading).about-enter::after {
+    transform-origin: left;
+    animation: about-heading-rule 440ms ease-out var(--about-reveal-delay, 0ms)
+      backwards;
   }
 
   .about-action {
@@ -259,6 +287,22 @@
       background-color 160ms ease,
       border-color 160ms ease,
       transform 160ms ease;
+  }
+
+  .about-action .fa-arrow-right {
+    transition: transform 160ms ease;
+  }
+
+  .about-action:focus-visible .fa-arrow-right {
+    transform: translateX(3px);
+  }
+
+  .about-action:active {
+    transform: translateY(1px);
+  }
+
+  .about-action:active .fa-arrow-right {
+    transform: translateX(5px);
   }
 }
 
@@ -271,19 +315,68 @@
     opacity: 1;
   }
 
-  .about-action:hover {
+  .about-action:hover:not(:active) {
     transform: translateY(-2px);
+  }
+
+  .about-action:hover:not(:active) .fa-arrow-right {
+    transform: translateX(3px);
   }
 }
 
 @keyframes about-enter {
   from {
-    opacity: 0.7;
-    transform: translateY(10px);
+    opacity: 0.25;
+    transform: translateY(12px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+  }
+}
+
+@keyframes about-portrait-enter {
+  from {
+    opacity: 0.25;
+    transform: translateY(10px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes about-skill-enter {
+  from {
+    opacity: 0.25;
+    transform: translateY(7px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes about-portrait-highlight {
+  from,
+  to {
+    opacity: 0;
+  }
+
+  34% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes about-heading-rule {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
   }
 }

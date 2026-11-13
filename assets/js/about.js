@@ -1,26 +1,34 @@
 (() => {
   const section = document.getElementById("about");
-  if (
-    !section ||
-    !("IntersectionObserver" in window) ||
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  ) {
-    return;
-  }
+  if (!section || !("IntersectionObserver" in window)) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reducedMotion.matches) return;
 
   const observer = new IntersectionObserver(
     (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
+      const siblingDelays = new Map();
 
-        entry.target.classList.add("about-enter");
-        observer.unobserve(entry.target);
+      for (const { isIntersecting, target } of entries) {
+        if (!isIntersecting) continue;
+
+        observer.unobserve(target);
+        if (reducedMotion.matches) continue;
+
+        const parent = target.parentElement;
+        const delay = siblingDelays.get(parent) ?? 0;
+        siblingDelays.set(parent, Math.min(delay + 40, 440));
+
+        target.style.setProperty("--about-reveal-delay", `${delay}ms`);
+        target.classList.add("about-enter");
       }
     },
     { threshold: 0.15 },
   );
 
-  section.querySelectorAll("[data-about-reveal]").forEach((block) => {
-    observer.observe(block);
-  });
+  const targets = section.querySelectorAll(
+    ".about-heading, .about-copy > *, .about-profile, .about-fact, " +
+      ".about-stack-heading, .about-skill, .about-actions",
+  );
+  targets.forEach((target) => observer.observe(target));
 })();
