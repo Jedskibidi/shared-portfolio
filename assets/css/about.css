@@ -2,7 +2,11 @@
   --about-panel: var(--color-surface);
   --about-panel: color-mix(in srgb, var(--color-surface) 45%, var(--color-bg));
   --about-accent: var(--color-text);
-  --about-accent: color-mix(in srgb, var(--color-primary) 65%, var(--color-text));
+  --about-accent: color-mix(
+    in srgb,
+    var(--color-primary) 65%,
+    var(--color-text)
+  );
   --about-section-gap: clamp(1.5rem, 3.5vw, 2.5rem);
 }
 
@@ -236,7 +240,7 @@
   }
 
   .about-profile {
-    justify-self: start;
+    justify-self: center;
     width: min(100%, 14rem);
   }
 
@@ -251,7 +255,10 @@
   }
 
   .about-action {
-    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      transform 160ms ease;
   }
 }
 
