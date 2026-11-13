@@ -15,7 +15,6 @@ One portfolio design, two people. Built by **Jed Manaloto** and **Christine Faun
 - [Documentation](#documentation)
 - [Authors](#authors)
 
-**Full technical details are in**: [DOCUMENTATION.md](DOCUMENTATION.md)
 
 All portfolios share the same layout, styling, and code. Each person's content (text, projects, certificates, images) lives in its own data file, so the site renders a different portfolio depending on the `?user=` parameter in the URL.
 
