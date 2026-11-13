@@ -1,3 +1,9 @@
+/**
+ * @file header.js
+ * @path assets/js/header.js
+ * @summary Header behavior: logo letters that magnify under the pointer, and nav link locking while a clicked link scrolls to its section.
+ */
+
 (function () {
   const logo = document.querySelector(".site-header .logo");
   if (!logo) return;

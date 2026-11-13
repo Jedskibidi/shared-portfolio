@@ -1,3 +1,9 @@
+/**
+ * @file theme.js
+ * @path assets/js/theme.js
+ * @summary Theme picker: stores the chosen theme, applies it to the page, runs the circular reveal transition, and loads the matching profile gifs for the current theme.
+ */
+
 (function () {
   var STORAGE_KEY = "theme";
   var DEFAULT = "light";
@@ -55,9 +61,6 @@
       el.setAttribute("aria-pressed", on);
     });
   }
-  // Profile hover gifs: <img data-gif-dir="assets/img/<user>/gifs"> (hero avatar in hero.php and the
-  // About photo in about.php). Each person has their own folder with daybreak.gif, nightfall.gif, ...
-  // and every one of these images loads the gif that matches the current theme.
   var gifEls = Array.prototype.slice.call(
     document.querySelectorAll("[data-gif-dir]"),
   );
@@ -71,9 +74,6 @@
       if (el.getAttribute("src") !== next) el.src = next;
     });
   }
-  // Missing file for a theme: say which one in the console, fall back to the first theme's gif,
-  // and if that is missing too just leave the image empty (never remove the element, so the
-  // next theme change can still load its own gif)
   gifEls.forEach(function (el) {
     el.addEventListener("error", function () {
       var failed = el.getAttribute("src");
@@ -90,7 +90,6 @@
     );
   }
 
-  // Changes the theme. `animate` is true only for user clicks (not for first load).
   function apply(id, animate) {
     if (!isValid(id)) id = DEFAULT;
 
@@ -110,7 +109,6 @@
     }
 
     if (document.startViewTransition) {
-      // Circular reveal that starts from the Choose theme button (see themes.css)
       var r = btn.getBoundingClientRect();
       var x = r.left + r.width / 2;
       var y = r.top + r.height / 2;
@@ -123,7 +121,6 @@
       root.style.setProperty("--theme-r", radius + "px");
       document.startViewTransition(commit);
     } else {
-      // Fallback: fade colours smoothly
       root.classList.add("theme-switching");
       commit();
       setTimeout(function () {
@@ -136,7 +133,6 @@
     btn.setAttribute("aria-expanded", open);
   }
 
-  // Build the menu from THEMES
   THEMES.forEach(function (t) {
     var opt = document.createElement("button");
     opt.type = "button";
@@ -167,7 +163,6 @@
     menu.appendChild(opt);
   });
 
-  // Sync with whatever the early <head> script applied (and repair a bad saved value)
   if (isValid(current())) {
     markActive(current());
     updateGif(current());

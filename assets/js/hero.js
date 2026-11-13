@@ -1,13 +1,16 @@
-// Typewriter effect na may glow na dumadaan sa bawat letra
+/**
+ * @file hero.js
+ * @path assets/js/hero.js
+ * @summary Hero section: typewriter effect with a glow wave across the letters, and the hover/keyboard swap for the profile avatar.
+ */
+
 const typewriterEl = document.getElementById("typewriter");
 const prefixEl = document.getElementById("typewriter-prefix");
 const cursorEl = document.querySelector(".cursor");
 
-const GLOW_DURATION = 2; // seconds, dapat tugma sa CSS
-const GLOW_STEP = 0.12; // delay kada letra (mas malaki = mas mabagal ang alon)
+const GLOW_DURATION = 2;
+const GLOW_STEP = 0.12;
 
-// Gumagawa/nag-aalis ng letter spans nang hindi ni-re-render ang mga existing,
-// para tuloy-tuloy ang animation nila
 function renderLetters(el, str, offset) {
   while (el.children.length > str.length) {
     el.lastElementChild.remove();
@@ -17,7 +20,6 @@ function renderLetters(el, str, offset) {
     span.className = "glow-letter";
     span.textContent = str[k];
 
-    // i-sync ang phase para tuloy-tuloy ang alon kahit bagong letra
     const t = performance.now() / 1000;
     const phase =
       (((t - (offset + k) * GLOW_STEP) % GLOW_DURATION) + GLOW_DURATION) %
@@ -72,7 +74,6 @@ if (
   typeTick();
 }
 
-// Hover-swap profile: second image reveals through a circle that grows from the centre and zooms in
 const avatar = document.getElementById("avatar");
 
 if (avatar && avatar.querySelector(".avatar-alt")) {
@@ -81,11 +82,9 @@ if (avatar && avatar.querySelector(".avatar-alt")) {
   const canHover = window.matchMedia("(hover: hover)").matches;
 
   if (canHover) {
-    // Mouse: swap while hovering
     avatar.addEventListener("mouseenter", show);
     avatar.addEventListener("mouseleave", hide);
   } else {
-    // Touch: tap to swap, tap anywhere else to go back
     avatar.addEventListener("click", (e) => {
       e.stopPropagation();
       avatar.classList.toggle("is-alt");
@@ -93,7 +92,6 @@ if (avatar && avatar.querySelector(".avatar-alt")) {
     document.addEventListener("click", hide);
   }
 
-  // Keyboard: Enter or Space toggles
   avatar.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();

@@ -1,3 +1,9 @@
+/**
+ * @file about.js
+ * @path assets/js/about.js
+ * @summary One-time staggered scroll reveal for the About section elements, using an IntersectionObserver and the about-enter class.
+ */
+
 (() => {
   const section = document.getElementById("about");
   if (!section || !("IntersectionObserver" in window)) return;

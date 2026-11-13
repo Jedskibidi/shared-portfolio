@@ -1,5 +1,9 @@
-/* Certificates section: 3D coverflow carousel, issuer filter, tilt, lightbox, confetti.
-   Waits for DOMContentLoaded because gsap / ScrollTrigger / VanillaTilt / confetti load with `defer`. */
+/**
+ * @file certificates.js
+ * @path assets/js/certificates.js
+ * @summary Certificates section: 3D coverflow carousel, issuer filter, card tilt, lightbox, confetti, autoplay and a fan-out reveal that replays each time the section re-enters view.
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
   const section = document.getElementById("certificates");
   const stage = document.getElementById("cxStage");
@@ -14,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   stage.classList.add("cx-js");
 
-  /* ---------- per-card state (multi-image certificates) ---------- */
   const state = new Map();
   cards.forEach((card) => {
     let images = [];
@@ -39,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .forEach((d, i) => d.classList.toggle("on", i === s.idx));
   }
 
-  /* ---------- coverflow ---------- */
   let visible = allItems.slice();
   const mid = () => Math.floor((visible.length - 1) / 2);
   let idx = mid();
@@ -79,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* animation that plays on the card that just moved to the front */
   let lastActive = null,
     prevIdx = idx;
   function pulse(item, dir) {
@@ -144,7 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (n > 1) go((idx + d + n) % n);
   }
 
-  /* ---------- autoplay (pauses on hover/focus, off-screen, lightbox, or via the pause button) ---------- */
   const DELAY = 1500;
   const playBtn = document.getElementById("cxPlay");
   let timer = null,
@@ -231,7 +231,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (ready) layout();
   });
 
-  /* swipe / drag */
   let startX = null,
     suppress = false;
   stage.addEventListener("pointerdown", (e) => {
@@ -251,7 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* ---------- count-up ---------- */
   function animateCount(n) {
     if (!countEl) return;
     if (!hasGsap || reduce) {
@@ -268,7 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (countEl && hasGsap && !reduce) countEl.textContent = 0;
 
-  /* ---------- reveal: cards fan out from the middle when scrolled into view ---------- */
   let sweepTimers = [];
   function makeReady() {
     if (ready) return;
@@ -281,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
     animateCount(visible.length);
   }
 
-  /* replay: when the section fully leaves the screen, reset so the fan-out plays again */
   function resetReveal() {
     if (!ready) return;
     ready = false;
@@ -321,7 +317,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resumeAuto();
   }
 
-  /* ---------- cursor spotlight / glare / holo ---------- */
   stage.addEventListener("mousemove", (e) => {
     const card = e.target.closest(".cx-card");
     if (!card) return;
@@ -334,7 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
     card.style.setProperty("--py", (y / r.height) * 100 + "%");
   });
 
-  /* ---------- clicks: centre a side card, otherwise pager / lightbox ---------- */
   stage.addEventListener("click", (e) => {
     if (suppress) return;
     const item = e.target.closest(".cx-item");
@@ -354,7 +348,6 @@ document.addEventListener("DOMContentLoaded", () => {
       openLb(card);
   });
 
-  /* ---------- filter ---------- */
   section.querySelectorAll(".certs-chip").forEach((chip) => {
     chip.addEventListener("click", () => {
       section
@@ -372,7 +365,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ---------- heading: split into letters ---------- */
   const h2 = section.querySelector("h2");
   const chars = [];
   if (h2 && hasGsap && !reduce) {
@@ -401,7 +393,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ---------- confetti (current theme colours) ---------- */
   let lastBurst = 0;
   function burst() {
     if (typeof confetti === "undefined" || reduce) return;
@@ -423,7 +414,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- lightbox ---------- */
   const lb = document.getElementById("cxLb");
   const lbImg = document.getElementById("cxLbImg");
   const lbCap = document.getElementById("cxLbCap");

@@ -1,5 +1,9 @@
-// View-only resume viewer (PDF.js) + "Request full resume" form.
-// Note: this discourages casual saving/printing. It cannot stop screenshots.
+/**
+ * @file resume-viewer.js
+ * @path assets/js/resume-viewer.js
+ * @summary View-only resume viewer (PDF.js, loaded on demand, watermarked) and the request-full-resume form.
+ */
+
 (function () {
   const openBtn = document.getElementById("viewResumeBtn");
   const overlay = document.getElementById("resumeViewer");
@@ -24,7 +28,6 @@
   let lastWidth = 0;
   let lastFocus = null;
 
-  // ---- Load PDF.js only when someone actually opens the viewer ----
   let pdfLibPromise = null;
   function loadPdfJs() {
     if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
@@ -47,8 +50,6 @@
     return pdfLibPromise;
   }
 
-  // Watermark is painted into the canvas pixels, so removing an element
-  // in dev tools does not remove it.
   function drawWatermark(ctx, width, height, dpr) {
     if (!watermark) return;
     ctx.save();
@@ -128,7 +129,6 @@
     }
   }
 
-  // ---- Panels ----
   function showPanel(name) {
     const request = name === "request";
     viewPanel.hidden = request;
@@ -146,7 +146,6 @@
     (request ? requestPanel : viewPanel).scrollTop = 0;
   }
 
-  // ---- Open / close ----
   function openViewer() {
     lastFocus = document.activeElement;
     showPanel("view");
@@ -167,7 +166,6 @@
   requestBtn.addEventListener("click", () => showPanel("request"));
   backBtn.addEventListener("click", () => showPanel("view"));
 
-  // Click on the dark backdrop closes it
   overlay.addEventListener("click", (event) => {
     if (event.target === overlay) closeViewer();
   });
@@ -180,7 +178,6 @@
       return;
     }
 
-    // Block save / print shortcuts while the viewer is open
     if (
       (event.ctrlKey || event.metaKey) &&
       ["s", "p"].includes(event.key.toLowerCase())
@@ -189,7 +186,6 @@
       return;
     }
 
-    // Keep keyboard focus inside the dialog
     if (event.key === "Tab") {
       const focusable = Array.from(
         overlay.querySelectorAll("button, input, textarea, a[href]"),
@@ -209,11 +205,9 @@
     }
   });
 
-  // No right-click / drag on the preview
   viewPanel.addEventListener("contextmenu", (event) => event.preventDefault());
   viewPanel.addEventListener("dragstart", (event) => event.preventDefault());
 
-  // Re-draw pages if the window size changes
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
@@ -223,7 +217,6 @@
     }, 250);
   });
 
-  // ---- Request form: send without leaving the page (same flow as email.php) ----
   const requestForm = document.getElementById("rvRequestForm");
 
   if (requestForm) {

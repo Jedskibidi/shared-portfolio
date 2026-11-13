@@ -1,19 +1,24 @@
-// Projects row: auto-scroll + drag + zoom ng card na nasa ilalim ng cursor
+/**
+ * @file projects.js
+ * @path assets/js/projects.js
+ * @summary Projects film row: auto-scroll, drag, loop wrap, and zoom/centering of the card under the cursor or tap.
+ */
+
 (function () {
   const row = document.querySelector(".nf-row");
   const track = row && row.querySelector(".nf-track");
   if (!row || !track) return;
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const SPEED = 0.6; // px kada frame
-  const RESUME_DELAY = 1200; // ms (touch/wheel/drag)
-  const OPEN_DELAY = 120; // ms bago mag-zoom pagkatutok
-  const CLOSE_DELAY = 150; // ms bago mag-close pagkaalis sa card
-  const EDGE_MARGIN = window.innerWidth < 600 ? 8 : 32; // espasyo sa gilid para kasya ang zoom
+  const SPEED = 0.6;
+  const RESUME_DELAY = 1200;
+  const OPEN_DELAY = 120;
+  const CLOSE_DELAY = 150;
+  const EDGE_MARGIN = window.innerWidth < 600 ? 8 : 32;
 
   let pos = 0;
   let dragging = false;
-  let centering = false; // dumudulas ang card papunta sa gitna
+  let centering = false;
   let resumeAt = 0;
   let moved = 0;
   let startX = 0;
@@ -22,10 +27,10 @@
   let mouseIn = false;
   let mx = 0,
     my = 0;
-  let target = null; // card na nasa ilalim ng cursor
+  let target = null;
   let openTimer, closeTimer;
 
-  let pinned = null; // para sa touch
+  let pinned = null;
   let lastType = "mouse";
 
   const half = () => track.scrollWidth / 2;
@@ -58,7 +63,6 @@
     return el.closest(".nf-card");
   }
 
-  // Itulak lang nang kaunti hanggang buo ang kita (nananatili ang cursor sa card)
   function nudgeIntoView(card) {
     const c = card.getBoundingClientRect();
     const r = row.getBoundingClientRect();
@@ -75,8 +79,6 @@
     const maxLeft = track.scrollWidth - row.clientWidth;
     let dest = card.offsetLeft - (row.clientWidth - card.offsetWidth) / 2;
 
-    // Magkapareho ang dalawang kalahati ng track, kaya pwedeng tumalon nang hindi halata
-    // para hindi maipit sa 0 o sa dulo ang pag-center
     if (dest < 40) {
       row.scrollLeft += h;
       dest += h;
@@ -95,7 +97,7 @@
       if (done) done();
     }
     row.addEventListener("scrollend", finish);
-    setTimeout(finish, 800); // fallback para sa browser na walang scrollend
+    setTimeout(finish, 800);
     row.scrollTo({ left: dest, behavior: "smooth" });
   }
 
@@ -105,7 +107,6 @@
     card.classList.add("is-open");
   }
 
-  // Sinusundan kung aling card ang nasa ilalim ng cursor
   function sync() {
     if (!mouseIn || dragging || pinned || lastType !== "mouse") return;
 
@@ -131,7 +132,6 @@
     }
   }
 
-  // ===== Mouse =====
   row.addEventListener("pointerenter", function (e) {
     if (e.pointerType === "mouse") mouseIn = true;
   });
@@ -154,7 +154,6 @@
     pause(300);
   });
 
-  // ===== Drag =====
   row.addEventListener("pointerdown", function (e) {
     lastType = e.pointerType;
     if (e.pointerType !== "mouse" || e.button !== 0) return;
@@ -189,7 +188,6 @@
   window.addEventListener("pointerup", endDrag);
   window.addEventListener("pointercancel", endDrag);
 
-  // Huwag mag-click kapag drag ang ginawa
   row.addEventListener(
     "click",
     function (e) {
@@ -202,7 +200,6 @@
     true,
   );
 
-  // ===== Touch / wheel =====
   ["touchstart", "touchmove", "touchend"].forEach(function (t) {
     row.addEventListener(
       t,
@@ -224,7 +221,6 @@
     { passive: true },
   );
 
-  // Hindi mag-wrap habang dumudulas ang card papunta sa gitna
   row.addEventListener(
     "scroll",
     function () {
@@ -233,18 +229,15 @@
     { passive: true },
   );
 
-  // ===== Click / tap =====
   row.addEventListener("click", function (e) {
-    if (e.target.closest("a, button")) return; // Play, Live Demo, GitHub: normal
+    if (e.target.closest("a, button")) return;
     const card = e.target.closest(".nf-card");
 
     if (lastType === "mouse") {
-      // Hover na ang bahala; kung hindi pa bukas, buksan agad
       if (card && !card.classList.contains("is-open")) openCard(card);
       return;
     }
 
-    // Touch: tap = i-center at i-pin; tap ulit = isara
     if (!card || card === pinned) {
       pinned = null;
       closeAll();
@@ -265,9 +258,8 @@
     }
   });
 
-  // ===== Auto-scroll loop =====
   function frame(now) {
-    if (mouseIn) sync(); // gumagalaw ang card sa ilalim ng mouse kahit hindi gumagalaw ang mouse
+    if (mouseIn) sync();
 
     const userBusy =
       target ||

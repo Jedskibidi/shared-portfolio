@@ -1,11 +1,15 @@
-// Toogle sa mobile menu
+/**
+ * @file main.js
+ * @path assets/js/main.js
+ * @summary Site-wide behavior: mobile menu toggle, active nav link tracking, certificate overlay, contact form submission without a page reload, and the circular wipe transition to email.php.
+ */
+
 const navToggle = document.getElementById("navToggle");
 const nav = document.getElementById("nav");
 
 if (navToggle && nav) {
   navToggle.addEventListener("click", () => nav.classList.toggle("open"));
 
-  // Close the mobile menu when a link is clicked
   nav
     .querySelectorAll("a")
     .forEach((link) =>
@@ -47,7 +51,6 @@ window.addEventListener("scroll", () => {
     link.classList.toggle("active", link.getAttribute("href") === "#contact");
   });
 });
-// Certificate viewer: click an image to see it full screen
 const certOverlay = document.getElementById("certOverlay");
 const certOverlayImg = document.getElementById("certOverlayImg");
 
@@ -56,12 +59,10 @@ if (certOverlay && certOverlayImg) {
     certOverlay.classList.remove("open");
   }
 
-  // Works for every certificate image, including ones added later
   document.addEventListener("click", (event) => {
     const img = event.target.closest(".cert-img");
     if (!img) return;
 
-    // The circle grows from where the image was clicked
     certOverlay.style.setProperty("--x", event.clientX + "px");
     certOverlay.style.setProperty("--y", event.clientY + "px");
 
@@ -70,16 +71,14 @@ if (certOverlay && certOverlayImg) {
     certOverlay.classList.add("open");
   });
 
-  // Close on click anywhere
   certOverlay.addEventListener("click", closeCertOverlay);
 
-  // Close with Escape
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && certOverlay.classList.contains("open")) {
       closeCertOverlay();
     }
   });
-} // Contact form (email.php): send without leaving the page
+}
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
@@ -111,20 +110,16 @@ if (contactForm) {
     submitBtn.disabled = false;
   });
 }
-// Email button: play a circular wipe, then go to email.php
 const emailBtn = document.querySelector('a.contact-btn[href^="email.php"]');
 
 if (emailBtn) {
   emailBtn.addEventListener("click", (event) => {
-    // Let ctrl/cmd/shift-click still open in a new tab or window
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0)
       return;
-    // Skip the animation for people who turned animations off
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     event.preventDefault();
 
-    // Keyboard clicks have no mouse position, so start from the button's center
     let x = event.clientX;
     let y = event.clientY;
     if (x === 0 && y === 0) {
@@ -139,7 +134,7 @@ if (emailBtn) {
     wipe.style.setProperty("--y", y + "px");
     document.body.appendChild(wipe);
 
-    wipe.getBoundingClientRect(); // let the browser register the start state
+    wipe.getBoundingClientRect();
     wipe.classList.add("open");
 
     setTimeout(() => {

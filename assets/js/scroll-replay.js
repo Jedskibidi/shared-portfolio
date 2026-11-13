@@ -1,13 +1,9 @@
 /**
- * File: scroll-replay.js
- * Path: assets/js/scroll-replay.js
- *
- * Purpose: Replays scroll-reveal animations every time an element comes back
- * into view (scrolling down or up) instead of only once. Handles the About
- * section and any element tagged with a data-replay attribute
- * (values: fade, zoom, left, right; no value slides up). New sections are
- * added as one entry in REPLAY_SECTIONS. Pairs with assets/css/scroll-replay.css.
+ * @file scroll-replay.js
+ * @path assets/js/scroll-replay.js
+ * @summary Replays scroll-reveal animations each time an element re-enters view. Handles the About section and any element with a data-replay attribute (fade, zoom, left, right; no value slides up). New sections are added as one entry in REPLAY_SECTIONS. Pairs with assets/css/scroll-replay.css.
  */
+
 const REPLAY_MODE = "both";
 
 const THRESHOLD = 0.15;
