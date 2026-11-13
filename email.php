@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @file email.php
+ * @path email.php
+ * @summary Email page: message form posted to the configured form endpoint, with a fallback mailto link and a link back to the portfolio.
+ */
+
 require __DIR__ . '/includes/functions.php';
 
 $user = current_user();

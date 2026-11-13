@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file contact.php
+ * @path sections/contact.php
+ * @summary Contact section: email, GitHub, LinkedIn and optional Facebook and Instagram buttons.
+ */
+
 /** @var array $data */ ?>
 <?php
 $formEndpoint = $data['contact']['form_endpoint'] ?? '';

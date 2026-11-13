@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file about.php
+ * @path sections/about.php
+ * @summary About section: intro headline and copy, profile portrait, quick facts, skill chips and action links, built from the user's JSON content.
+ */
+
 /** @var array $data */
 $name = $data['name'];
 $role = $data['title'] ?? '';

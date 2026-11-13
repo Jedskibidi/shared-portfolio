@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file hero.php
+ * @path sections/hero.php
+ * @summary Hero section: greeting with typewriter text, call-to-action buttons and the profile avatar with its theme gif.
+ */
+
 /** @var array $data */ ?>
 
 <section id="home" class="hero">
@@ -30,13 +36,12 @@
                 </button>
             </div>
 
-        </div><!-- /.hero-text -->
+        </div>
 
         <div class="hero-image">
             <div class="avatar" id="avatar" tabindex="0" role="button" aria-label="Toggle profile image">
                 <img src="<?= e($data['profile_image']) ?>" alt="Photo of <?= e($data['name']) ?>" class="avatar-photo" draggable="false">
                 <?php if (!empty($data['profile_gifs'])): ?>
-                    <?php /* Folder of per-theme gifs for this person; theme.js sets the src (daybreak.gif, nightfall.gif, ...) */ ?>
                     <img alt="" class="avatar-alt" draggable="false" data-gif-dir="<?= e(rtrim($data['profile_gifs'], '/')) ?>">
                 <?php elseif (!empty($data['profile_image_alt'])): ?>
                     <img src="<?= e($data['profile_image_alt']) ?>" alt="" class="avatar-alt" draggable="false">
@@ -44,6 +49,6 @@
             </div>
         </div>
 
-    </div><!-- /.hero-inner -->
+    </div>
 </section>
 <?php include __DIR__ . '/resume-modal.php'; ?>

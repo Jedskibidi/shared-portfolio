@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file header.php
+ * @path includes/header.php
+ * @summary Opening page layout: favicon, head tags (fonts, stylesheets, scripts, saved-theme preload) and the site header with logo and navigation. Opens the main element.
+ */
+
 /** @var array $data */ ?>
 <?php $navBase = $navBase ?? ''; ?>
 <?php $favicon = !empty($data['favicon']) ? $data['favicon'] : 'assets/img/favicon.ico'; ?>

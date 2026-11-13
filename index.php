@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @file index.php
+ * @path index.php
+ * @summary Entry point of the portfolio: loads the helpers and the selected user's content, then assembles the header, hero, about, projects, certificates and contact sections and the footer.
+ */
+
 require __DIR__ . '/includes/functions.php';
 
 $user = current_user();

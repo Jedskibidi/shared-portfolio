@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file certificates.php
+ * @path sections/certificates.php
+ * @summary Certificates section markup: heading with earned count, issuer filter chips, marquee strip, coverflow certificate cards and the full-size lightbox.
+ */
+
 /** @var array $data */
 $certs   = $data['certificates'] ?? [];
 $issuers = array_values(array_unique(array_filter(array_column($certs, 'issuer'))));

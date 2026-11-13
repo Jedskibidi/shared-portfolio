@@ -1,15 +1,19 @@
 <?php
-// Portfolios
+
+/**
+ * @file functions.php
+ * @path includes/functions.php
+ * @summary Shared helpers and constants: allowed portfolio users, default user, HTML escaping with e(), current user from the query string, and loading a user's JSON content.
+ */
+
 const ALLOWED_USERS = ['jed', 'christine'];
 const DEFAULT_USER  = 'jed';
 
-// Escape text before printing it in HTML
 function e($value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
-// Kung anong portfolio ang mag sh-show depende sa query string na "user".
 function current_user(): string
 {
     $user = strtolower($_GET['user'] ?? DEFAULT_USER);
@@ -17,7 +21,6 @@ function current_user(): string
     return in_array($user, ALLOWED_USERS, true) ? $user : DEFAULT_USER;
 }
 
-// Load the person's data
 function load_content(string $user): array
 {
     $path = __DIR__ . '/../data/' . $user . '.json';

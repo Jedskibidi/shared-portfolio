@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file footer.php
+ * @path includes/footer.php
+ * @summary Closing page layout: closes the main element, prints the footer and loads the site scripts.
+ */
+
 /** @var array $data */ ?>
 </main>
 <footer class="site-footer">

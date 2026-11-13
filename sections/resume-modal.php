@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file resume-modal.php
+ * @path sections/resume-modal.php
+ * @summary Resume modal: view-only resume viewer panel and the request-full-resume form.
+ */
+
 /** @var array $data */
 
 $rvEndpoint = $data['contact']['form_endpoint'] ?? '';
@@ -31,7 +37,6 @@ $rvSrc      = $data['resume'] ?? 'assets/files/resume-public.pdf';
             </p>
         </div>
 
-        <!-- Request form -->
         <div class="rv-body" id="rvRequestPanel" hidden>
             <p class="rv-note">
                 Tell me who you are and why you need the full resume. I'll review your request

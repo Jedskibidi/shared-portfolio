@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file projects.php
+ * @path sections/projects.php
+ * @summary Projects section: draggable film strip of project cards (duplicated once for a seamless loop) with demo and GitHub links.
+ */
+
 /** @var array $data */ ?>
 <section id="projects">
     <h2 data-replay>Projects</h2>
@@ -15,7 +21,7 @@
         <div class="film" data-replay>
             <div class="nf-row">
                 <div class="nf-track">
-                    <?php foreach ([0, 1] as $copy): /* dalawang kopya para seamless ang loop */ ?>
+                    <?php foreach ([0, 1] as $copy): ?>
                         <?php foreach ($items as $i => $p):
                             $demo   = $p['demo'] ?? $p['link'] ?? '';
                             $github = $p['github'] ?? '';
