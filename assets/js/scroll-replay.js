@@ -21,6 +21,7 @@ const REPLAY_MODE = "both";
 const THRESHOLD = 0.15; // how much of the element must be visible
 const STAGGER_STEP = 40; // ms between siblings
 const STAGGER_MAX = 440; // ms cap
+const SETTLE_MS = 1500; // an element can't reset until its animation has had this long
 
 const REPLAY_SECTIONS = [
   {
@@ -31,7 +32,12 @@ const REPLAY_SECTIONS = [
     enter: "about-enter",
     delayVar: "--about-reveal-delay",
   },
-  
+  // Generic: any element with a data-replay attribute, anywhere on the page.
+  // data-replay            -> slides up
+  // data-replay="fade"     -> fades in
+  // data-replay="zoom"     -> zooms in
+  // data-replay="left" / "right" -> slides in from that side
+  // New portfolio items only need the attribute in the PHP, no JS changes.
   {
     section: "body",
     targets: "[data-replay]",
@@ -68,17 +74,41 @@ const REPLAY_SECTIONS = [
     if (!section) return;
 
     const seen = new WeakSet(); // elements that already played once
+    const visibleNow = new WeakMap(); // latest known "on screen" state per element
+    const enteredAt = new WeakMap(); // when the animation was last started
+
+    // The enter animation moves/scales the element, which changes how much of it
+    // is visible. Without a guard, an element sitting at the screen edge would
+    // flip between "entered" and "left" forever (flicker). So:
+    //  - play when at least THRESHOLD of it is visible
+    //  - only reset once it is completely off screen AND the animation has had
+    //    time to finish (SETTLE_MS)
+    function reset(el) {
+      el.classList.remove(cfg.enter);
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         const siblingDelays = new Map();
 
-        for (const { isIntersecting, target } of entries) {
+        for (const { isIntersecting, intersectionRatio, target } of entries) {
+          visibleNow.set(target, isIntersecting);
+
           if (!isIntersecting) {
-            // Left the screen: reset so it can play again next time
-            target.classList.remove(cfg.enter);
+            const wait =
+              SETTLE_MS -
+              (performance.now() - (enteredAt.get(target) ?? -Infinity));
+            if (wait <= 0) reset(target);
+            else
+              setTimeout(() => {
+                if (!visibleNow.get(target)) reset(target);
+              }, wait);
             continue;
           }
+
+          // Visible, but not enough yet (or already playing): do nothing
+          if (intersectionRatio < THRESHOLD) continue;
+          if (target.classList.contains(cfg.enter)) continue;
 
           const firstTime = !seen.has(target);
           if (!firstTime && !allowed(direction)) continue;
@@ -94,13 +124,14 @@ const REPLAY_SECTIONS = [
             target.style.setProperty(cfg.delayVar, `${delay}ms`);
           }
 
-          // Remove, force reflow, re-add so the animation restarts
+          // Restart the animation
           target.classList.remove(cfg.enter);
           void target.offsetWidth;
           target.classList.add(cfg.enter);
+          enteredAt.set(target, performance.now());
         }
       },
-      { threshold: THRESHOLD },
+      { threshold: [0, THRESHOLD] },
     );
 
     section.querySelectorAll(cfg.targets).forEach((el) => observer.observe(el));
