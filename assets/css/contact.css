@@ -1,3 +1,10 @@
+/*
+<summary>
+File: contact.css
+Path: assets/css/contact.css
+Purpose: Styles for the Contact section buttons (email, GitHub, LinkedIn and social links).
+</summary>
+*/
 #contact {
   text-align: center;
 }
@@ -14,14 +21,13 @@
   margin-top: 24px;
 }
 
-/* Higher specificity so it wins even if an old .contact-btn rule is still around */
 .contact-buttons .contact-btn {
   position: relative;
   z-index: 0;
   overflow: hidden;
   display: inline-flex;
   align-items: center;
-  gap: 14px; /* space between icon and text */
+  gap: 14px;
   padding: 10px 28px;
   border: 2px solid var(--color-border);
   border-radius: 999px;
@@ -44,7 +50,7 @@
 }
 .contact-buttons .contact-btn i {
   flex: none;
-  margin-right: 4px; /* extra breathing room */
+  margin-right: 4px;
   font-size: 1.1em;
   color: var(--color-primary);
   transition:

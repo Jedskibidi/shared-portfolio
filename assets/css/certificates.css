@@ -1,10 +1,10 @@
-/* =========================================================
-   Certificates section
-   All classes are prefixed cx-/certs- so they don't clash with
-   the .grid / .card styles the projects section uses.
-   ========================================================= */
-
-/* ---- Theme tokens (mapped to the variables in style.css / themes.css) ---- */
+/*
+<summary>
+File: certificates.css
+Path: assets/css/certificates.css
+Purpose: Styles for the Certificates section: coverflow carousel, filter chips, controls, card effects (ring, spotlight, sheen, seal), marquee strip, drifting orbs and the full-size lightbox.
+</summary>
+*/
 .certs {
   --cx-card-top: color-mix(in srgb, var(--color-surface) 55%, var(--color-bg));
   --cx-card-bot: var(--color-surface);
@@ -35,7 +35,6 @@
   font-size: 1.2em;
 }
 
-/* ---- Filter chips ---- */
 .certs-filters {
   display: flex;
   flex-wrap: wrap;
@@ -70,7 +69,6 @@
   box-shadow: 0 6px 16px var(--cx-shadow);
 }
 
-/* ---- Coverflow stage ---- */
 .cx-stage {
   --cw: min(400px, 76vw);
   display: grid;
@@ -106,7 +104,6 @@
 .cx-item img {
   -webkit-user-drag: none;
 }
-/* only hide before reveal when JS is running, so the section never stays blank */
 .cx-js:not(.is-ready) .cx-item {
   opacity: 0;
   transform: scale(0.7);
@@ -121,7 +118,6 @@
   pointer-events: none;
 }
 
-/* ---- Controls under the stage ---- */
 .cx-controls {
   display: flex;
   justify-content: center;
@@ -171,7 +167,6 @@
   width: 30px;
   background: linear-gradient(90deg, var(--cx-accent), var(--cx-accent-2));
 }
-/* autoplay countdown: a light layer drains across the active dot */
 .cx-pips.playing .cx-pip.on::after {
   content: "";
   position: absolute;
@@ -200,7 +195,6 @@
   color: var(--cx-muted);
 }
 
-/* ---- Card ---- */
 .cx-card {
   position: relative;
   height: 100%;
@@ -217,7 +211,6 @@
   box-shadow: 0 22px 48px var(--cx-shadow);
 }
 
-/* spinning gradient ring on hover (ring only, so it never covers the card) */
 @property --cx-a {
   syntax: "<angle>";
   inherits: false;
@@ -256,7 +249,6 @@
   }
 }
 
-/* ---- Image ---- */
 .cx-media {
   position: relative;
   display: block;
@@ -339,7 +331,6 @@
   transform: translateZ(50px);
 }
 
-/* ---- Text ---- */
 .cx-body {
   padding: 16px 4px 4px;
   transform: translateZ(20px);
@@ -377,7 +368,6 @@
   font-size: 0.7em;
 }
 
-/* ---- Mini pager ---- */
 .cx-pager {
   display: flex;
   align-items: center;
@@ -414,7 +404,6 @@
   background: var(--cx-accent);
 }
 
-/* ---- Lightbox ---- */
 .cx-lb {
   position: fixed;
   inset: 0;
@@ -491,18 +480,12 @@
   right: 22px;
 }
 
-/* =========================================================
-   Extra flair
-   ========================================================= */
-
 .cx-card {
   transition:
     box-shadow 0.3s,
     filter 0.5s;
 }
 
-/* ---- Plays on the card that just arrived at the front ----
-   The card swings in from the side it came from (--cx-dir = 1 for next, -1 for previous) */
 .cx-pulse .cx-card {
   animation: cx-arrive 0.75s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
@@ -558,7 +541,6 @@
   }
 }
 
-/* ---- Drifting colour orbs behind the section ---- */
 .certs {
   position: relative;
   isolation: isolate;
@@ -610,7 +592,6 @@
   }
 }
 
-/* ---- Heading: letters + moving underline ---- */
 .cx-ch {
   display: inline-block;
 }
@@ -631,7 +612,6 @@
   }
 }
 
-/* ---- Marquee strip ---- */
 .cx-marquee {
   margin: 0 0 32px;
   padding: 10px 0;
@@ -687,7 +667,6 @@
   }
 }
 
-/* ---- Cursor spotlight inside each card ---- */
 .cx-card::after {
   content: "";
   position: absolute;
@@ -706,7 +685,6 @@
   opacity: 1;
 }
 
-/* ---- Holographic sheen on the certificate image ---- */
 .cx-glare::before {
   content: "";
   position: absolute;
@@ -725,7 +703,6 @@
   background-position: var(--px, 50%) var(--py, 50%);
 }
 
-/* ---- Shine sweep: on first reveal and on hover ---- */
 .cx-media::after {
   content: "";
   position: absolute;
@@ -758,7 +735,6 @@
   }
 }
 
-/* ---- Award seal ---- */
 .cx-seal {
   position: absolute;
   top: 24px;
@@ -801,7 +777,6 @@
   }
 }
 
-/* ---- Big outlined index number ---- */
 .cx-body {
   position: relative;
 }

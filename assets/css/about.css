@@ -1,3 +1,10 @@
+/*
+<summary>
+File: about.css
+Path: assets/css/about.css
+Purpose: Styles and entrance/orbit animations for the About section: intro copy, profile portrait with orbiting border, fact list, skill chips and action links.
+</summary>
+*/
 .about {
   --about-panel: var(--color-surface);
   --about-panel: color-mix(in srgb, var(--color-surface) 45%, var(--color-bg));

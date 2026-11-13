@@ -1,10 +1,10 @@
-/**
- * File: scroll-replay.css
- * Path: assets/css/scroll-replay.css
- *
- * Purpose: Entrance animations for elements tagged with data-replay and the
- * staggered Projects card entrance, triggered by assets/js/scroll-replay.js.
- */
+/*
+<summary>
+File: scroll-replay.css
+Path: assets/css/scroll-replay.css
+Purpose: Entrance animations for elements tagged with data-replay and the staggered Projects card entrance, triggered by assets/js/scroll-replay.js.
+</summary>
+*/
 @media (prefers-reduced-motion: no-preference) {
   .sr-enter {
     animation: sr-up 800ms cubic-bezier(0.25, 0.45, 0.35, 1)

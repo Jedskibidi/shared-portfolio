@@ -1,5 +1,10 @@
-/* View-only resume viewer + request form (loaded after style.css) */
-
+/*
+<summary>
+File: resume-viewer.css
+Path: assets/css/resume-viewer.css
+Purpose: Styles for the view-only resume viewer and its request form. Loaded after style.css.
+</summary>
+*/
 .rv-lock {
   overflow: hidden;
 }
@@ -102,7 +107,6 @@
   display: none;
 }
 
-/* Discourage selecting / dragging the preview (a deterrent only) */
 .rv-protected {
   -webkit-user-select: none;
   user-select: none;
@@ -134,7 +138,6 @@
   font-size: 0.9rem;
 }
 
-/* Don't let the resume reach paper or "save as PDF" */
 @media print {
   .rv-overlay {
     display: none !important;
@@ -171,7 +174,6 @@
   }
 }
 
-/* .rv-btn:hover fills with accent */
 .rv-btn:hover {
   color: var(--color-on-accent);
 }
