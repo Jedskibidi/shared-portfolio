@@ -16,9 +16,25 @@ const REPLAY_SECTIONS = [
     section: "#about",
     targets:
       ".about-heading, .about-copy > *, .about-profile, .about-fact, " +
-      ".about-stack-heading, .about-skill, .about-actions",
+      ".about-stack-heading, .about-actions",
     enter: "about-enter",
     delayVar: "--about-reveal-delay",
+  },
+  {
+    // Tech stack chips roll in like dice, one after another (about-roll in about.css).
+    section: "#about",
+    targets: ".about-skill",
+    enter: "about-roll",
+    delayVar: "--about-roll-delay",
+    start: 250, // ms before the first chip rolls, lets the "Tech stack" heading appear first
+    step: 190, // ms between each chip
+    max: 4000,
+    prepare(chip) {
+      // A die rolls one side-length per 90deg flip: 4 flips = 4 chip heights.
+      const height = chip.offsetHeight || 36;
+      chip.style.setProperty("--roll-dist", `${height * 4}px`);
+      chip.style.setProperty("--roll-hop", `${Math.round(height * 0.45)}px`);
+    },
   },
   {
     section: "body",
@@ -90,13 +106,17 @@ const REPLAY_SECTIONS = [
 
           if (cfg.delayVar) {
             const parent = target.parentElement;
-            const delay = siblingDelays.get(parent) ?? 0;
+            const delay = siblingDelays.get(parent) ?? cfg.start ?? 0;
             siblingDelays.set(
               parent,
-              Math.min(delay + STAGGER_STEP, STAGGER_MAX),
+              Math.min(
+                delay + (cfg.step ?? STAGGER_STEP),
+                cfg.max ?? STAGGER_MAX,
+              ),
             );
             target.style.setProperty(cfg.delayVar, `${delay}ms`);
           }
+          if (cfg.prepare) cfg.prepare(target);
 
           target.classList.remove(cfg.enter);
           void target.offsetWidth;
