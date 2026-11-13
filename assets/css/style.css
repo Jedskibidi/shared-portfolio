@@ -1192,7 +1192,7 @@ section h2::after {
     --pitch: 25px;
   } /* (230 + 20) / 10 */
   .nf-track {
-    padding: 56px 0;
+    padding: 46px 0;
   }
   .nf-card {
     flex-basis: 230px;
@@ -1207,34 +1207,35 @@ section h2::after {
     transform: translateX(14px);
   }
   .nf-card img {
-    height: 120px;
+    height: 96px;
   }
   .nf-info {
-    padding: 12px 14px 14px;
+    padding: 10px 12px 12px;
   }
   .nf-info h3 {
-    font-size: 1rem;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
   }
   .nf-info p {
     -webkit-line-clamp: 2;
     line-clamp: 2;
-    margin-bottom: 10px;
-    font-size: 0.82rem;
+    margin-bottom: 8px;
+    font-size: 0.78rem;
   }
   .nf-tags {
-    gap: 6px;
-    margin-bottom: 10px;
+    gap: 5px;
+    margin-bottom: 8px;
   }
   .nf-tags li {
-    padding: 1px 10px;
-    font-size: 0.7rem;
+    padding: 0 9px;
+    font-size: 0.68rem;
   }
   .nf-actions {
     gap: 8px;
   }
   .nf-btn {
-    padding: 5px 14px;
-    font-size: 0.78rem;
+    padding: 4px 12px;
+    font-size: 0.75rem;
   }
   .nf-play i {
     width: 44px;
