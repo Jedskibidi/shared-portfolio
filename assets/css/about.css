@@ -337,9 +337,13 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
   }
 
   .about .about-skill.about-roll {
-    animation: about-skill-roll 1150ms cubic-bezier(0.3, 0.6, 0.35, 1)
-      var(--about-roll-delay, 0ms) backwards;
-    will-change: transform, opacity;
+    position: relative;
+    z-index: 1;
+    animation:
+      about-skill-roll-move 1100ms linear var(--about-roll-delay, 0ms) backwards,
+      about-skill-roll-spin 1100ms linear var(--about-roll-delay, 0ms) backwards,
+      about-skill-roll-fade 1100ms linear var(--about-roll-delay, 0ms) backwards;
+    will-change: translate, rotate, opacity;
   }
 
   .about :is(.about-heading, .about-stack-heading).about-enter::after {
@@ -442,45 +446,82 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
   }
 }
 
-/* Dice roll: each chip is thrown in, tumbles on all three axes, lands
-   slightly overshot, bounces once and settles. Direction and spin are
-   randomised per chip through --roll-* custom properties set in about.js. */
-@keyframes about-skill-roll {
+/* Dice roll: each chip rolls in from the left like a die on a table.
+   Four 90deg flips (one full turn), hopping a little on every flip and
+   covering four chip-heights of distance (--roll-dist, set in about.js).
+   translate / rotate are animated as separate properties so the hops and
+   the flips can use their own easing. */
+@keyframes about-skill-roll-move {
+  0% {
+    translate: calc(var(--roll-dist, 9rem) * -1) 0;
+    animation-timing-function: ease-out;
+  }
+  12.5% {
+    translate: calc(var(--roll-dist, 9rem) * -0.875)
+      calc(var(--roll-hop, 0.9rem) * -1);
+    animation-timing-function: ease-in;
+  }
+  25% {
+    translate: calc(var(--roll-dist, 9rem) * -0.75) 0;
+    animation-timing-function: ease-out;
+  }
+  37.5% {
+    translate: calc(var(--roll-dist, 9rem) * -0.625)
+      calc(var(--roll-hop, 0.9rem) * -0.8);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    translate: calc(var(--roll-dist, 9rem) * -0.5) 0;
+    animation-timing-function: ease-out;
+  }
+  62.5% {
+    translate: calc(var(--roll-dist, 9rem) * -0.375)
+      calc(var(--roll-hop, 0.9rem) * -0.6);
+    animation-timing-function: ease-in;
+  }
+  75% {
+    translate: calc(var(--roll-dist, 9rem) * -0.25) 0;
+    animation-timing-function: ease-out;
+  }
+  87.5% {
+    translate: calc(var(--roll-dist, 9rem) * -0.125)
+      calc(var(--roll-hop, 0.9rem) * -0.4);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+@keyframes about-skill-roll-spin {
+  0% {
+    rotate: -360deg;
+    animation-timing-function: ease-in-out;
+  }
+  25% {
+    rotate: -270deg;
+    animation-timing-function: ease-in-out;
+  }
+  50% {
+    rotate: -180deg;
+    animation-timing-function: ease-in-out;
+  }
+  75% {
+    rotate: -90deg;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    rotate: 0deg;
+  }
+}
+
+@keyframes about-skill-roll-fade {
   0% {
     opacity: 0;
-    transform: perspective(700px)
-      translate3d(var(--roll-x, -50px), var(--roll-y, -90px), 0)
-      rotateX(calc(var(--roll-rx, -1) * 540deg))
-      rotateY(calc(var(--roll-ry, 1) * 360deg))
-      rotateZ(calc(var(--roll-rz, -1) * 240deg)) scale(0.45);
   }
-
-  15% {
-    opacity: 1;
-  }
-
-  55% {
-    opacity: 1;
-    transform: perspective(700px) translate3d(0, 5px, 0)
-      rotateX(calc(var(--roll-rx, -1) * -30deg))
-      rotateY(calc(var(--roll-ry, 1) * 18deg))
-      rotateZ(calc(var(--roll-rz, -1) * -9deg)) scale(1.1, 0.92);
-  }
-
-  72% {
-    transform: perspective(700px) translate3d(0, -12px, 0)
-      rotateX(calc(var(--roll-rx, -1) * 10deg))
-      rotateZ(calc(var(--roll-rz, -1) * 4deg)) scale(0.98, 1.04);
-  }
-
-  88% {
-    transform: perspective(700px) translate3d(0, 2px, 0) rotateX(-3deg)
-      scale(1.02, 0.98);
-  }
-
+  15%,
   100% {
     opacity: 1;
-    transform: none;
   }
 }
 

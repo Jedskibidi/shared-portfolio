@@ -38,12 +38,11 @@
   );
   targets.forEach((target) => observer.observe(target));
 
+  // Tech stack: chips are thrown in like dice, one after another.
   const skillList = section.querySelector(".about-skills");
   if (skillList) {
-    const ROLL_START = 250; 
-    const ROLL_STEP = 140; 
-    const rand = (min, max) => min + Math.random() * (max - min);
-    const sign = () => (Math.random() < 0.5 ? -1 : 1);
+    const ROLL_START = 250; // ms, lets the "Tech stack" heading appear first
+    const ROLL_STEP = 190; // ms between each chip starting its roll
 
     const rollObserver = new IntersectionObserver(
       (entries) => {
@@ -52,26 +51,26 @@
         if (reducedMotion.matches) return;
 
         skillList.querySelectorAll(".about-skill").forEach((chip, index) => {
+          const height = chip.offsetHeight || 36;
+          // A die rolls one side-length per 90deg flip: 4 flips = 4 heights.
+          chip.style.setProperty("--roll-dist", `${height * 4}px`);
+          chip.style.setProperty(
+            "--roll-hop",
+            `${Math.round(height * 0.45)}px`,
+          );
           chip.style.setProperty(
             "--about-roll-delay",
             `${ROLL_START + index * ROLL_STEP}ms`,
           );
-          chip.style.setProperty(
-            "--roll-x",
-            `${Math.round(rand(30, 90)) * sign()}px`,
-          );
-          chip.style.setProperty(
-            "--roll-y",
-            `${Math.round(rand(-120, -60))}px`,
-          );
-          chip.style.setProperty("--roll-rx", sign());
-          chip.style.setProperty("--roll-ry", sign());
-          chip.style.setProperty("--roll-rz", sign());
           chip.classList.add("about-roll");
+          // Drop the helper class once the roll finishes (the chip rests at its normal style).
           chip.addEventListener(
             "animationend",
-            () => chip.classList.remove("about-roll"),
-            { once: true },
+            (event) => {
+              if (event.animationName === "about-skill-roll-fade")
+                chip.classList.remove("about-roll");
+            },
+            { once: false },
           );
         });
       },
@@ -80,3 +79,4 @@
     rollObserver.observe(skillList);
   }
 })();
+
