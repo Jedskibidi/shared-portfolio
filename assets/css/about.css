@@ -370,13 +370,13 @@
     position: absolute;
     z-index: 1;
     inset: 0;
-    padding: 2px;
+    padding: 4px;
     border-radius: inherit;
     pointer-events: none;
     background: conic-gradient(
       from var(--about-portrait-angle, 0deg),
-      transparent 0deg 278deg,
-      var(--color-primary, var(--about-accent)) 348deg 352deg,
+      transparent 0deg 200deg,
+      var(--color-primary, var(--about-accent)) 350deg,
       transparent 360deg
     );
     mask:
