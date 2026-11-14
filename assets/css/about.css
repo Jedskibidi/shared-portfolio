@@ -2,7 +2,7 @@
 <summary>
 File: about.css
 Path: assets/css/about.css
-Purpose: Styles and entrance/orbit animations for the About section: intro copy, profile portrait with orbiting border, fact list, skill chips and action links.
+Purpose: Styles and entrance/orbit animations for the About section: intro copy, profile portrait with orbiting border, fact list, skill chips, the Spotify card with its intro entrance and action links.
 </summary>
 */
 .about {
@@ -510,6 +510,33 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
 
   .about-spotify-embed {
     height: 152px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about .about-spotify-card.about-enter .about-spotify-copy > * {
+    animation: about-spotify-intro-in 800ms cubic-bezier(0.25, 0.45, 0.35, 1)
+      calc(var(--about-reveal-delay, 0ms) + 250ms) backwards;
+  }
+
+  .about .about-spotify-card.about-enter .about-spotify-copy > :nth-child(2) {
+    animation-delay: calc(var(--about-reveal-delay, 0ms) + 400ms);
+  }
+
+  .about .about-spotify-card.about-enter .about-spotify-copy > :nth-child(3) {
+    animation-delay: calc(var(--about-reveal-delay, 0ms) + 550ms);
+  }
+}
+
+@keyframes about-spotify-intro-in {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

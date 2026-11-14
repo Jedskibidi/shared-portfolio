@@ -64,8 +64,8 @@
     <header class="site-header">
         <?php $firstName = explode(' ', $data['name'])[0]; ?>
         <div class="logo"><span class="logo-initial"><?= e(mb_substr($firstName, 0, 1)) ?></span><?= e(mb_substr($firstName, 1)) ?><span class="logo-dot">.</span></div>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-            <i class="fa-solid fa-bars"></i> Menu
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav">
+            <span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>Menu
         </button>
 
         <nav id="nav">
