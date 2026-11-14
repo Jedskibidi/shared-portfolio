@@ -10,6 +10,7 @@ require __DIR__ . '/includes/functions.php';
 
 $user = current_user();
 $data = load_content($user);
+$showLoader = true;
 
 include __DIR__ . '/includes/header.php';
 include __DIR__ . '/sections/hero.php';
