@@ -22,6 +22,15 @@ const REPLAY_SECTIONS = [
   },
   {
     section: "#about",
+    targets: ".about-education-card",
+    enter: "about-enter",
+    delayVar: "--about-reveal-delay",
+    start: 250,
+    step: 350,
+    max: 1400,
+  },
+  {
+    section: "#about",
     targets: ".about-skill",
     enter: "about-roll",
     delayVar: "--about-roll-delay",

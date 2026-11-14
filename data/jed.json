@@ -26,6 +26,36 @@
     "PHP",
     "Laravel"
   ],
+  "education": [
+    {
+      "school": "Pampanga State University",
+      "program": "Associate in Computer Technology",
+      "years": "2022 - 2024",
+      "location": "Cabambangan, Bacolor, Pampanga",
+      "logo": "assets/img/jed/img/psu.png",
+      "image": "assets/img/jed/img/act.jpg",
+      "summary": "Completed an Associate in Computer Technology that built the foundation in programming and web development before moving on to the BS Computer Science program at the same university.",
+      "highlights": [
+        "Learned programming fundamentals and the basics of web development with HTML, CSS, JavaScript and PHP",
+        "Gained hands-on experience with databases such as MySQL",
+        "Continued straight into the BS Computer Science program at the same university"
+      ]
+    },
+    {
+      "school": "Pampanga State University",
+      "program": "Bachelor of Science in Computer Science",
+      "years": "2026 - 2027",
+      "location": "Cabambangan, Bacolor, Pampanga",
+      "logo": "assets/img/jed/img/psu.png",
+      "image": "assets/img/jed/img/bscs.jpg",
+      "summary": "Currently completing a BS in Computer Science with a focus on backend development, building web applications with REST APIs and databases.",
+      "highlights": [
+        "Developing TaxIt, an ASP.NET Core MVC web app for tax compliance aimed at MSME owners, as a thesis project",
+        "Built personal projects such as Moodoro, Wesync and Authentiwrite using Node.js, Express.js and React",
+        "Learning backend development, including REST APIs, authentication and database design"
+      ]
+    }
+  ],
   "facts": [
     {
       "icon": "fa-solid fa-handshake",
