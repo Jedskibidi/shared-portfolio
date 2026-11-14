@@ -1,0 +1,124 @@
+{
+  "site_title": "Your Name | Portfolio",
+  "name": "Your Name",
+  "title": "Your Job Title",
+  "profile_image": "assets/img/yourname/img/profile.jpg",
+  "profile_gifs": "assets/img/yourname/gifs",
+  "resume": "assets/files/resume-public.pdf",
+  "tagline": "One short line about what you do.",
+  "favicon": "assets/img/yourname/img/favicon.ico",
+  "about": "Two or three sentences about you, your interests and what you want to learn or build.",
+  "about_intro": {
+    "headline": "One sentence that sums up who you are and your focus.",
+    "description": "One short line about the tools or areas you work with.",
+    "availability": "Open to opportunities"
+  },
+  "skills": [
+    "Skill 1",
+    "Skill 2",
+    "Skill 3"
+  ],
+  "education": [
+    {
+      "school": "School Name",
+      "program": "Program or Degree",
+      "years": "2020 - 2024",
+      "location": "City, Province",
+      "logo": "assets/img/yourname/img/school-logo.png",
+      "image": "assets/img/yourname/img/school-photo.jpg",
+      "summary": "A short summary of the program and what it gave you.",
+      "highlights": [
+        "First highlight",
+        "Second highlight",
+        "Third highlight"
+      ]
+    },
+    {
+      "school": "School Name",
+      "program": "Program or Degree",
+      "years": "2024 - 2028",
+      "location": "City, Province",
+      "logo": "assets/img/yourname/img/school-logo.png",
+      "image": "assets/img/yourname/img/school-photo-2.jpg",
+      "summary": "A short summary of the program and what it gave you.",
+      "highlights": [
+        "First highlight",
+        "Second highlight",
+        "Third highlight"
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "icon": "fa-solid fa-handshake",
+      "title": "Fact title",
+      "text": "One short line about this fact"
+    },
+    {
+      "icon": "fa-solid fa-palette",
+      "title": "Fact title",
+      "text": "One short line about this fact"
+    },
+    {
+      "icon": "fa-solid fa-laptop-code",
+      "title": "Fact title",
+      "text": "One short line about this fact"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Project Name",
+      "description": "Two or three sentences about what the project does and how it works.",
+      "image": "assets/img/yourname/projects/project-1.jpg",
+      "tech": [
+        "Tech 1",
+        "Tech 2",
+        "Tech 3"
+      ],
+      "link": "https://example.com"
+    },
+    {
+      "title": "Project Name",
+      "description": "Two or three sentences about what the project does and how it works.",
+      "image": "assets/img/yourname/projects/project-2.jpg",
+      "tech": [
+        "Tech 1",
+        "Tech 2",
+        "Tech 3"
+      ],
+      "link": "https://example.com"
+    }
+  ],
+  "certificates": [
+    {
+      "title": "Certificate With Two Pages",
+      "issuer": "Issuer Name",
+      "date": "Month DD, YYYY",
+      "image": [
+        "assets/img/yourname/certificates/certificate-1-page-1.jpg",
+        "assets/img/yourname/certificates/certificate-1-page-2.jpg"
+      ]
+    },
+    {
+      "title": "Certificate With One Page",
+      "issuer": "Issuer Name",
+      "date": "Month DD, YYYY",
+      "image": "assets/img/yourname/certificates/certificate-2.jpg"
+    }
+  ],
+  "spotify_playlist": "https://open.spotify.com/playlist/YourPlaylistId",
+  "spotify_intro": {
+    "headline": "First line of the playlist intro.",
+    "accent": "Second line, shown in the accent color.",
+    "text": "One or two sentences about the playlist.",
+    "button": "Open on Spotify"
+  },
+  "contact": {
+    "email": "you@example.com",
+    "github": "https://github.com/your-username",
+    "linkedin": "https://www.linkedin.com/in/your-profile/",
+    "facebook": "https://www.facebook.com/your-profile",
+    "instagram": "https://www.instagram.com/your-profile",
+    "form_endpoint": "https://formspree.io/f/your-form-id"
+  }
+}

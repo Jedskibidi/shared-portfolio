@@ -12,6 +12,7 @@ $role = $data['title'] ?? '';
 $tagline = $data['tagline'] ?? '';
 $skills = $data['skills'] ?? [];
 $facts = $data['facts'] ?? [];
+$education = $data['education'] ?? [];
 
 $aboutIntro = $data['about_intro'] ?? [];
 $compactAbout = !empty($aboutIntro['headline']);
@@ -134,6 +135,88 @@ $hasCertificates = !empty($data['certificates']);
             </ul>
         </div>
     <?php endif; ?>
+
+    <?php require __DIR__ . '/about-github.php'; ?>
+
+    <?php if ($education): ?>
+        <div class="about-education" data-about-reveal>
+            <h3 class="about-stack-heading">Education</h3>
+            <ul class="about-education-list">
+                <?php foreach ($education as $i => $item): ?>
+                    <li class="about-education-card">
+                        <?php if (!empty($item['logo']) && is_file($item['logo'])): ?>
+                            <img class="about-education-logo" src="<?= e($item['logo']) ?>" alt="" loading="lazy" decoding="async">
+                        <?php endif; ?>
+                        <?php if (!empty($item['years'])): ?>
+                            <span class="about-education-years"><?= e($item['years']) ?></span>
+                        <?php endif; ?>
+                        <strong class="about-education-program"><?= e($item['program'] ?? '') ?></strong>
+                        <span class="about-education-school"><?= e($item['school'] ?? '') ?></span>
+                        <button type="button" class="about-education-button" data-education-open="education-modal-<?= (int) $i ?>">
+                            <span>Show details</span>
+                            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                        </button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <?php foreach ($education as $i => $item): ?>
+            <?php
+            $eduImage = $item['image'] ?? '';
+            $hasEduImage = $eduImage !== '' && is_file($eduImage);
+            $eduHighlights = $item['highlights'] ?? [];
+            ?>
+            <dialog class="about-education-modal" id="education-modal-<?= (int) $i ?>" aria-labelledby="education-modal-title-<?= (int) $i ?>">
+                <div class="about-education-modal-inner<?= $hasEduImage ? ' has-image' : '' ?>">
+                    <button type="button" class="about-education-close" data-education-close aria-label="Close details">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                    <?php if ($hasEduImage): ?>
+                        <div class="about-education-viewer">
+                            <button type="button" class="about-education-image-button" data-education-lightbox aria-label="View image full screen">
+                                <img class="about-education-image" src="<?= e($eduImage) ?>" alt="<?= e($item['school'] ?? '') ?>" loading="lazy" decoding="async">
+                                <span class="about-education-expand" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
+                    <div class="about-education-modal-body">
+                        <?php if (!empty($item['years'])): ?>
+                            <span class="about-education-years"><?= e($item['years']) ?></span>
+                        <?php endif; ?>
+                        <h4 class="about-education-modal-title" id="education-modal-title-<?= (int) $i ?>"><?= e($item['program'] ?? '') ?></h4>
+                        <p class="about-education-modal-school">
+                            <?= e($item['school'] ?? '') ?>
+                            <?php if (!empty($item['location'])): ?>
+                                <span class="about-education-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><?= e($item['location']) ?></span>
+                            <?php endif; ?>
+                        </p>
+                        <?php if (!empty($item['summary'])): ?>
+                            <p class="about-education-summary"><?= e($item['summary']) ?></p>
+                        <?php endif; ?>
+                        <?php if ($eduHighlights): ?>
+                            <ul class="about-education-highlights">
+                                <?php foreach ($eduHighlights as $highlight): ?>
+                                    <li><?= e($highlight) ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </dialog>
+        <?php endforeach; ?>
+
+        <dialog class="about-education-lightbox" id="education-lightbox" aria-label="Full screen image">
+            <button type="button" class="about-education-lightbox-close" data-lightbox-close aria-label="Close full screen image">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+            <img class="about-education-lightbox-image" alt="">
+        </dialog>
+
+        <script src="assets/js/about-education.js" defer></script>
+    <?php endif; ?>
+
+    <?php require __DIR__ . '/about-spotify.php'; ?>
 
     <?php if (!$compactAbout && ($hasProjects || $hasCertificates)): ?>
         <nav class="about-actions" aria-label="Explore the portfolio" data-about-reveal>

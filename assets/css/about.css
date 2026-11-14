@@ -2,7 +2,7 @@
 <summary>
 File: about.css
 Path: assets/css/about.css
-Purpose: Styles and entrance/orbit animations for the About section: intro copy, profile portrait with orbiting border, fact list, skill chips and action links.
+Purpose: Styles and entrance/orbit animations for the About section: intro copy, profile portrait with orbiting border, fact list, skill chips, the Spotify card with its intro entrance and action links.
 </summary>
 */
 .about {
@@ -256,6 +256,646 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
 
 .about-skill .devicon-express-original {
   color: inherit;
+}
+
+.about-github {
+  margin-top: var(--about-section-gap);
+}
+
+.about--compact .about-github {
+  padding-top: var(--about-section-gap);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-github-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--about-accent);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.about-github-card:hover,
+.about-github-card:focus-visible {
+  border-color: var(--about-accent);
+  background: var(--color-surface);
+}
+
+.about-github-card:focus-visible {
+  outline: 2px solid var(--about-accent);
+  outline-offset: 3px;
+}
+
+.about-github-scroll {
+  overflow-x: auto;
+  direction: rtl;
+}
+
+.about-github-graph {
+  display: block;
+  width: 100%;
+  min-width: 40rem;
+  height: auto;
+  direction: ltr;
+}
+
+.about-github-link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.about-github-link i:first-child {
+  color: var(--about-accent);
+  font-size: 1.1rem;
+}
+
+.about-github-link i:last-child {
+  margin-left: auto;
+  font-size: 0.8rem;
+}
+
+.about-github-total {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.about-github-label {
+  fill: var(--color-text);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.about-github-cell {
+  fill: var(--gh-l0, #eeeeee);
+}
+
+.about-github-cell[data-level="1"] {
+  fill: var(--gh-l1, #8dffb0);
+}
+
+.about-github-cell[data-level="2"] {
+  fill: var(--gh-l2, #73f796);
+}
+
+.about-github-cell[data-level="3"] {
+  fill: var(--gh-l3, #40c463);
+}
+
+.about-github-cell[data-level="4"] {
+  fill: var(--gh-l4, #339d4f);
+}
+
+@media (hover: hover) {
+  .about-github-cell:hover {
+    stroke: var(--color-text);
+    stroke-width: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-github-cell {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .about-github-play .about-github-cell {
+    animation: about-github-pop 450ms cubic-bezier(0.3, 1.4, 0.5, 1)
+      calc(var(--col) * 14ms + var(--row) * 5ms) backwards;
+  }
+}
+
+@keyframes about-github-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.about-spotify {
+  margin-top: var(--about-section-gap);
+}
+
+.about--compact .about-spotify {
+  padding-top: var(--about-section-gap);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-spotify-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  overflow: hidden;
+  padding: clamp(0.85rem, 2.5vw, 1.6rem);
+  border: 1px solid color-mix(in srgb, var(--about-accent) 45%, transparent);
+  border-radius: calc(var(--radius) * 1.5);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--about-accent) 22%, transparent),
+    color-mix(in srgb, var(--color-surface) 35%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    0 14px 30px -16px color-mix(in srgb, var(--about-accent) 55%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+
+.about-spotify-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 12% 0%,
+      color-mix(in srgb, var(--about-accent) 40%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      color-mix(in srgb, var(--color-accent) 35%, transparent),
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+.about-spotify-copy {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+}
+
+.about-spotify-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 1rem + 1.6vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.about-spotify-title span {
+  display: block;
+  color: var(--about-accent);
+}
+
+.about-spotify-text {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.about-spotify-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--about-accent) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-surface) 40%, transparent);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.about-spotify-button:hover,
+.about-spotify-button:focus-visible {
+  border-color: var(--about-accent);
+  background: color-mix(in srgb, var(--about-accent) 18%, transparent);
+}
+
+.about-spotify-button:focus-visible {
+  outline: 2px solid var(--about-accent);
+  outline-offset: 3px;
+}
+
+.about-spotify-button i:first-child {
+  color: var(--about-accent);
+  font-size: 1.1rem;
+}
+
+.about-spotify-button i:last-child {
+  font-size: 0.75rem;
+}
+
+.about-spotify-embed {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 352px;
+  border: 0;
+  border-radius: var(--radius);
+  opacity: 0.88;
+}
+
+@media (max-width: 640px) {
+  .about-spotify-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-spotify-embed {
+    height: 152px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about .about-spotify-card.about-enter .about-spotify-copy > * {
+    animation: about-spotify-intro-in 800ms cubic-bezier(0.25, 0.45, 0.35, 1)
+      calc(var(--about-reveal-delay, 0ms) + 250ms) backwards;
+  }
+
+  .about .about-spotify-card.about-enter .about-spotify-copy > :nth-child(2) {
+    animation-delay: calc(var(--about-reveal-delay, 0ms) + 400ms);
+  }
+
+  .about .about-spotify-card.about-enter .about-spotify-copy > :nth-child(3) {
+    animation-delay: calc(var(--about-reveal-delay, 0ms) + 550ms);
+  }
+}
+
+@keyframes about-spotify-intro-in {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.about-education {
+  margin-top: var(--about-section-gap);
+}
+
+.about--compact .about-education {
+  padding-top: var(--about-section-gap);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-education-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0.4rem 0 0.8rem;
+  list-style: none;
+}
+
+.about-education-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1.6rem 1.2rem 1.2rem;
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius) * 1.5);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--about-panel) 70%, white),
+    var(--about-panel)
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    0 2px 6px rgb(0 0 0 / 0.08),
+    0 14px 28px -14px rgb(0 0 0 / 0.35);
+  line-height: 1.35;
+  text-align: center;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
+  overflow-wrap: anywhere;
+}
+
+.about-education-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 0%),
+    rgb(255 255 255 / 0.4),
+    transparent 55%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.about-education-years {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--about-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.about-education-program {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+}
+
+.about-education-school {
+  margin-bottom: 0.45rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.about-education-logo {
+  display: block;
+  box-sizing: border-box;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: 0.45rem;
+  padding: 0.45rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-bg);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--about-accent) 18%, transparent),
+    0 8px 16px -6px rgb(0 0 0 / 0.35);
+  object-fit: contain;
+  transform: translateZ(35px);
+}
+
+.about-education-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: auto;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--about-accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transform: translateZ(25px);
+}
+
+.about-education-button:hover,
+.about-education-button:focus-visible {
+  border-color: var(--about-accent);
+  background: var(--about-accent);
+  color: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-education-card {
+    transition:
+      transform 150ms ease-out,
+      box-shadow 250ms ease,
+      border-color 250ms ease;
+  }
+
+  .about-education-card::after {
+    transition: opacity 250ms ease;
+  }
+
+  .about-education-button {
+    transition:
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+}
+
+@media (hover: hover) {
+  .about-education-card:hover {
+    border-color: var(--about-accent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.55),
+      0 4px 10px rgb(0 0 0 / 0.1),
+      0 28px 40px -18px rgb(0 0 0 / 0.45);
+  }
+
+  .about-education-card:hover::after {
+    opacity: 1;
+  }
+}
+
+.about-education-button:focus-visible,
+.about-education-close:focus-visible {
+  outline: 2px solid var(--about-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about .about-education-card.about-enter {
+    animation-name: about-education-drop;
+    animation-duration: 1500ms;
+    animation-timing-function: linear;
+  }
+
+  .about .about-education-card:nth-child(even) {
+    --drop-tilt: -1;
+  }
+}
+
+.about-education-modal {
+  width: min(100% - 2rem, 40rem);
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 4px solid var(--about-accent);
+  border-radius: calc(var(--radius) * 1.5);
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.about-education-modal::backdrop {
+  background: rgb(0 0 0 / 0.6);
+}
+
+html:has(.about-education-modal[open]) {
+  overflow: hidden;
+}
+
+.about-education-modal-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+
+.about-education-viewer {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--about-panel);
+}
+
+.about-education-image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.about-education-image {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: min(55dvh, 28rem);
+  height: auto;
+  object-fit: contain;
+}
+
+.about-education-expand {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.4rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.about-education-image-button:focus-visible {
+  outline: 2px solid var(--about-accent);
+  outline-offset: -4px;
+}
+
+.about-education-lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(0 0 0 / 0.92);
+}
+
+.about-education-lightbox[open] {
+  display: grid;
+  place-items: center;
+}
+
+.about-education-lightbox-image {
+  display: block;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100dvh - 2rem);
+  object-fit: contain;
+}
+
+.about-education-lightbox-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.6rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.about-education-lightbox-close:hover,
+.about-education-lightbox-close:focus-visible {
+  border-color: var(--about-accent);
+}
+
+.about-education-modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  overflow-wrap: anywhere;
+}
+
+.about-education-modal-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.6rem);
+  line-height: 1.2;
+}
+
+.about-education-modal-school {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.9rem;
+  margin: 0;
+  color: var(--about-accent);
+  font-weight: 700;
+}
+
+.about-education-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.about-education-summary {
+  width: 100%;
+  margin: 0.3rem 0 0;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--about-accent);
+  background: var(--about-panel);
+  color: var(--color-text-muted);
+}
+
+.about-education-highlights {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.3rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.about-education-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.6rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.about-education-close:hover {
+  border-color: var(--about-accent);
 }
 
 .about-actions {
@@ -594,5 +1234,225 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
 
   to {
     transform: scaleX(1);
+  }
+}
+
+.about-education-modal {
+  opacity: 0;
+  transform: perspective(1200px) translateY(2.5rem) rotateX(14deg) scale(0.94);
+  transform-origin: 50% 100%;
+}
+
+.about-education-modal[open] {
+  opacity: 1;
+  transform: none;
+}
+
+.about-education-modal::backdrop {
+  background-color: rgb(0 0 0 / 0);
+  backdrop-filter: blur(0);
+}
+
+.about-education-modal[open]::backdrop {
+  background-color: rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.about-education-viewer {
+  overflow: hidden;
+}
+
+.about-education-lightbox {
+  opacity: 0;
+}
+
+.about-education-lightbox[open] {
+  opacity: 1;
+}
+
+@starting-style {
+  .about-education-modal[open] {
+    opacity: 0;
+    transform: perspective(1200px) translateY(2.5rem) rotateX(14deg) scale(0.94);
+  }
+
+  .about-education-modal[open]::backdrop {
+    background-color: rgb(0 0 0 / 0);
+    backdrop-filter: blur(0);
+  }
+
+  .about-education-lightbox[open] {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-education-modal {
+    transition:
+      opacity 400ms ease,
+      transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      overlay 500ms allow-discrete,
+      display 500ms allow-discrete;
+  }
+
+  .about-education-modal::backdrop {
+    transition:
+      background-color 450ms ease,
+      backdrop-filter 450ms ease,
+      overlay 450ms allow-discrete,
+      display 450ms allow-discrete;
+  }
+
+  .about-education-lightbox {
+    transition:
+      opacity 350ms ease,
+      overlay 350ms allow-discrete,
+      display 350ms allow-discrete;
+  }
+
+  .about-education-modal[open] .about-education-image {
+    animation: about-education-image-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1)
+      100ms both;
+  }
+
+  .about-education-modal[open] .about-education-close {
+    animation: about-education-pop 500ms cubic-bezier(0.3, 1.4, 0.5, 1) 350ms
+      both;
+  }
+
+  .about-education-modal[open] .about-education-modal-body > * {
+    animation: about-education-rise 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .about-education-modal[open] .about-education-modal-body > :nth-child(1) {
+    animation-delay: 200ms;
+  }
+
+  .about-education-modal[open] .about-education-modal-body > :nth-child(2) {
+    animation-delay: 270ms;
+  }
+
+  .about-education-modal[open] .about-education-modal-body > :nth-child(3) {
+    animation-delay: 340ms;
+  }
+
+  .about-education-modal[open] .about-education-modal-body > :nth-child(4) {
+    animation-delay: 410ms;
+  }
+
+  .about-education-modal[open] .about-education-modal-body > :nth-child(5) {
+    animation-delay: 480ms;
+  }
+
+  .about-education-modal[open] .about-education-highlights li {
+    animation: about-education-rise 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .about-education-modal[open] .about-education-highlights li:nth-child(1) {
+    animation-delay: 580ms;
+  }
+
+  .about-education-modal[open] .about-education-highlights li:nth-child(2) {
+    animation-delay: 660ms;
+  }
+
+  .about-education-modal[open] .about-education-highlights li:nth-child(3) {
+    animation-delay: 740ms;
+  }
+
+  .about-education-modal[open] .about-education-highlights li:nth-child(n + 4) {
+    animation-delay: 820ms;
+  }
+
+  .about-education-lightbox[open] .about-education-lightbox-image {
+    animation: about-education-lightbox-in 600ms cubic-bezier(0.2, 0.8, 0.2, 1)
+      100ms both;
+  }
+}
+
+@keyframes about-education-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes about-education-image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes about-education-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4) rotate(-90deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes about-education-lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes about-education-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-5.5rem) rotate(calc(-6deg * var(--drop-tilt, 1)))
+      scale(0.96);
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.5);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(0) rotate(calc(1.6deg * var(--drop-tilt, 1))) scale(1);
+    animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1);
+  }
+
+  58% {
+    transform: translateY(-1.1rem) rotate(calc(-0.8deg * var(--drop-tilt, 1)));
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.5);
+  }
+
+  76% {
+    transform: translateY(0) rotate(calc(0.4deg * var(--drop-tilt, 1)));
+    animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1);
+  }
+
+  88% {
+    transform: translateY(-0.3rem) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
   }
 }

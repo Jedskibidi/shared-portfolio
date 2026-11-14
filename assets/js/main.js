@@ -8,13 +8,19 @@ const navToggle = document.getElementById("navToggle");
 const nav = document.getElementById("nav");
 
 if (navToggle && nav) {
-  navToggle.addEventListener("click", () => nav.classList.toggle("open"));
+  const setMenu = (open) => {
+    nav.classList.toggle("open", open);
+    navToggle.classList.toggle("is-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+  };
+
+  navToggle.addEventListener("click", () =>
+    setMenu(!nav.classList.contains("open")),
+  );
 
   nav
     .querySelectorAll("a")
-    .forEach((link) =>
-      link.addEventListener("click", () => nav.classList.remove("open")),
-    );
+    .forEach((link) => link.addEventListener("click", () => setMenu(false)));
 }
 
 const sectionLinks = document.querySelectorAll('#nav a[href^="#"]');

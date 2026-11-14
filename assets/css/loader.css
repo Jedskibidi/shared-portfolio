@@ -1,0 +1,252 @@
+/*
+<summary>
+File: loader.css
+Path: assets/css/loader.css
+Purpose: Page loader shown before the index page. Full screen overlay in the active theme colors with the first name, a progress bar and a 0 to 100% counter with a spinner and shimmer while it waits, then a fade and zoom out, followed by the header and hero sliding in from the left and right. Controlled by assets/js/loader.js.
+</summary>
+*/
+.page-loader {
+  display: none;
+}
+
+html.is-loading {
+  overflow: hidden;
+  animation: page-loader-unlock 0s linear 8s forwards;
+}
+
+html.is-loading .page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  transition:
+    opacity 600ms ease,
+    visibility 0s linear 600ms;
+  animation: page-loader-failsafe 0s linear 8s forwards;
+}
+
+html.is-loading .page-loader.is-hiding {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-loader-inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-loader.is-hiding .page-loader-inner {
+  transform: scale(1.15);
+}
+
+.page-loader-name {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 8vw, 4.2rem);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  animation: page-loader-rise 700ms cubic-bezier(0.25, 0.45, 0.35, 1) backwards;
+}
+
+.page-loader-initial,
+.page-loader-dot {
+  color: var(--color-primary);
+}
+
+.page-loader-initial {
+  animation: logoGlow 2.2s ease-in-out infinite alternate;
+}
+
+.page-loader-bar {
+  width: min(14rem, 60vw);
+  height: 4px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--color-border) 45%, transparent);
+  animation: page-loader-rise 700ms cubic-bezier(0.25, 0.45, 0.35, 1) 150ms
+    backwards;
+}
+
+.page-loader-bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-accent);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+  transition: transform 120ms linear;
+}
+
+.page-loader-count {
+  position: relative;
+  min-width: 4ch;
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  animation: page-loader-rise 700ms cubic-bezier(0.25, 0.45, 0.35, 1) 250ms
+    backwards;
+}
+
+.page-loader-count::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1.1rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-top: -0.45rem;
+  border: 2px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  animation: page-loader-spin 700ms linear infinite;
+}
+
+.page-loader.is-waiting .page-loader-count::before {
+  opacity: 1;
+}
+
+.page-loader.is-waiting .page-loader-bar span {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    color-mix(in srgb, var(--color-accent) 50%, white) 50%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% 100%;
+  animation: page-loader-shimmer 900ms linear infinite;
+}
+
+@keyframes page-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes page-loader-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.is-revealing .site-header,
+  html.is-revealing #home {
+    overflow-x: clip;
+  }
+
+  html.is-revealing .site-header .logo {
+    animation: page-reveal-from-left 1300ms cubic-bezier(0.22, 1, 0.36, 1)
+      backwards;
+  }
+
+  html.is-revealing .site-header #nav {
+    animation:
+      navGlow 3s ease-in-out infinite alternate,
+      page-reveal-from-right 1300ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  html.is-revealing .hero-text {
+    animation: page-reveal-from-left 1300ms cubic-bezier(0.22, 1, 0.36, 1) 250ms
+      backwards;
+  }
+
+  html.is-revealing .hero-image {
+    animation: page-reveal-from-right 1300ms cubic-bezier(0.22, 1, 0.36, 1)
+      250ms backwards;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (max-width: 600px) {
+  html.is-revealing .site-header #nav {
+    animation: none;
+  }
+
+  html.is-revealing .site-header .nav-toggle {
+    animation: page-reveal-from-right 1300ms cubic-bezier(0.22, 1, 0.36, 1)
+      backwards;
+  }
+
+  html.is-revealing .hero-text,
+  html.is-revealing .hero-image {
+    animation: page-reveal-rise 1200ms cubic-bezier(0.22, 1, 0.36, 1) 250ms
+      backwards;
+  }
+}
+
+@keyframes page-reveal-from-left {
+  from {
+    opacity: 0;
+    translate: -4rem 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes page-reveal-from-right {
+  from {
+    opacity: 0;
+    translate: 4rem 0;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes page-reveal-rise {
+  from {
+    opacity: 0;
+    translate: 0 2rem;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes page-loader-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes page-loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@keyframes page-loader-unlock {
+  to {
+    overflow: visible;
+  }
+}
