@@ -384,6 +384,135 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
   }
 }
 
+.about-spotify {
+  margin-top: var(--about-section-gap);
+}
+
+.about--compact .about-spotify {
+  padding-top: var(--about-section-gap);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-spotify-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  overflow: hidden;
+  padding: clamp(0.85rem, 2.5vw, 1.6rem);
+  border: 1px solid color-mix(in srgb, var(--about-accent) 45%, transparent);
+  border-radius: calc(var(--radius) * 1.5);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--about-accent) 22%, transparent),
+    color-mix(in srgb, var(--color-surface) 35%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.35),
+    0 14px 30px -16px color-mix(in srgb, var(--about-accent) 55%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+
+.about-spotify-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 12% 0%,
+      color-mix(in srgb, var(--about-accent) 40%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      color-mix(in srgb, var(--color-accent) 35%, transparent),
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+.about-spotify-copy {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+}
+
+.about-spotify-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 1rem + 1.6vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.about-spotify-title span {
+  display: block;
+  color: var(--about-accent);
+}
+
+.about-spotify-text {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.about-spotify-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--about-accent) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-surface) 40%, transparent);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.about-spotify-button:hover,
+.about-spotify-button:focus-visible {
+  border-color: var(--about-accent);
+  background: color-mix(in srgb, var(--about-accent) 18%, transparent);
+}
+
+.about-spotify-button:focus-visible {
+  outline: 2px solid var(--about-accent);
+  outline-offset: 3px;
+}
+
+.about-spotify-button i:first-child {
+  color: var(--about-accent);
+  font-size: 1.1rem;
+}
+
+.about-spotify-button i:last-child {
+  font-size: 0.75rem;
+}
+
+.about-spotify-embed {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 352px;
+  border: 0;
+  border-radius: var(--radius);
+  opacity: 0.88;
+}
+
+@media (max-width: 640px) {
+  .about-spotify-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-spotify-embed {
+    height: 152px;
+  }
+}
+
 .about-education {
   margin-top: var(--about-section-gap);
 }

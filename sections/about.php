@@ -216,6 +216,8 @@ $hasCertificates = !empty($data['certificates']);
         <script src="assets/js/about-education.js" defer></script>
     <?php endif; ?>
 
+    <?php require __DIR__ . '/about-spotify.php'; ?>
+
     <?php if (!$compactAbout && ($hasProjects || $hasCertificates)): ?>
         <nav class="about-actions" aria-label="Explore the portfolio" data-about-reveal>
             <?php if ($hasProjects): ?>

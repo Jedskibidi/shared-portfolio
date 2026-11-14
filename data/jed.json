@@ -126,6 +126,13 @@
       "image": "assets/img/jed/certificates/Figma-Jed.jpg"
     }
   ],
+  "spotify_playlist": "https://open.spotify.com/playlist/5XTSgX63zNNWeAIY33nm5J",
+  "spotify_intro": {
+    "headline": "Music keeps me going.",
+    "accent": "Code keeps me building.",
+    "text": "The playlist I listen to while coding, studying and sorting out ideas. Press play if you want some company.",
+    "button": "Open on Spotify"
+  },
   "contact": {
     "email": "tambonijed@gmail.com",
     "github": "https://github.com/Jedskibidi",
