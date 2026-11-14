@@ -16,9 +16,14 @@ const REPLAY_SECTIONS = [
     section: "#about",
     targets:
       ".about-heading, .about-copy > *, .about-profile, .about-fact, " +
-      ".about-stack-heading, .about-actions",
+      ".about-stack-heading, .about-github-card, .about-actions",
     enter: "about-enter",
     delayVar: "--about-reveal-delay",
+  },
+  {
+    section: "#about",
+    targets: ".about-github-grid",
+    enter: "about-github-play",
   },
   {
     section: "#about",

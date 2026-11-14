@@ -258,6 +258,132 @@ Purpose: Styles and entrance/orbit animations for the About section: intro copy,
   color: inherit;
 }
 
+.about-github {
+  margin-top: var(--about-section-gap);
+}
+
+.about--compact .about-github {
+  padding-top: var(--about-section-gap);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-github-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--about-accent);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.about-github-card:hover,
+.about-github-card:focus-visible {
+  border-color: var(--about-accent);
+  background: var(--color-surface);
+}
+
+.about-github-card:focus-visible {
+  outline: 2px solid var(--about-accent);
+  outline-offset: 3px;
+}
+
+.about-github-scroll {
+  overflow-x: auto;
+  direction: rtl;
+}
+
+.about-github-graph {
+  display: block;
+  width: 100%;
+  min-width: 40rem;
+  height: auto;
+  direction: ltr;
+}
+
+.about-github-link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.about-github-link i:first-child {
+  color: var(--about-accent);
+  font-size: 1.1rem;
+}
+
+.about-github-link i:last-child {
+  margin-left: auto;
+  font-size: 0.8rem;
+}
+
+.about-github-total {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.about-github-label {
+  fill: var(--color-text);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.about-github-cell {
+  fill: var(--gh-l0, #eeeeee);
+}
+
+.about-github-cell[data-level="1"] {
+  fill: var(--gh-l1, #8dffb0);
+}
+
+.about-github-cell[data-level="2"] {
+  fill: var(--gh-l2, #73f796);
+}
+
+.about-github-cell[data-level="3"] {
+  fill: var(--gh-l3, #40c463);
+}
+
+.about-github-cell[data-level="4"] {
+  fill: var(--gh-l4, #339d4f);
+}
+
+@media (hover: hover) {
+  .about-github-cell:hover {
+    stroke: var(--color-text);
+    stroke-width: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .about-github-cell {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .about-github-play .about-github-cell {
+    animation: about-github-pop 450ms cubic-bezier(0.3, 1.4, 0.5, 1)
+      calc(var(--col) * 14ms + var(--row) * 5ms) backwards;
+  }
+}
+
+@keyframes about-github-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .about-education {
   margin-top: var(--about-section-gap);
 }

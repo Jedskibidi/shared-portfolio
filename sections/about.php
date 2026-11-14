@@ -136,6 +136,8 @@ $hasCertificates = !empty($data['certificates']);
         </div>
     <?php endif; ?>
 
+    <?php require __DIR__ . '/about-github.php'; ?>
+
     <?php if ($education): ?>
         <div class="about-education" data-about-reveal>
             <h3 class="about-stack-heading">Education</h3>
@@ -152,7 +154,7 @@ $hasCertificates = !empty($data['certificates']);
                         <span class="about-education-school"><?= e($item['school'] ?? '') ?></span>
                         <button type="button" class="about-education-button" data-education-open="education-modal-<?= (int) $i ?>">
                             <span>Show details</span>
-                            <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
                         </button>
                     </li>
                 <?php endforeach; ?>
