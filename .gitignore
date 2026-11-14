@@ -6,7 +6,6 @@ Thumbs.db
 
 .vercel
 .env*
-data/*.json
 !data/template.json
 
 /assets/img/
