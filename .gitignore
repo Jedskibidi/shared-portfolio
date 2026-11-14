@@ -6,5 +6,5 @@ Thumbs.db
 
 .vercel
 .env*
-data/jed.json
-data/christine.json
+data/*.json
+!data/template.json
