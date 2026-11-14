@@ -10,3 +10,5 @@ data/*.json
 !data/template.json
 
 /assets/img/
+
+/cache/*.json
